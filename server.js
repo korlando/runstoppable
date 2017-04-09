@@ -36,7 +36,7 @@ if(cluster.isMaster) {
 
   // load index.html for all routes
   const router = express.Router();
-  router.get('/*', (req, res) => {
+  router.get('/*', (req, res, next) => {
     res.status(200).sendFile(path.resolve(__dirname, './www/index.html'), {}, (err) => {
       if(err) return next(err);
     })
