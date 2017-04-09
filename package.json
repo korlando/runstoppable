@@ -2,6 +2,9 @@
   "name": "runstoppable",
   "version": "1.0.0",
   "description": "Source code for the Runstoppable website",
+  "scripts": {
+    "start": "node server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/korlando/runstoppable"
