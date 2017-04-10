@@ -3,7 +3,7 @@ Source code for the Runstoppable website
 
 ## Installation
 
-Make sure that <a href="https://nodejs.org/en/">node.js</a> and <a href="https://www.npmjs.com/">npm</a> are installed, and that `node` and `npm` are available as commands.
+Make sure that <a href="https://nodejs.org/en/">node.js</a> is installed, and that `node` and `npm` are available as commands.
 
 Install dependencies by running `npm i` within the root directory of the repo.
 
