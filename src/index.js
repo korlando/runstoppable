@@ -6,6 +6,7 @@ import store from './store/store';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes/routes';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import style from './styles/style.scss';
 
 injectTapEventPlugin();
 
