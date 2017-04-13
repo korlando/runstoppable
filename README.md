@@ -19,8 +19,4 @@ To continuously watch files for changes and auto build, run `webpack --watch`.
 
 ## Running the App
 
-This source code comes with a simple http server to get the application files. From the root directory, run `npm start` to run the server on port 3000. For a specific port, such as port 8080, run `node server.js -p 8080`. The `-p` flag specifies the port number.
-
-Use `--production` to disable logging messages to the console.
-
-Finally, visit `localhost:3000` in your browser. All routes will load the same file located at `www/index.html`.
+Webpack will output builds to `www/`. All you need to do is open `www/index.html` in your browser.
