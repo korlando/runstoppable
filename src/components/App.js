@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleSidebar } from '../util';
 import Sidebar from './Sidebar';
+import Dashboard from './Dashboard';
+import RunsPage from './RunsPage';
 
 const mapStateToProps = (state) => {
   return {
@@ -19,26 +22,29 @@ export default class App extends Component {
     const { collapsed } = this.props;
 
     return (
-      <div className="flexbox">
-        <button className={`menu-icon${!collapsed ? ' transform-x' : ''}`}
-          onClick={toggleSidebar}>
-          <svg className="line">
-            <line x1="2" x2="18" y1="2" y2="2"/>
-          </svg>
-          <svg className="line">
-            <line x1="2" x2="18" y1="2" y2="2"/>
-          </svg>
-          <svg className="line">
-            <line x1="2" x2="18" y1="2" y2="2"/>
-          </svg>
-        </button>
+      <HashRouter>
+        <div className="flexbox">
+          <button className={`menu-icon${!collapsed ? ' transform-x' : ''}`}
+            onClick={toggleSidebar}>
+            <svg className="line">
+              <line x1="2" x2="18" y1="2" y2="2"/>
+            </svg>
+            <svg className="line">
+              <line x1="2" x2="18" y1="2" y2="2"/>
+            </svg>
+            <svg className="line">
+              <line x1="2" x2="18" y1="2" y2="2"/>
+            </svg>
+          </button>
 
-        <Sidebar/>
+          <Sidebar/>
 
-        <div className="flex1">
-          {this.props.children}
+          <div className="flex1">
+            <Route exact path="/" component={Dashboard}/>
+            <Route path="/runs" component={RunsPage}/>
+          </div>
         </div>
-      </div>
+      </HashRouter>
     );
   };
 };

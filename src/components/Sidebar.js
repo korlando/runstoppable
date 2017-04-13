@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -19,7 +20,10 @@ export default class Sidebar extends Component {
     return (
       <div className={`sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
-
+          <div className="links">
+            <Link to="/">Home</Link>
+            <Link to="/runs">Runs</Link>
+          </div>
         </div>
       </div>
     );
