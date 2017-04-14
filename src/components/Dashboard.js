@@ -7,7 +7,7 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="page-container">
         <h1 className="text-center">RUNSTOPPABLE</h1>
       </div>
     );
