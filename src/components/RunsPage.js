@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import RunBox from './RunBox';
 
 const mapStateToProps = (state) => {
   return {
@@ -21,9 +23,7 @@ export default class RunsPage extends Component {
         <h1 className="text-center">RUNS</h1>
         { Object.keys(runMap).map((id) => {
           return (
-            <div key={id}>
-              <div>{runMap[id].start.format('MMMM Do YYYY, h:mm:ss a')}</div>
-            </div>
+            <RunBox key={id} run={runMap[id]}/>
           );
         })}
       </div>

@@ -7,6 +7,7 @@ import moment from 'moment';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
+import SingleRunPage from './SingleRunPage';
 import runData from '../data/runData';
 
 const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
@@ -28,7 +29,9 @@ export default class App extends Component {
     const parsedRunData = {};
     Object.keys(runData).forEach((key) => {
       const run = runData[key];
+      // TODO: update dummy location for GR5
       const parsedRun = {
+        location: 'Cambridge, MA',
         checkpoints: []
       };
 
@@ -77,7 +80,8 @@ export default class App extends Component {
 
           <div className="flex1">
             <Route exact path="/" component={Dashboard}/>
-            <Route path="/runs" component={RunsPage}/>
+            <Route exact path="/runs" component={RunsPage}/>
+            <Route path="/runs/:runId" component={SingleRunPage}/>
           </div>
         </div>
       </HashRouter>
