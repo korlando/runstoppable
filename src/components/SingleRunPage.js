@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PaceChart from './Charts/PaceChart';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,6 +21,7 @@ export default class SingleRunPage extends Component {
     return (
       <div className="page-container">
         <h2>{run.location}</h2>
+        <PaceChart runId={run.id}/>
       </div>
     );
   };
