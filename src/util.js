@@ -9,3 +9,7 @@ export const toggleSidebar = () => {
 export const dispatchAddBulkRuns = (runs) => {
   store.dispatch(runActions.addBulkRuns(runs));
 };
+
+export const renderNewPlot = (node, data, layout) => {
+  Plotly.newPlot(node, data, layout);
+};
