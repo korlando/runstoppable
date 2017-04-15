@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PaceChart from './Charts/PaceChart';
+import HeartRateChart from './Charts/HeartRateChart';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -35,6 +36,7 @@ export default class SingleRunPage extends Component {
           </h3>
         </div>
         <PaceChart runId={run.id}/>
+        <HeartRateChart runId={run.id}/>
       </div>
     );
   };
