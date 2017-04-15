@@ -2,17 +2,18 @@ import { createSelector } from 'reselect';
 
 const getRunMap = (state) => state.run.runMap;
 const getRunId = (state, props) => props.runId;
+const getKey = (state, props) => props.key;
 
 export default createSelector(
-  [ getRunMap, getRunId ],
-  (runMap, runId) => {
+  [ getRunMap, getRunId, getKey ],
+  (runMap, runId, key) => {
     const data = { x: [], y: [] };
     const run = runMap[runId];
 
     if(run) {
       run.checkpoints.forEach((c) => {
         data.x.push(c.seconds);
-        data.y.push(c.pace);
+        data.y.push(c[key]);
       });
     }
 

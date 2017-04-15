@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getMostRecentRun from '../selectors/getMostRecentRun';
 import PaceChart from './Charts/PaceChart';
+import HeartRateChart from './Charts/HeartRateChart';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,7 +23,10 @@ export default class Dashboard extends Component {
       <div className="page-container">
         <h1 className="text-center">RUNSTOPPABLE</h1>
         { mostRecentRun &&
-          <PaceChart runId={mostRecentRun.id}/>
+          <div>
+            <PaceChart runId={mostRecentRun.id}/>
+            <HeartRateChart runId={mostRecentRun.id}/>
+          </div>
         }
       </div>
     );

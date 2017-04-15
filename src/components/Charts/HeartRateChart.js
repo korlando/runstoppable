@@ -4,18 +4,18 @@ import getXYRunData from '../../selectors/getXYRunData';
 import DataChart from './DataChart';
 
 const layout = {
-  title: 'Pace',
+  title: 'Heart Rate',
   xaxis: {
     title: 'Seconds after Start'
   },
   yaxis: {
-    title: 'Pace (km/h)'
+    title: 'Heart Rate (beats/min)'
   }
 };
 
 const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
-    key: 'pace'
+    key: 'heartRate'
   });
   return {
     data: getXYRunData(state, props)
@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 @connect(mapStateToProps)
-export default class PaceChart extends Component {
+export default class HeartRateChart extends Component {
   constructor(props) {
     super(props);
   };
