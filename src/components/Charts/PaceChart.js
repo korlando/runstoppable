@@ -12,7 +12,13 @@ const makePaceData = (data) => {
 };
 
 const layout = {
-  title: 'Pace'
+  title: 'Pace',
+  xaxis: {
+    title: 'Seconds after Start'
+  },
+  yaxis: {
+    title: 'Pace (km/h)'
+  }
 };
 
 const mapStateToProps = (state, ownProps) => {
