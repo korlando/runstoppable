@@ -12,6 +12,13 @@
   -ms-flex: $values;
   flex: $values;
 }
+@mixin alignItems($value) {
+  -webkit-box-align: $value;
+  -moz-box-align: $value;
+  -webkit-align-items: $value;
+  -ms-flex-align: $value;
+  align-items: $value;
+}
 
 .flexbox {
   @include flexbox();
@@ -21,6 +28,12 @@
 }
 .flex1 {
   @include flex(1 1 auto);
+}
+.align-items-center {
+  @include alignItems(center);
+}
+.align-items-baseline {
+  @include alignItems(baseline);
 }
 
 .sidebar-wrapper {
