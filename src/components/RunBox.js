@@ -8,6 +8,8 @@ export default class RunBox extends Component {
 
   componentDidMount() {
     const { run } = this.props;
+
+    // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
     const coordinates = run.checkpoints.reduce((arr, c) => {
       return [...arr, {
         lat: c.lat,
@@ -42,12 +44,11 @@ export default class RunBox extends Component {
       <div className="run-box flexbox">
         <div className="preview-map text-center"
           ref={node => this.map = node}></div>
-        <Link to={`/runs/${run.id}`} className="flex0">
-          
-        </Link>
         <div className="flex1">
-          <label>{run.location}</label>
-          <div>{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
+          <Link to={`/runs/${run.id}`} className="flex0">
+            <label className="location">{run.location}</label>
+          </Link>
+          <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
         </div>
       </div>
     );
