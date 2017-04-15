@@ -5,6 +5,7 @@ import { toggleSidebar,
          dispatchAddBulkRuns } from '../util';
 import moment from 'moment';
 import Sidebar from './Sidebar';
+import ModalWrapper from './Modal/ModalWrapper';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';
@@ -77,6 +78,7 @@ export default class App extends Component {
           </button>
 
           <Sidebar/>
+          <ModalWrapper/>
 
           <div className="flex1">
             <Route exact path="/" component={Dashboard}/>

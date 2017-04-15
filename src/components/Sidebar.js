@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { toggleModal } from '../util'
 
 const mapStateToProps = (state) => {
   return {
@@ -23,6 +24,7 @@ export default class Sidebar extends Component {
           <div className="links">
             <Link to="/">Home</Link>
             <Link to="/runs">Runs</Link>
+            <Link to="" onClick={toggleModal}>Compare</Link>
           </div>
         </div>
       </div>
