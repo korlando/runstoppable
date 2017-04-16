@@ -16,6 +16,7 @@ export default class RunBox extends Component {
         lng: c.lon
       }];
     }, []);
+    // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
     const map = new google.maps.Map(this.map, {
       mapTypeId: 'terrain',
       disableDefaultUI: true,

@@ -10,6 +10,14 @@ const makeData = (data) => {
   }];
 };
 
+// https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
+var config = {
+  modeBarButtonsToRemove: ['sendDataToCloud', 'toImage', 'zoom2d', 'pan2d', 
+  'zoomIn2d', 'zoomOut2d', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+  displaylogo: false, 
+  showTips: false
+}
+
 export default class DataChart extends Component {
   constructor(props) {
     super(props);
@@ -17,14 +25,14 @@ export default class DataChart extends Component {
 
   componentDidMount() {
     const { data, layout } = this.props;
-    renderNewPlot(this.node, makeData(data), layout);
+    renderNewPlot(this.node, makeData(data), layout, config);
   };
 
   componentWillReceiveProps(nextProps) {
     const { data, layout } = nextProps;
     if(data !== this.props.data ||
       layout !== this.props.layout) {
-      renderNewPlot(this.node, makeData(data), layout);
+      renderNewPlot(this.node, makeData(data), layout, config);
     }
   };
 
