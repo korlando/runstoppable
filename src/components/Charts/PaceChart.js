@@ -9,7 +9,8 @@ const layout = {
     title: 'Seconds after Start'
   },
   yaxis: {
-    title: 'Pace (km/h)'
+    title: 'Pace (km/h)',
+    fixedrange: true
   }
 };
 

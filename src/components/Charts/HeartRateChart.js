@@ -9,7 +9,8 @@ const layout = {
     title: 'Seconds after Start'
   },
   yaxis: {
-    title: 'Heart Rate (beats/min)'
+    title: 'Heart Rate (beats/min)',
+    fixedrange: true
   }
 };
 
