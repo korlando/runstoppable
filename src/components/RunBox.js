@@ -17,7 +17,12 @@ export default class RunBox extends Component {
       }];
     }, []);
     const map = new google.maps.Map(this.map, {
-      mapTypeId: 'terrain'
+      mapTypeId: 'terrain',
+      disableDefaultUI: true,
+      draggable: false, 
+      zoomControl: false, 
+      scrollwheel: false, 
+      disableDoubleClickZoom: true
     });
     // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
     const bounds = new google.maps.LatLngBounds();
