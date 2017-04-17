@@ -9,12 +9,10 @@ export default (props) => {
           fontSize: '40px',
           marginRight: '5px'
         }}>{props.stat}</div>
-        <div style={{
-          fontSize: '18px',
-          color: '#747e95'
+        <div className="text-light" style={{
+          fontSize: '18px'
         }}>{props.units}</div>
       </div>
-      <label>{props.label}</label>
     </div>
   );
 };

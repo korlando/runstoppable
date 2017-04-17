@@ -46,6 +46,10 @@
   @include justifyContent(center);
 }
 
+.text-light {
+  color: #747e95;
+}
+
 .sidebar-wrapper {
   width: 250px;
   height: 100vh;

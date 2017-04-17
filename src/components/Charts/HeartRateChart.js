@@ -4,13 +4,15 @@ import getXYRunData from '../../selectors/getXYRunData';
 import DataChart from './DataChart';
 
 const layout = {
-  title: 'Heart Rate',
   xaxis: {
     title: 'Seconds after Start'
   },
   yaxis: {
     title: 'Heart Rate (beats/min)',
     fixedrange: true
+  },
+  margin: {
+    t: 36
   }
 };
 

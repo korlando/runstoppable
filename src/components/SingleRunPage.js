@@ -42,10 +42,18 @@ export default class SingleRunPage extends Component {
           </h3>
         </div>
         
-        <BigStat stat={avgPace} units="km/h" label="Average Pace"/>
+        <div className="flexbox align-items-baseline">
+          <h4 className="flex1" style={{ margin: '0' }}>PACE</h4>
+          <div className="text-light" style={{ marginRight: '6px' }}>Average</div>
+          <BigStat stat={avgPace} units="km/h"/>
+        </div>
         <PaceChart runId={run.id}/>
 
-        <BigStat stat={avgHeartRate} units="beats/min" label="Average Heart Rate"/>
+        <div className="flexbox align-items-baseline">
+          <h4 className="flex1" style={{ margin: '0' }}>HEART RATE</h4>
+          <div className="text-light" style={{ marginRight: '6px' }}>Average</div>
+          <BigStat stat={avgHeartRate} units="beats/min"/>
+        </div>
         <HeartRateChart runId={run.id}/>
       </div>
     );

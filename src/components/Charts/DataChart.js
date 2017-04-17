@@ -11,13 +11,13 @@ const makeData = (data) => {
 };
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-var config = {
+const config = {
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 'zoomIn2d', 
   'zoomOut2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian'],
   displaylogo: false, 
   displayModeBar: true,
   showTips: false
-}
+};
 
 export default class DataChart extends Component {
   constructor(props) {
@@ -38,10 +38,6 @@ export default class DataChart extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <div ref={div => this.node = div}></div>
-      </div>
-    );
+    return <div ref={div => this.node = div}></div>;
   };
 };

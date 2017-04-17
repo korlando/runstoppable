@@ -4,13 +4,15 @@ import getXYRunData from '../../selectors/getXYRunData';
 import DataChart from './DataChart';
 
 const layout = {
-  title: 'Pace',
   xaxis: {
     title: 'Seconds after Start'
   },
   yaxis: {
     title: 'Pace (km/h)',
     fixedrange: true
+  },
+  margin: {
+    t: 36
   }
 };
 
