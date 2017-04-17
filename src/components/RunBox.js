@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Checkbox from './Checkbox';
 
 export default class RunBox extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class RunBox extends Component {
   };
 
   componentDidMount() {
-    const { run } = this.props;
+    const { run, checkable } = this.props;
 
     // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
     const coordinates = run.checkpoints.reduce((arr, c) => {
@@ -45,10 +46,10 @@ export default class RunBox extends Component {
   };
 
   render() {
-    const { run } = this.props;
+    const { run, checkable } = this.props;
     return (
       <div className="run-box flexbox">
-        <div className="preview-map text-center"
+        <div className={`preview-map text-center${checkable ? ' small' : ''}`}
           ref={node => this.map = node}></div>
         <div className="flex1">
           <Link to={`/runs/${run.id}`} className="flex0">
@@ -56,6 +57,9 @@ export default class RunBox extends Component {
           </Link>
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
         </div>
+        {checkable &&
+          <Checkbox/>
+        }
       </div>
     );
   };

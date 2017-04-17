@@ -32,7 +32,7 @@ export default class Modal extends Component {
         <div className="modal-scroll-view">
           { runs.map((run) => {
             return (
-              <RunBox key={run.id} run={run}/>
+              <RunBox key={run.id} run={run} checkable={true}/>
             );
           })}
         </div>
