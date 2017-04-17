@@ -3,20 +3,21 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    
+
   };
 };
 
 @connect(mapStateToProps)
-export default class CompareRunsModal extends ModalWrapper {
+export default class Modal extends Component {
   constructor(props) {
     super(props);
   };
 
   render() {
+
     return (
-      <div>
-        
+      <div className={'modal-custom'}>
+      
       </div>
     );
   };

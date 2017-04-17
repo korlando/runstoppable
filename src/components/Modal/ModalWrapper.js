@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toggleModal } from '../../util'
+import Modal from './Modal';
 
 const mapStateToProps = (state) => {
   return {
@@ -18,10 +20,9 @@ export default class ModalWrapper extends Component {
     
     return (
       <div className={`modal-wrapper${show ? ' show' : ''}`}>
-        <div className={'modal-background'}>
+        <div className={'modal-background'} onClick={toggleModal}>
         </div>
-        <div className={'modal'}>
-        </div>
+        <Modal/>
       </div>
     );
   };
