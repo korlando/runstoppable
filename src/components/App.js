@@ -63,7 +63,11 @@ export default class App extends Component {
 
     return (
       <HashRouter>
-        <div className="flexbox">
+        <div className="flexbox" style={{
+          overflow: 'hidden',
+          width: '100vw',
+          height: '100vh'
+        }}>
           <button className={`menu-icon${!collapsed ? ' transform-x' : ''}`}
             onClick={toggleSidebar}>
             <svg className="line">
