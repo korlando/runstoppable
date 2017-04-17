@@ -19,9 +19,7 @@ export default class ModalWrapper extends Component {
     const { show } = this.props;
     
     return (
-      <div className={`modal-wrapper${show ? ' show' : ''}`}>
-        <div className={'modal-background'} onClick={toggleModal}>
-        </div>
+      <div className={`modal-wrapper flexbox align-items-center justify-content-center${show ? ' show' : ''}`} onClick={toggleModal}>
         <Modal/>
       </div>
     );

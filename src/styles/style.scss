@@ -19,6 +19,13 @@
   -ms-flex-align: $value;
   align-items: $value;
 }
+@mixin justifyContent($value) {
+  -webkit-box-pack: $value;
+  -moz-box-pack: $value;
+  -webkit-justify-content: $value;
+  -ms-flex-pack: $value;
+  justify-content: $value;
+}
 
 .flexbox {
   @include flexbox();
@@ -34,6 +41,9 @@
 }
 .align-items-baseline {
   @include alignItems(baseline);
+}
+.justify-content-center {
+  @include justifyContent(center);
 }
 
 .sidebar-wrapper {
@@ -76,29 +86,30 @@
   opacity: 0;
   pointer-events: none;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   transition: opacity 0.3s;
+  background-color: rgba(0,0,0,0.6);
   &.show {
     pointer-events: auto;
     opacity: 1;
   }
 }
 
-.modal-background {
-  opacity: 0.6;
-  background-color: #000000;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
-
 .modal-custom {
   opacity: 1;
   background-color: #f1f4f9;
-  position: fixed;
-  width: 50%;
-  height: 70%;
+  width: 600px;
+  max-width: 100%;
+  height: 400px;
+  max-height: 90%;
   left: 25%;
   top: 15%;
+  @media screen and (max-width: 768px) {
+    max-height: 100%;
+  }
 }
 
 .modal-header {

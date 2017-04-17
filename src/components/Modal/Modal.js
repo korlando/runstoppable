@@ -25,7 +25,7 @@ export default class Modal extends Component {
     const { runs, checkedRuns } = this.props;
 
     return (
-      <div className="modal-custom">
+      <div className="modal-custom" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h3 className="text-center">Select runs to compare</h3>
         </div>
