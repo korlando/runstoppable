@@ -32,6 +32,6 @@ export default class HeartRateChart extends Component {
   };
 
   render() {
-    return <DataChart data={this.props.data} layout={layout}/>;
+    return <DataChart data={this.props.data} layout={layout} color="#D32F2F"/>;
   };
 };

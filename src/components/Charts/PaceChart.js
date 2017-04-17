@@ -32,6 +32,6 @@ export default class PaceChart extends Component {
   };
 
   render() {
-    return <DataChart data={this.props.data} layout={layout}/>;
+    return <DataChart data={this.props.data} layout={layout} color="#2196F3"/>;
   };
 };
