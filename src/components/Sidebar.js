@@ -22,9 +22,18 @@ export default class Sidebar extends Component {
       <div className={`sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
           <div className="links">
-            <Link to="/"><i className="material-icons md-48">home</i>Home</Link>
-            <Link to="/runs"><i className="material-icons md-48">directions_run</i>Runs</Link>
-            <Link to="" onClick={toggleModal}><i className="material-icons md-48">compare_arrows</i>Compare</Link>
+            <Link to="/" className="flexbox align-items-center">
+              <i className="material-icons md-48">home</i>
+              <span className="text">Home</span>
+            </Link>
+            <Link to="/runs" className="flexbox align-items-center">
+              <i className="material-icons md-48">directions_run</i>
+              <span className="text">Runs</span>
+            </Link>
+            <Link to="" onClick={toggleModal} className="flexbox align-items-center">
+              <i className="material-icons md-48">compare_arrows</i>
+              <span className="text">Compare</span>
+            </Link>
           </div>
         </div>
       </div>
