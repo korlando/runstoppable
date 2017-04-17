@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import getSortedRunsByStart from '../selectors/getSortedRunsByStart';
@@ -10,17 +11,22 @@ const mapStateToProps = (state) => {
   };
 };
 
+export default withRouter(
 @connect(mapStateToProps)
-export default class RunsPage extends Component {
+class RunsPage extends Component {
   constructor(props) {
     super(props);
   };
 
   render() {
-    const { runs } = this.props;
+    const { runs, location } = this.props;
+    const style = {};
+    if(location.pathname !== '/runs') {
+      style.visibility = 'hidden';
+    }
 
     return (
-      <div className="page-container">
+      <div className="page-container" style={style}>
         <h1 className="text-center">RUNS</h1>
         { runs.map((run) => {
           return (
@@ -30,4 +36,4 @@ export default class RunsPage extends Component {
       </div>
     );
   };
-};
+});

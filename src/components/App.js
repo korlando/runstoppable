@@ -82,8 +82,10 @@ export default class App extends Component {
 
           <div className="flex1">
             <Route exact path="/" component={Dashboard}/>
-            <Route exact path="/runs" component={RunsPage}/>
+            <Route exact path="/runs"/>
             <Route path="/runs/:runId" component={SingleRunPage}/>
+
+            <RunsPage/>
           </div>
         </div>
       </HashRouter>

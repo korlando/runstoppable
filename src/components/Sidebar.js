@@ -30,7 +30,12 @@ export default class Sidebar extends Component {
               <i className="material-icons md-48">directions_run</i>
               <span className="text">Runs</span>
             </Link>
-            <Link to="" onClick={toggleModal} className="flexbox align-items-center">
+            <Link to=""
+              onClick={e => {
+                e.preventDefault();
+                toggleModal();
+              }}
+              className="flexbox align-items-center">
               <i className="material-icons md-48">compare_arrows</i>
               <span className="text">Compare</span>
             </Link>
