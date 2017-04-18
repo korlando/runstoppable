@@ -256,10 +256,11 @@ $lightestGrey: #f1f4f9;
   }
 }
 .run-box:hover {
-  background-color: #f1f4f9;
+  background-color: $lightestGrey;
 }
 
 h1 {
+  color: $darkGrey;
   font-weight: bold;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
