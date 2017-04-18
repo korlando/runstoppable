@@ -37,8 +37,8 @@ export default class Modal extends Component {
           })}
         </div>
         <div className="modal-footer">
-          <button>Compare</button>
-          <button onClick={ toggleModal }>Cancel</button>
+          <button className="btn btn-default">Compare</button>
+          <button className="btn btn-default"onClick={ toggleModal }>Cancel</button>
         </div>
       </div>
     );

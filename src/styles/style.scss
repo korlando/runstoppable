@@ -115,12 +115,15 @@ $lightestGrey: #f1f4f9;
 .modal-custom {
   opacity: 1;
   background-color: $lightestGrey;
-  width: 600px;
+  width: 800px;
   max-width: 100%;
-  height: 400px;
+  height: 600px;
   max-height: 90%;
   left: 25%;
   top: 15%;
+  border: 0;
+  border-radius: 4px;
+  padding: 2rem;
   @media screen and (max-width: 768px) {
     max-height: 100%;
   }
@@ -133,7 +136,6 @@ $lightestGrey: #f1f4f9;
 
 .modal-footer {
   width: 100%;
-  height: 10%;
 }
 
 .modal-scroll-view {

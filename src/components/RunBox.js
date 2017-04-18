@@ -32,7 +32,6 @@ class RunBoxInner extends Component {
     coordinates.forEach((coord) => {
       bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
     });
-
     map.fitBounds(bounds);
 
     const path = new google.maps.Polyline({
