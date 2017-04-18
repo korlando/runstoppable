@@ -53,7 +53,11 @@
 .sidebar-wrapper {
   width: 250px;
   height: 100vh;
+<<<<<<< HEAD
   background-color: #252830;
+=======
+  background-color: #f1f4f9;
+>>>>>>> origin/master
   transition: width 0.3s;
   &.collapsed {
     width: 46px;
@@ -66,6 +70,7 @@
   width: 250px;
   height: 100vh;
   overflow-y: auto;
+<<<<<<< HEAD
   padding-top: 50px;
   .links {
     a {
@@ -84,6 +89,20 @@
       .text {
         padding-top: 10px;
         padding-bottom: 10px;
+=======
+  padding-top: 36px;
+  .links {
+    a {
+      padding: 3px 12px;
+      text-decoration: none;
+      &:active, &:link, &:visited {
+        text-decoration: none;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+      .text {
+>>>>>>> origin/master
         transition: opacity 0.3s;
         margin-left: 6px;
       }
@@ -241,13 +260,20 @@
   }
   .location {
     font-size: 24px;
+<<<<<<< HEAD
     cursor: pointer;
+=======
+>>>>>>> origin/master
   }
   .date {
     font-size: 18px;
   }
+<<<<<<< HEAD
 }
 .run-box:hover {
   background-color: #f1f4f9;
 }
 
+=======
+}
+>>>>>>> origin/master
