@@ -16,11 +16,7 @@ export const dispatchAddBulkRuns = (runs) => {
 };
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-<<<<<<< HEAD
 const config = {
-=======
-var config = {
->>>>>>> origin/master
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 'zoomIn2d', 
   'zoomOut2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian'],
   displaylogo: false, 
