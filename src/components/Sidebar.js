@@ -19,7 +19,7 @@ export default class Sidebar extends Component {
     const { collapsed } = this.props;
 
     return (
-      <div className={`sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
+      <div className={`flex0 sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
           <div className="links">
 
