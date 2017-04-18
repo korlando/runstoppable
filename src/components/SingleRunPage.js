@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderRunPath } from '../util';
+
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
-import BigStat from './BigStat';
+import DistanceChart from './Charts/DistanceChart';
 
 const mapStateToProps = (state, ownProps) => {
   const runId = ownProps.match.params.runId;
@@ -64,8 +65,12 @@ export default class SingleRunPage extends Component {
           <PaceChart runId={run.id}/>
         </div>
 
-        <div>
+        <div style={{ marginBottom: '20px' }}>
           <HeartRateChart runId={run.id}/>
+        </div>
+
+        <div>
+          <DistanceChart runId={run.id}/>
         </div>
       </div>
     );
