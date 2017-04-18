@@ -10,7 +10,7 @@ import BigStat from '../BigStat';
 const color = '#D32F2F';
 const layout = {
   xaxis: {
-    title: 'Seconds after Start'
+    title: 'Minutes after Start'
   },
   yaxis: {
     title: 'Heart Rate (beats/min)',
