@@ -5,6 +5,7 @@ import { renderRunPath } from '../util';
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import DistanceChart from './Charts/DistanceChart';
+import ElevationChart from './Charts/ElevationChart';
 
 const mapStateToProps = (state, ownProps) => {
   const runId = ownProps.match.params.runId;
@@ -69,8 +70,12 @@ export default class SingleRunPage extends Component {
           <HeartRateChart runId={run.id}/>
         </div>
 
-        <div>
+        <div style={{ marginBottom: '20px' }}>
           <DistanceChart runId={run.id}/>
+        </div>
+
+        <div>
+          <ElevationChart runId={run.id}/>
         </div>
       </div>
     );
