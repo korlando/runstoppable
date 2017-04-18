@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
   const data = getXYRunData(state, props);
   return {
     data,
-    totalDistance: data.y[data.y.length - 1]
+    totalDistance: Math.round(data.y[data.y.length - 1] * 100) / 100
   };
 };
 
