@@ -2,6 +2,7 @@ $darkGrey: #252830;
 $lightGrey: #747e95;
 $lighterGrey: #b7bccc;
 $lightestGrey: #f1f4f9;
+$blue: #2196F3;
 
 @mixin flexbox() {
   display: -webkit-box;
@@ -53,6 +54,17 @@ $lightestGrey: #f1f4f9;
 
 .text-light {
   color: $lightGrey;
+}
+
+.relative {
+  position: relative;
+}
+
+.hover-blue {
+  cursor: pointer;
+  &:hover {
+    color: $blue;
+  }
 }
 
 .sidebar-wrapper {
@@ -270,4 +282,43 @@ h1 {
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+.popover-menu {
+  position: absolute;
+  top: 100%;
+  margin-top: 5px;
+  background: white;
+  z-index: 1;
+  border-radius: 3px;
+  min-width: 150px;
+  box-shadow: 1px 2px 2px rgba(0,0,0,0.1);
+  border: 1px solid $lightestGrey;
+  label {
+    font-size: 12px;
+    padding: 1px 10px;
+  }
+  .direction-arrow {
+    display: none;
+  }
+  .item-list {
+    .item {
+      padding: 3px 10px;
+      cursor: pointer;
+      &:hover {
+        background: $lightestGrey;
+      }
+      &.active {
+        font-weight: bold;
+        color: $blue;
+        .direction-arrow {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+.all-runs-sort-menu {
+  right: 0;
+  margin-top: 0;
 }

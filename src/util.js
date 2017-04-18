@@ -1,6 +1,7 @@
 import * as sidebarActions from './actions/sidebarActions';
 import * as modalActions from './actions/modalActions';
 import * as runActions from './actions/runActions';
+import * as menuActions from './actions/menuActions';
 import store from './store/store';
 
 export const toggleSidebar = () => {
@@ -13,6 +14,19 @@ export const toggleModal = () => {
 
 export const dispatchAddBulkRuns = (runs) => {
   store.dispatch(runActions.addBulkRuns(runs));
+};
+
+export const editAllRunsSort = (sort) => {
+  store.dispatch(runActions.editAllRunsSort(sort));
+};
+
+export const toggleMenu = (name, e, preventCloseAll) => {
+  if(e) e.stopPropagation();
+  store.dispatch(menuActions.toggleMenu(name, preventCloseAll));
+};
+
+export const closeAllMenus = () => {
+  store.dispatch(menuActions.closeAllMenus());
 };
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js

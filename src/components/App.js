@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleSidebar,
-         dispatchAddBulkRuns } from '../util';
+         dispatchAddBulkRuns,
+         closeAllMenus } from '../util';
 import moment from 'moment';
 import Sidebar from './Sidebar';
 import ModalWrapper from './Modal/ModalWrapper';
@@ -15,7 +16,8 @@ const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
 
 const mapStateToProps = (state) => {
   return {
-    collapsed: state.sidebar.collapsed
+    collapsed: state.sidebar.collapsed,
+    menus: state.menu
   };
 };
 
@@ -59,15 +61,21 @@ export default class App extends Component {
   };
 
   render() {
-    const { collapsed } = this.props;
+    const { collapsed, menus } = this.props;
 
     return (
       <HashRouter>
-        <div className="flexbox" style={{
-          overflow: 'hidden',
-          width: '100vw',
-          height: '100vh'
-        }}>
+        <div className="flexbox"
+          onClick={e => {
+            if(Object.keys(menus).length) {
+              closeAllMenus();
+            }
+          }}
+          style={{
+            overflow: 'hidden',
+            width: '100vw',
+            height: '100vh'
+          }}>
           <button className={`menu-icon${!collapsed ? ' transform-x' : ''}`}
             onClick={toggleSidebar}>
             <svg className="line">

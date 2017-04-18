@@ -4,3 +4,10 @@ export const addBulkRuns = (runs) => {
     runs
   };
 };
+
+export const editAllRunsSort = (allRunsSort) => {
+  return {
+    type: 'EDIT_ALL_RUNS_SORT',
+    allRunsSort
+  };
+};

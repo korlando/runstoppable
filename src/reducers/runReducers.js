@@ -1,5 +1,6 @@
 const defaultState = {
   runMap: {},
+  allRunsSort: '-start',
   index: 0
 };
 
@@ -22,6 +23,11 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         runMap: Object.assign({}, state.runMap, newRuns),
         index
+      });
+
+    case 'EDIT_ALL_RUNS_SORT':
+      return Object.assign({}, state, {
+        allRunsSort: action.allRunsSort
       });
 
     default:
