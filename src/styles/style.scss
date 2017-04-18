@@ -58,11 +58,7 @@ $lightestGrey: #f1f4f9;
 .sidebar-wrapper {
   width: 250px;
   height: 100vh;
-<<<<<<< HEAD
-  background-color: #252830;
-=======
   background-color: $darkGrey;
->>>>>>> origin/master
   transition: width 0.3s;
   &.collapsed {
     width: 50px;
@@ -72,39 +68,21 @@ $lightestGrey: #f1f4f9;
   }
 }
 .sidebar {
-<<<<<<< HEAD
-  width: 250px;
-  height: 100vh;
-  overflow-y: auto;
-  padding-top: 50px;
-  .links {
-    a {
-      color:#b7bccc;
-=======
   padding-top: 50px;
   .links {
     a {
       color: $lighterGrey;
->>>>>>> origin/master
+
       padding: 3px 12px;
       text-decoration: none;
       transition: all 0.2s;
       &:active, &:link, &:visited {
-<<<<<<< HEAD
-        color:#b7bccc;
-        text-decoration: none;
-      }
-      &:hover {
-        color: #252830;
-        background-color: #b7bccc;
-=======
         color: $lighterGrey;
         text-decoration: none;
       }
       &:hover {
         color: $darkGrey;
         background-color: $lighterGrey;
->>>>>>> origin/master
         text-decoration: none;
       }
       .text {
@@ -254,22 +232,14 @@ $lightestGrey: #f1f4f9;
 }
 
 .run-box {
-<<<<<<< HEAD
   margin-bottom: 20px;
-  .preview-map {
-    width: 300px;
-    height: 150px;
-    background: #f1f4f9;
-=======
-  margin-bottom: 10px;
   &:hover {
     background-color: $lightestGrey;
   }
   .preview-map {
     width: 300px;
-    height: 200px;
+    height: 150px;
     background: $lightestGrey;
->>>>>>> origin/master
     margin-right: 10px;
     &.small {
       width: 200px;
@@ -285,7 +255,6 @@ $lightestGrey: #f1f4f9;
     font-size: 18px;
   }
 }
-<<<<<<< HEAD
 .run-box:hover {
   background-color: #f1f4f9;
 }
@@ -296,5 +265,3 @@ h1 {
   border-bottom: 1px solid #eee;
   margin-bottom: 15px;
 }
-=======
->>>>>>> origin/master
