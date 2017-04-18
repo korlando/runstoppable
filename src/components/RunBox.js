@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { renderRunPath } from '../util';
 import Checkbox from './Checkbox';
 
 class RunBoxInner extends Component {
@@ -8,42 +9,7 @@ class RunBoxInner extends Component {
   };
 
   componentDidMount() {
-    const { run, checkable } = this.props;
-
-    // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
-    const coordinates = run.checkpoints.reduce((arr, c) => {
-      return [...arr, {
-        lat: c.lat,
-        lng: c.lon
-      }];
-    }, []);
-    // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
-    const map = new google.maps.Map(this.map, {
-      mapTypeId: 'terrain',
-      disableDefaultUI: true,
-      draggable: false, 
-      zoomControl: false, 
-      scrollwheel: false, 
-      disableDoubleClickZoom: true,
-      clickableIcons: false
-    });
-    // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
-    const bounds = new google.maps.LatLngBounds();
-    coordinates.forEach((coord) => {
-      bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
-    });
-    map.fitBounds(bounds);
-
-    const path = new google.maps.Polyline({
-      path: coordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-      clickable: false
-    });
-
-    path.setMap(map);
+    renderRunPath(this.map, this.props.run);
   };
 
   render() {
@@ -60,7 +26,7 @@ class RunBoxInner extends Component {
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
         </div>
         
-        {checkable &&
+        { checkable &&
           <Checkbox/>
         }
       </div></span></Link>

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { renderRunPath } from '../util';
+
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
-import BigStat from './BigStat';
+import DistanceChart from './Charts/DistanceChart';
+import ElevationChart from './Charts/ElevationChart';
 
 const mapStateToProps = (state, ownProps) => {
   const runId = ownProps.match.params.runId;
@@ -16,6 +19,18 @@ const mapStateToProps = (state, ownProps) => {
 export default class SingleRunPage extends Component {
   constructor(props) {
     super(props);
+  };
+
+  componentDidMount() {
+    if(this.props.run && this.map) {
+      renderRunPath(this.map, this.props.run);
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.run !== this.props.run && this.map) {
+      renderRunPath(this.map, this.props.run);
+    }
   };
 
   render() {
@@ -38,13 +53,29 @@ export default class SingleRunPage extends Component {
             {run.start.format(dateFormat)}
           </h3>
         </div>
+
+        <div style={{ padding: '20px 0' }}>
+          <div ref={node => this.map = node}
+            style={{
+              width: '100%',
+              height: '200px'
+            }}></div>
+        </div>
         
         <div style={{ marginBottom: '20px' }}>
           <PaceChart runId={run.id}/>
         </div>
 
-        <div>
+        <div style={{ marginBottom: '20px' }}>
           <HeartRateChart runId={run.id}/>
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <DistanceChart runId={run.id}/>
+        </div>
+
+        <div>
+          <ElevationChart runId={run.id}/>
         </div>
       </div>
     );
