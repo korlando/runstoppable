@@ -3,15 +3,12 @@ import { connect } from 'react-redux';
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import BigStat from './BigStat';
-import getAvgRunData from '../selectors/getAvgRunData';
 
 const mapStateToProps = (state, ownProps) => {
   const runId = ownProps.match.params.runId;
   
   return {
-    run: state.run.runMap[runId],
-    avgPace: getAvgRunData(state, { key: 'pace', runId }),
-    avgHeartRate: getAvgRunData(state, { key: 'heartRate', runId })
+    run: state.run.runMap[runId]
   };
 };
 
@@ -43,30 +40,10 @@ export default class SingleRunPage extends Component {
         </div>
         
         <div style={{ marginBottom: '20px' }}>
-          <div className="flexbox align-items-baseline">
-            <h4 className="flex1 flexbox align-items-center"
-              style={{ margin: '0', color: '#2196F3' }}>
-              <i className="material-icons">directions_run</i>
-              <span style={{ marginLeft: '6px'}}>Pace</span>
-            </h4>
-            <div className="text-light"
-              style={{ marginRight: '6px' }}>Average</div>
-            <BigStat stat={avgPace} units="km/h"/>
-          </div>
           <PaceChart runId={run.id}/>
         </div>
 
         <div>
-          <div className="flexbox align-items-baseline">
-            <h4 className="flex1 flexbox align-items-center"
-              style={{ margin: '0', color: '#D32F2F' }}>
-              <i className="material-icons">favorite</i>
-              <span style={{ marginLeft: '6px'}}>Heart Rate</span>
-            </h4>
-            <div className="text-light"
-              style={{ marginRight: '6px' }}>Average</div>
-            <BigStat stat={avgHeartRate} units="beats/min"/>
-          </div>
           <HeartRateChart runId={run.id}/>
         </div>
       </div>

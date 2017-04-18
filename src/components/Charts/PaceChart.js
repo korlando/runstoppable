@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import getXYRunData from '../../selectors/getXYRunData';
-import DataChart from './DataChart';
 
+import getXYRunData from '../../selectors/getXYRunData';
+import getAvgRunData from '../../selectors/getAvgRunData';
+
+import DataChart from './DataChart';
+import BigStat from '../BigStat';
+
+const color = '#2196F3';
 const layout = {
   xaxis: {
     title: 'Seconds after Start'
@@ -21,7 +26,11 @@ const mapStateToProps = (state, ownProps) => {
     key: 'pace'
   });
   return {
-    data: getXYRunData(state, props)
+    data: getXYRunData(state, props),
+    avgPace: getAvgRunData(state, {
+      key: 'pace',
+      runId: props.runId
+    })
   };
 };
 
@@ -32,6 +41,25 @@ export default class PaceChart extends Component {
   };
 
   render() {
-    return <DataChart data={this.props.data} layout={layout} color="#2196F3"/>;
+    const { avgPace } = this.props;
+    
+    return (
+      <div>
+        <div className="flexbox align-items-baseline">
+          <h4 className="flex1 flexbox align-items-center"
+            style={{ margin: '0', color }}>
+            <i className="material-icons">directions_run</i>
+            <span style={{ marginLeft: '6px'}}>Pace</span>
+          </h4>
+          <div className="text-light"
+            style={{ marginRight: '6px' }}>Average</div>
+          <BigStat stat={avgPace} units="km/h"/>
+        </div>
+        <DataChart
+          data={this.props.data}
+          layout={layout}
+          color={color}/>
+      </div>
+    );
   };
 };
