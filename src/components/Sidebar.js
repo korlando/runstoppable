@@ -22,14 +22,17 @@ export default class Sidebar extends Component {
       <div className={`sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
           <div className="links">
+            
             <Link to="/" className="flexbox align-items-center">
               <i className="material-icons md-48">home</i>
               <span className="text">Home</span>
             </Link>
+            
             <Link to="/runs" className="flexbox align-items-center">
               <i className="material-icons md-48">directions_run</i>
               <span className="text">Runs</span>
             </Link>
+            
             <Link to=""
               onClick={e => {
                 e.preventDefault();
@@ -39,6 +42,7 @@ export default class Sidebar extends Component {
               <i className="material-icons md-48">compare_arrows</i>
               <span className="text">Compare</span>
             </Link>
+          
           </div>
         </div>
       </div>
