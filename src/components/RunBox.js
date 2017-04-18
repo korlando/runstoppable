@@ -24,7 +24,8 @@ export default class RunBox extends Component {
       draggable: false, 
       zoomControl: false, 
       scrollwheel: false, 
-      disableDoubleClickZoom: true
+      disableDoubleClickZoom: true,
+      clickableIcons: false
     });
     // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
     const bounds = new google.maps.LatLngBounds();
@@ -39,7 +40,8 @@ export default class RunBox extends Component {
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
-      strokeWeight: 2
+      strokeWeight: 2,
+      clickable: false
     });
 
     path.setMap(map);
@@ -48,19 +50,20 @@ export default class RunBox extends Component {
   render() {
     const { run, checkable } = this.props;
     return (
+      <Link to={`/runs/${run.id}`} style={{textDecoration: "none"}}><span>
       <div className="run-box flexbox">
         <div className={`preview-map text-center${checkable ? ' small' : ''}`}
           ref={node => this.map = node}></div>
         <div className="flex1">
-          <Link to={`/runs/${run.id}`} className="flex0">
-            <label className="location">{run.location}</label>
-          </Link>
+          <div className="flex0">
+            <label className="location">{run.location}</label> </div>
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
         </div>
+        
         {checkable &&
           <Checkbox/>
         }
-      </div>
+      </div></span></Link>
     );
   };
 };

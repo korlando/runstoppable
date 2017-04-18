@@ -241,8 +241,13 @@
   }
   .location {
     font-size: 24px;
+    cursor: pointer;
   }
   .date {
     font-size: 18px;
   }
 }
+.run-box:hover {
+  background-color: #f1f4f9;
+}
+
