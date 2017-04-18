@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { renderRunPath } from '../util';
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import BigStat from './BigStat';
@@ -16,6 +17,18 @@ const mapStateToProps = (state, ownProps) => {
 export default class SingleRunPage extends Component {
   constructor(props) {
     super(props);
+  };
+
+  componentDidMount() {
+    if(this.props.run && this.map) {
+      renderRunPath(this.map, this.props.run);
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.run !== this.props.run && this.map) {
+      renderRunPath(this.map, this.props.run);
+    }
   };
 
   render() {
@@ -37,6 +50,14 @@ export default class SingleRunPage extends Component {
           <h3 style={{color: '#747e95'}}>
             {run.start.format(dateFormat)}
           </h3>
+        </div>
+
+        <div style={{ padding: '20px 0' }}>
+          <div ref={node => this.map = node}
+            style={{
+              width: '100%',
+              height: '200px'
+            }}></div>
         </div>
         
         <div style={{ marginBottom: '20px' }}>
