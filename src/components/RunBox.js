@@ -16,6 +16,7 @@ class RunBoxInner extends Component {
     const { run, checkable } = this.props;
 
     return (
+      <Link to={`/runs/${run.id}`} style={{textDecoration: "none"}}><span>
       <div className="run-box flexbox">
         <div className={`preview-map text-center${checkable ? ' small' : ''}`}
           ref={node => this.map = node}></div>
@@ -28,7 +29,7 @@ class RunBoxInner extends Component {
         { checkable &&
           <Checkbox/>
         }
-      </div>
+      </div></span></Link>
     );
   };
 };

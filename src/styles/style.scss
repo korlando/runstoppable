@@ -72,6 +72,7 @@ $lightestGrey: #f1f4f9;
   .links {
     a {
       color: $lighterGrey;
+
       padding: 3px 12px;
       text-decoration: none;
       transition: all 0.2s;
@@ -231,13 +232,13 @@ $lightestGrey: #f1f4f9;
 }
 
 .run-box {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   &:hover {
     background-color: $lightestGrey;
   }
   .preview-map {
     width: 300px;
-    height: 200px;
+    height: 150px;
     background: $lightestGrey;
     margin-right: 10px;
     &.small {
@@ -246,10 +247,21 @@ $lightestGrey: #f1f4f9;
     }
   }
   .location {
+    padding-top: 5px;
     font-size: 24px;
     cursor: pointer;
   }
   .date {
     font-size: 18px;
   }
+}
+.run-box:hover {
+  background-color: #f1f4f9;
+}
+
+h1 {
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
 }
