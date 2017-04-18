@@ -10,7 +10,7 @@ import BigStat from '../BigStat';
 const color = '#2196F3';
 const layout = {
   xaxis: {
-    title: 'Seconds after Start'
+    title: 'Minutes after Start'
   },
   yaxis: {
     title: 'Pace (km/h)',

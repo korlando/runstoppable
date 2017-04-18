@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Checkbox from './Checkbox';
 
-export default class RunBox extends Component {
+class RunBoxInner extends Component {
   constructor(props) {
     super(props);
   };
@@ -49,6 +49,7 @@ export default class RunBox extends Component {
 
   render() {
     const { run, checkable } = this.props;
+
     return (
       <Link to={`/runs/${run.id}`} style={{textDecoration: "none"}}><span>
       <div className="run-box flexbox">
@@ -66,4 +67,19 @@ export default class RunBox extends Component {
       </div></span></Link>
     );
   };
+};
+
+export default (props) => {
+  const { run, checkable } = props;
+  
+  if(checkable) {
+    return <RunBoxInner {...props}/>;
+  } else {
+    return (
+      <Link to={`/runs/${run.id}`}
+        style={{textDecoration: 'none'}}>
+        <RunBoxInner {...props}/>
+      </Link>
+    );
+  }
 };

@@ -17,9 +17,14 @@ export const dispatchAddBulkRuns = (runs) => {
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
 const config = {
+<<<<<<< HEAD
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
   'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'toggleSpikelines',
   'hoverClosestCartesian', 'hoverCompareCartesian'],
+=======
+  modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 'zoomIn2d', 
+  'zoomOut2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+>>>>>>> origin/master
   displaylogo: false, 
   displayModeBar: true,
   showTips: false

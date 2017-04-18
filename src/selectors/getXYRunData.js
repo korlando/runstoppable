@@ -12,7 +12,7 @@ export default createSelector(
 
     if(run) {
       run.checkpoints.forEach((c) => {
-        data.x.push(c.seconds);
+        data.x.push(c.seconds / 60);
         data.y.push(c[key]);
       });
     }
