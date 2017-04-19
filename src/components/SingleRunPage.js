@@ -54,29 +54,33 @@ export default class SingleRunPage extends Component {
           </h3>
         </div>
 
-        <div style={{ padding: '20px 0' }}>
-          <div ref={node => this.map = node}
-            style={{
-              width: '100%',
-              height: '200px'
-            }}></div>
-        </div>
-        
-        <div style={{ marginBottom: '20px' }}>
-          <PaceChart runId={run.id}/>
-        </div>
-
-        <div style={{ marginBottom: '20px' }}>
-          <HeartRateChart runId={run.id}/>
+        <div className="row">
+          <div className="col-sm-4" style={{ padding: '0 0 0 20px' }}>
+            <div ref={node => this.map = node}
+              style={{
+                width: '100%',
+                height: '300px'
+              }}></div>
+          </div>
+          
+          <div className="col-sm-4" style={{ marginBottom: '20px' }}>
+            <PaceChart runId={run.id}/>
+          </div>
         </div>
 
-        <div style={{ marginBottom: '20px' }}>
-          <DistanceChart runId={run.id}/>
+        <div className="row">
+          <div className="col-sm-6" style={{ marginBottom: '20px' }}>
+            <HeartRateChart runId={run.id}/>
+          </div>
+          
+          <div className="col-sm-6" style={{ marginBottom: '20px' }}>
+            <ElevationChart runId={run.id}/>
+          </div>
         </div>
 
         <div>
-          <ElevationChart runId={run.id}/>
-        </div>
+          <DistanceChart runId={run.id}/>
+        </div>        
       </div>
     );
   };

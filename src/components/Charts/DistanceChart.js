@@ -10,7 +10,11 @@ import BigStat from '../BigStat';
 
 const color = '#43A047';
 const layout = {
+  autosize: true,
+  width: 700,
+  height: 300,
   xaxis: {
+    autorange: true,
     title: 'Minutes after Start'
   },
   yaxis: {
