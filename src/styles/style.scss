@@ -78,6 +78,7 @@ $blue: #2196F3;
   height: 100vh;
   background-color: $darkGrey;
   transition: width 0.3s;
+  overflow: hidden;
   &.collapsed {
     width: 50px;
     .sidebar .links .text {
@@ -176,6 +177,7 @@ $blue: #2196F3;
   height: 50px;
   right: 25px;
   top: 25px;
+  margin-right: 1rem;
   cursor: pointer;
   .check {
     display: none;
@@ -341,4 +343,8 @@ body {
 .all-runs-sort-menu {
   right: 0;
   margin-top: 0;
+}
+
+.row {
+  margin-top: 10px;
 }
