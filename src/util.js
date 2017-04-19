@@ -3,6 +3,7 @@ import * as modalActions from './actions/modalActions';
 import * as runActions from './actions/runActions';
 import * as menuActions from './actions/menuActions';
 import store from './store/store';
+import runColors from './constants/runColors';
 
 export const toggleSidebar = () => {
   store.dispatch(sidebarActions.toggleSidebar());
@@ -43,20 +44,20 @@ export const renderNewPlot = (node, data, layout) => {
   Plotly.newPlot(node, data, layout, config);
 };
 
-export const renderRunPath = (node, runs) => {
+export const renderRunPath = (node, runs, draggable, zoomControl) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
     mapTypeId: 'terrain',
     disableDefaultUI: true,
-    draggable: false, 
-    zoomControl: false, 
+    draggable: draggable || false, 
+    zoomControl: zoomControl || false, 
     scrollwheel: false, 
     disableDoubleClickZoom: true,
     clickableIcons: false
   });
   const bounds = new google.maps.LatLngBounds();
 
-  runs.forEach((run) => {
+  runs.forEach((run, i) => {
     if(!run) return;
     // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
     const coordinates = run.checkpoints.reduce((arr, c) => {
@@ -74,7 +75,7 @@ export const renderRunPath = (node, runs) => {
     const path = new google.maps.Polyline({
       path: coordinates,
       geodesic: true,
-      strokeColor: '#FF0000',
+      strokeColor: runColors[i % runColors.length],
       strokeOpacity: 1.0,
       strokeWeight: 2,
       clickable: false
