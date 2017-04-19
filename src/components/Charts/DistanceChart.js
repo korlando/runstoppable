@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunData from '../../selectors/getXYRunData';
 import getTotalRunData from '../../selectors/getTotalRunData';
@@ -16,9 +17,7 @@ const layout = {
     title: 'Distance (km)',
     fixedrange: true
   },
-  margin: {
-    t: 36
-  }
+  margin: defaultChartMargin
 };
 
 const mapStateToProps = (state, ownProps) => {
