@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toggleModal } from '../../util'
+import { Link } from 'react-router-dom';
 import getSortedRunsByStart from '../../selectors/getSortedRunsByStart';
 import RunBox from '../RunBox';
 import Checkbox from '../Checkbox';
@@ -67,8 +68,10 @@ export default class Modal extends Component {
           })}
         </div>
         <div className="modal-footer">
-          <button className="btn btn-primary"
-            disabled={checkedRuns.length < 2}>Compare</button>
+          <Link className="btn btn-primary"
+            disabled={checkedRuns.length < 2}
+            onClick={ toggleModal }
+            to={checkedRuns.reduce((str, id, index) => str + (index == 0 ? "?r=" : "&r=") + id , "/compare")}>Compare</Link>
           <button className="btn btn-default"onClick={ toggleModal }>Cancel</button>
         </div>
       </div>
