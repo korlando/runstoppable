@@ -71,7 +71,7 @@ export default class Modal extends Component {
           <Link className="btn btn-primary"
             disabled={checkedRuns.length < 2}
             onClick={ toggleModal }
-            to={checkedRuns.reduce((str, id, index) => str + (index == 0 ? "?r=" : "&r=") + id , "/compare")}>Compare</Link>
+            to={checkedRuns.reduce((str, id, index) => str + (index == 0 ? "" : ",") + id , "/compare/")}>Compare</Link>
           <button className="btn btn-default"onClick={ toggleModal }>Cancel</button>
         </div>
       </div>
