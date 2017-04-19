@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { renderRunPath } from '../util';
 
 import PaceChart from './Charts/PaceChart';
@@ -8,50 +9,44 @@ import DistanceChart from './Charts/DistanceChart';
 import ElevationChart from './Charts/ElevationChart';
 
 const mapStateToProps = (state, ownProps) => {
-  const runId = ownProps.match.params.runId;
+  const { runMap } = state.run;
+  const activeRunIds = ownProps.match.params.runIds.split(',');
+  const activeRuns = activeRunIds.reduce((arr, id) => [...arr, runMap[id]], []);
   
   return {
-    run: state.run.runMap[runId]
+    runMap,
+    activeRunIds,
+    activeRuns
   };
 };
 
+export default withRouter(
 @connect(mapStateToProps)
-export default class SingleRunPage extends Component {
+class CompareRunsPage extends Component {
   constructor(props) {
     super(props);
   };
 
   componentDidMount() {
-    if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run]);
+    if(this.map) {
+      renderRunPath(this.map, this.props.activeRuns);
     }
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run]);
+    if(prevProps.activeRuns !== this.props.activeRuns) {
+      renderRunPath(this.map, this.props.activeRuns);
     }
   };
 
   render() {
-    const { run, avgPace, avgHeartRate } = this.props;
-    if(!run) return null;
-
-    let dateFormat = 'MMM D, h:mm a';
-    const thisYear = new Date().getFullYear();
-    if(run.start.year() !== thisYear) {
-      dateFormat = 'MMM D, YYYY, h:mm a';
-    }
-
+    const { runMap, activeRunIds } = this.props;
     return (
       <div className="page-container">
-        <div className="flexbox align-items-baseline">
-          <h2 style={{marginRight: '10px'}}>
-            {run.location}
-          </h2>
-          <h3 style={{color: '#747e95'}}>
-            {run.start.format(dateFormat)}
-          </h3>
+        <div className="active-run-tags">
+          { activeRunIds.map((id) => {
+            
+          })}
         </div>
 
         <div className="row">
@@ -63,34 +58,33 @@ export default class SingleRunPage extends Component {
               }}></div>
           </div>
         </div>
-          
+
         <div className="row">
           <div className="col-sm-6">
             <div className="chart-container">
-              <PaceChart runIds={[run.id]}/>
+              <PaceChart runIds={activeRunIds}/>
             </div>
           </div>
           <div className="col-sm-6">
             <div className="chart-container">
-              <HeartRateChart runIds={[run.id]}/>
+              <HeartRateChart runIds={activeRunIds}/>
             </div>
           </div>
         </div>
-        
+
         <div className="row">
           <div className="col-sm-6">
             <div className="chart-container">
-              <ElevationChart runIds={[run.id]}/>
+              <ElevationChart runIds={activeRunIds}/>
             </div>
           </div>
           <div className="col-sm-6">
             <div className="chart-container">
-              <DistanceChart runIds={[run.id]}/>
+              <DistanceChart runIds={activeRunIds}/>
             </div>
-          </div>     
-        </div> 
-
+          </div>
+        </div>
       </div>
     );
   };
-};
+});

@@ -10,6 +10,7 @@ import ModalWrapper from './Modal/ModalWrapper';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';
+import CompareRunsPage from './CompareRunsPage';
 import runData from '../data/runData';
 
 const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
@@ -96,6 +97,8 @@ export default class App extends Component {
             <Route exact path="/" component={Dashboard}/>
             <Route exact path="/runs"/>
             <Route path="/runs/:runId" component={SingleRunPage}/>
+            <Route exact path="/compare"/>
+            <Route path="/compare/:runIds" component={CompareRunsPage}/>
 
             <RunsPage/>
           </div>

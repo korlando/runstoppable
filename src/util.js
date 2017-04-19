@@ -43,14 +43,7 @@ export const renderNewPlot = (node, data, layout) => {
   Plotly.newPlot(node, data, layout, config);
 };
 
-export const renderRunPath = (node, run) => {
-  // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
-  const coordinates = run.checkpoints.reduce((arr, c) => {
-    return [...arr, {
-      lat: c.lat,
-      lng: c.lon
-    }];
-  }, []);
+export const renderRunPath = (node, runs) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
     mapTypeId: 'terrain',
@@ -61,22 +54,34 @@ export const renderRunPath = (node, run) => {
     disableDoubleClickZoom: true,
     clickableIcons: false
   });
-  // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
   const bounds = new google.maps.LatLngBounds();
-  coordinates.forEach((coord) => {
-    bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+
+  runs.forEach((run) => {
+    if(!run) return;
+    // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+    const coordinates = run.checkpoints.reduce((arr, c) => {
+      return [...arr, {
+        lat: c.lat,
+        lng: c.lon
+      }];
+    }, []);
+
+    // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
+    coordinates.forEach((coord) => {
+      bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+    });
+
+    const path = new google.maps.Polyline({
+      path: coordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      clickable: false
+    });
+
+    path.setMap(map);
   });
 
   map.fitBounds(bounds);
-
-  const path = new google.maps.Polyline({
-    path: coordinates,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-    clickable: false
-  });
-
-  path.setMap(map);
 };
