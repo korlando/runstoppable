@@ -8,7 +8,8 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 
-const color = '#D32F2F';
+const colors = ['#D32F2F','#e48181','#931f1f','#ff471a'];
+const color = colors[0];
 const layout = {
   autosize: true,
   width: 700,
@@ -61,7 +62,7 @@ export default class HeartRateChart extends Component {
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          color={color}/>
+          colors={colors}/>
       </div>
     );
   };

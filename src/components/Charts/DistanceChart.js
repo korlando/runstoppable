@@ -8,7 +8,8 @@ import getTotalRunData from '../../selectors/getTotalRunData';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 
-const color = '#43A047';
+const colors = ['#43A047','#2D6C30','#6FC373','#40FF00'];
+const color = colors[0];
 const layout = {
   autosize: true,
   width: 700,
@@ -60,7 +61,7 @@ export default class DistanceChart extends Component {
         <DataChart
           datas={datas}
           layout={layout}
-          color={color}/>
+          colors={colors}/>
       </div>
     );
   };

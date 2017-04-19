@@ -8,7 +8,8 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 
-const color = '#2196F3';
+const colors = ['#2196F3','#86c5f9','#0961aa','#1a1aff'];
+const color = colors[0];
 const layout = {
   autosize: true,
   width: 1000,
@@ -61,7 +62,7 @@ export default class PaceChart extends Component {
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          color={color}/>
+          colors={colors}/>
       </div>
     );
   };

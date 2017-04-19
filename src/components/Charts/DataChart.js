@@ -2,24 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderNewPlot } from '../../util';
 
-const makeData = (data, color) => {
-  return [{
-    x: data.x,
-    y: data.y,
-    type: 'scatter',
-    line: {
-      color
-    }
-  }];
-};
-
-const makeDatas = (datas, color) =>
+const makeDatas = (datas, colors) =>
   datas.reduce((arr, data, index) => [...arr, {
     x: data.x,
     y: data.y,
     type: 'scatter',
     line: {
-      color
+      color: colors[index % colors.length]
     }
   }], []);
 
@@ -39,15 +28,15 @@ export default class DataChart extends Component {
   };
 
   componentDidMount() {
-    const { datas, layout, color } = this.props;
-    renderNewPlot(this.node, makeDatas(datas, color), layout, config);
+    const { datas, layout, colors } = this.props;
+    renderNewPlot(this.node, makeDatas(datas, colors), layout, config);
   };
 
   componentWillReceiveProps(nextProps) {
-    const { datas, layout, color } = nextProps;
+    const { datas, layout, colors } = nextProps;
     if(datas !== this.props.datas ||
       layout !== this.props.layout) {
-      renderNewPlot(this.node, makeDatas(datas, color), layout, config);
+      renderNewPlot(this.node, makeDatas(datas, colors), layout, config);
     }
   };
 

@@ -8,7 +8,8 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 
-const color = '#FFA000';
+const colors = ['#FFA000','#ffc766','#b37100','#ffcc00'];
+const color = colors[0];
 const layout = {
   autosize: true,
   width: 700,
@@ -61,7 +62,7 @@ export default class ElevationChart extends Component {
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          color={color}/>
+          colors={colors}/>
       </div>
     );
   };
