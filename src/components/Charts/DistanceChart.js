@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
-import getXYRunData from '../../selectors/getXYRunData';
+import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getTotalRunData from '../../selectors/getTotalRunData';
 
 import DataChart from './DataChart';
@@ -28,10 +28,11 @@ const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
     key: 'distance'
   });
-  const data = getXYRunData(state, props);
+  const datas = getXYRunDatas(state, props);
   return {
-    data,
-    totalDistance: Math.round(data.y[data.y.length - 1] * 100) / 100
+    datas,
+    //totalDistance: datas.reduce((total, data) => total + Math.round(data.y[data.y.length - 1] * 100) / 100), 0);
+    totalDistance: Math.round(datas[0].y[datas[0].y.length - 1] * 100) / 100 // TO DO: FIX THIS
   };
 };
 
@@ -42,7 +43,7 @@ export default class DistanceChart extends Component {
   };
 
   render() {
-    const { data, totalDistance } = this.props;
+    const { datas, totalDistance } = this.props;
     
     return (
       <div>
@@ -57,7 +58,7 @@ export default class DistanceChart extends Component {
           <BigStat stat={totalDistance} units="km"/>
         </div>
         <DataChart
-          data={data}
+          datas={datas}
           layout={layout}
           color={color}/>
       </div>

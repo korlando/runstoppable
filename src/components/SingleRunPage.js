@@ -77,7 +77,7 @@ export default class SingleRunPage extends Component {
           <div className="col">
             <DistanceChart runId={run.id}/></div>     
         </div> 
-
+        
       </div>
     );
   };
