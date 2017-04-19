@@ -8,6 +8,9 @@ import run6 from '../data/runs-6.json';
 import run7 from '../data/runs-7.json';
 import run8 from '../data/runs-8.json';
 import run9 from '../data/runs-9.json';
+import run10 from '../data/runs-10.json';
+import run11 from '../data/runs-11.json';
+import run12 from '../data/runs-12.json';
 
 export default {
   run0,
@@ -19,5 +22,8 @@ export default {
   run6,
   run7,
   run8,
-  run9
+  run9,
+  run10,
+  run11,
+  run12
 };

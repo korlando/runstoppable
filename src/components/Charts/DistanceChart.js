@@ -12,8 +12,7 @@ const colors = ['#43A047','#2D6C30','#6FC373','#40FF00'];
 const color = colors[0];
 const layout = {
   autosize: true,
-  width: 700,
-  height: 500,
+  height: 400,
   xaxis: {
     autorange: true,
     title: 'Minutes after Start'

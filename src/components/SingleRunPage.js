@@ -65,17 +65,29 @@ export default class SingleRunPage extends Component {
         </div>
           
         <div className="row">
-          <div className="col">
-            <PaceChart runIds={[run.id]}/></div>
-          <div className="col">
-            <HeartRateChart runIds={[run.id]}/></div>
+          <div className="col-sm-6">
+            <div className="chart-container">
+              <PaceChart runIds={[run.id]}/>
+            </div>
+          </div>
+          <div className="col-sm-6">
+            <div className="chart-container">
+              <HeartRateChart runIds={[run.id]}/>
+            </div>
+          </div>
         </div>
         
         <div className="row">
-          <div className="col">
-            <ElevationChart runIds={[run.id]}/></div>
-          <div className="col">
-            <DistanceChart runIds={[run.id]}/></div>     
+          <div className="col-sm-6">
+            <div className="chart-container">
+              <ElevationChart runIds={[run.id]}/>
+            </div>
+          </div>
+          <div className="col-sm-6">
+            <div className="chart-container">
+              <DistanceChart runIds={[run.id]}/>
+            </div>
+          </div>     
         </div> 
 
       </div>
