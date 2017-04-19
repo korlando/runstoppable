@@ -1,0 +1,56 @@
+@import 'util.scss';
+
+.modal-wrapper {
+  z-index: 1002;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.3s;
+  background-color: rgba(0,0,0,0.6);
+  &.show {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+.modal-custom {
+  opacity: 1;
+  background-color: $lightestGrey;
+  width: 800px;
+  max-width: 100%;
+  height: 600px;
+  max-height: 90%;
+  left: 25%;
+  top: 15%;
+  border: 0;
+  border-radius: 4px;
+  padding: 2rem;
+  @media screen and (max-width: 768px) {
+    max-height: 100%;
+  }
+}
+
+.modal-top {
+  width: 100%;
+  height: 10%;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $lighterGrey;
+  h2 {
+    margin: 0;
+  }
+}
+
+.modal-footer {
+  width: 100%;
+}
+
+.modal-scroll-view {
+  overflow: auto;
+  width: 100%;
+  height: 80%;
+}
