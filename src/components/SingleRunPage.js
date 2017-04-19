@@ -23,13 +23,13 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run]);
+      renderRunPath(this.map, [this.props.run], true, true);
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run]);
+      renderRunPath(this.map, [this.props.run], true, true);
     }
   };
 
