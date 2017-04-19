@@ -158,15 +158,15 @@ $blue: #2196F3;
 
 .checkbox {
   position: relative;
-  border: 1px solid #AAAAAA;
+  border: 1px solid $darkGrey;
   border-radius: 2px;
-  background: #DDDDDD;
+  background: $lighterGrey;
   width: 50px;
   height: 50px;
   right: 25px;
   top: 25px;
   &.checked {
-    background: #4488FF;
+    background: $blue;
   }
 }
 

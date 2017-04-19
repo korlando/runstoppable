@@ -16,7 +16,7 @@ const makeData = (data, color) => {
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
 const config = {
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
-  'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'toggleSpikelines',
+  'zoomIn2d', 'zoomOut2d', 'toggleSpikelines',
   'hoverClosestCartesian', 'hoverCompareCartesian'],
   displaylogo: false, 
   displayModeBar: true,
