@@ -165,8 +165,16 @@ $blue: #2196F3;
   height: 50px;
   right: 25px;
   top: 25px;
+  .check {
+    display: none;
+    color: white;
+    font-size: 48px;
+  }
   &.checked {
     background: #4488FF;
+    .check {
+      display: inline;
+    }
   }
 }
 

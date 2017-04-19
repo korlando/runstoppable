@@ -26,7 +26,7 @@ class RunBoxInner extends Component {
         </div>
         
         { checkable &&
-          <Checkbox/>
+          <Checkbox onCheckChange={this.props.onCheckChange}/>
         }
       </div>
     );
