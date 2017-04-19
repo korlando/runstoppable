@@ -28,16 +28,16 @@ export default class Dashboard extends Component {
           <div>
             <div className="row">
               <div className="col">
-                <PaceChart runId={mostRecentRun.id}/></div>
+                <PaceChart runIds={[mostRecentRun.id]}/></div>
               <div className="col">
-                <HeartRateChart runId={mostRecentRun.id}/></div>
+                <HeartRateChart runIds={[mostRecentRun.id]}/></div>
             </div>
 
             <div className="row">
               <div className="col">
-                <ElevationChart runId={mostRecentRun.id}/></div>
+                <ElevationChart runIds={[mostRecentRun.id]}/></div>
               <div className="col">
-                <DistanceChart runId={mostRecentRun.id}/></div>
+                <DistanceChart runIds={[mostRecentRun.id]}/></div>
             </div>
           </div>
         }
