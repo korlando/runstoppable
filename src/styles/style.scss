@@ -67,6 +67,12 @@ $blue: #2196F3;
   }
 }
 
+.btn-primary {
+  &[disabled] {
+    opacity: 0.3;
+  }
+}
+
 .sidebar-wrapper {
   width: 250px;
   height: 100vh;
