@@ -13,13 +13,13 @@ const makeData = (data, color) => {
   }];
 };
 
-const makeDatas = (datas, colors) =>
+const makeDatas = (datas, color) =>
   datas.reduce((arr, data, index) => [...arr, {
     x: data.x,
     y: data.y,
     type: 'scatter',
     line: {
-      colors
+      color
     }
   }], []);
 
