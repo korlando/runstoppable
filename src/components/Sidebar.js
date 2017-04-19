@@ -31,6 +31,12 @@ class Sidebar extends Component {
               onClick={toggleSidebar}/>
           </div>
           <div className="links">
+          
+            <Link to="/" className={`flexbox align-items-center}`}>
+              <img src="https://avatars.slack-edge.com/2017-03-24/158411923920_7614b17cc53af6223f1b_72.jpg" 
+              style={{borderRadius: "50%"}} height="36" width="36"></img>
+              <span className="text" style={{fontWeight: "700", whiteSpace: "nowrap"}}>Ron Stoppable</span>
+            </Link>
 
             <Link to="/" className={`flexbox align-items-center
               ${pathname === '/' ? ' active' : ''}`}>
