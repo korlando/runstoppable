@@ -68,7 +68,7 @@ export default class Modal extends Component {
         </div>
         <div className="modal-footer">
           <button className="btn btn-primary"
-            disabled={checkedRuns.length === 0}>Compare</button>
+            disabled={checkedRuns.length < 2}>Compare</button>
           <button className="btn btn-default"onClick={ toggleModal }>Cancel</button>
         </div>
       </div>
