@@ -13,6 +13,16 @@ const makeData = (data, color) => {
   }];
 };
 
+const makeDatas = (datas, colors) =>
+  datas.reduce((arr, data, index) => [...arr, {
+    x: data.x,
+    y: data.y,
+    type: 'scatter',
+    line: {
+      colors
+    }
+  }], []);
+
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
 const config = {
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
@@ -29,15 +39,15 @@ export default class DataChart extends Component {
   };
 
   componentDidMount() {
-    const { data, layout, color } = this.props;
-    renderNewPlot(this.node, makeData(data, color), layout, config);
+    const { datas, layout, color } = this.props;
+    renderNewPlot(this.node, makeDatas(datas, color), layout, config);
   };
 
   componentWillReceiveProps(nextProps) {
-    const { data, layout, color } = nextProps;
-    if(data !== this.props.data ||
+    const { datas, layout, color } = nextProps;
+    if(datas !== this.props.datas ||
       layout !== this.props.layout) {
-      renderNewPlot(this.node, makeData(data, color), layout, config);
+      renderNewPlot(this.node, makeDatas(datas, color), layout, config);
     }
   };
 

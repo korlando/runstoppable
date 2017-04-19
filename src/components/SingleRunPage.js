@@ -64,22 +64,22 @@ export default class SingleRunPage extends Component {
           </div>
           
           <div className="col-sm-4" style={{ marginBottom: '20px' }}>
-            <PaceChart runId={run.id}/>
+            <PaceChart runIds={[run.id]}/>
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-6" style={{ marginBottom: '20px' }}>
-            <HeartRateChart runId={run.id}/>
+            <HeartRateChart runIds={[run.id]}/>
           </div>
           
           <div className="col-sm-6" style={{ marginBottom: '20px' }}>
-            <ElevationChart runId={run.id}/>
+            <ElevationChart runIds={[run.id]}/>
           </div>
         </div>
 
         <div>
-          <DistanceChart runId={run.id}/>
+          <DistanceChart runIds={[run.id]}/>
         </div>        
       </div>
     );

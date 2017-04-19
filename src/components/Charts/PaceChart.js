@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
-import getXYRunData from '../../selectors/getXYRunData';
+import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
 
 import DataChart from './DataChart';
@@ -29,10 +29,10 @@ const mapStateToProps = (state, ownProps) => {
     key: 'pace'
   });
   return {
-    data: getXYRunData(state, props),
+    datas: getXYRunDatas(state, props),
     avgPace: getAvgRunData(state, {
       key: 'pace',
-      runId: props.runId
+      runId: props.runIds[0] //TO DO: FIX THIS
     })
   };
 };
@@ -59,7 +59,7 @@ export default class PaceChart extends Component {
           <BigStat stat={avgPace} units="km/h"/>
         </div>
         <DataChart
-          data={this.props.data}
+          datas={this.props.datas}
           layout={layout}
           color={color}/>
       </div>

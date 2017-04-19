@@ -26,10 +26,10 @@ export default class Dashboard extends Component {
         <h1 className="text-center">RUNSTOPPABLE</h1>
         { mostRecentRun &&
           <div>
-            <PaceChart runId={mostRecentRun.id}/>
-            <HeartRateChart runId={mostRecentRun.id}/>
-            <DistanceChart runId={mostRecentRun.id}/>
-            <ElevationChart runId={mostRecentRun.id}/>
+            <PaceChart runIds={[mostRecentRun.id]}/>
+            <HeartRateChart runIds={[mostRecentRun.id]}/>
+            <DistanceChart runIds={[mostRecentRun.id]}/>
+            <ElevationChart runIds={[mostRecentRun.id]}/>
           </div>
         }
       </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
-import getXYRunData from '../../selectors/getXYRunData';
+import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
 
 import DataChart from './DataChart';
@@ -29,10 +29,10 @@ const mapStateToProps = (state, ownProps) => {
     key: 'elevation'
   });
   return {
-    data: getXYRunData(state, props),
+    datas: getXYRunDatas(state, props),
     avgElevation: getAvgRunData(state, {
       key: 'elevation',
-      runId: props.runId
+      runId: props.runIds[0] //TO DO: FIX THIS
     })
   };
 };
@@ -59,7 +59,7 @@ export default class ElevationChart extends Component {
           <BigStat stat={avgElevation} units="m"/>
         </div>
         <DataChart
-          data={this.props.data}
+          datas={this.props.datas}
           layout={layout}
           color={color}/>
       </div>
