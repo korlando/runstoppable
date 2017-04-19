@@ -12,7 +12,7 @@ const color = '#D32F2F';
 const layout = {
   autosize: true,
   width: 700,
-  height: 300,
+  height: 500,
   xaxis: {
     autorange: true,
     title: 'Minutes after Start'

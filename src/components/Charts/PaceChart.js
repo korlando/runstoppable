@@ -11,8 +11,8 @@ import BigStat from '../BigStat';
 const color = '#2196F3';
 const layout = {
   autosize: true,
-  width: 1000,
-  height: 300,
+  width: 700,
+  height: 500,
   xaxis: {
     autorange: true,
     title: 'Minutes after Start'

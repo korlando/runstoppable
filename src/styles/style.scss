@@ -347,4 +347,12 @@ body {
 
 .row {
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.col, .col-6 {
+  margin: 0 10px 10px 20px;
+  padding: 20px 20px 0 20px;
+  border: 2px solid $lighterGrey;
+  border-radius: 3px;
 }
