@@ -5,6 +5,7 @@ import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import DistanceChart from './Charts/DistanceChart';
 import ElevationChart from './Charts/ElevationChart';
+import DashStats from './DashStats';
 
 const mapStateToProps = (state) => {
   return {
@@ -24,8 +25,11 @@ export default class Dashboard extends Component {
     return (
       <div className="page-container">
         <h1 className="text-center">RUNSTOPPABLE</h1>
+        <DashStats/>
         { mostRecentRun &&
           <div>
+            <h3>Your most recent run</h3>
+            
             <div className="row">
               <div className="col">
                 <PaceChart runIds={[mostRecentRun.id]}/></div>
