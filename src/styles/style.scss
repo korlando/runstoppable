@@ -215,3 +215,15 @@ h1 {
   border: 2px solid $lighterGrey;
   border-radius: 3px;
 }
+
+.dashboard-stats {
+  margin: 10px 0px 40px 5px;
+  padding: 10px 10px 10px 10px;
+  border: 2px solid $lighterGrey;
+  border-radius: 3px;
+}
+
+.dashboard-stats td, th {
+  padding: 10px 60px;
+}
+
