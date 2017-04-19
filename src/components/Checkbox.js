@@ -8,10 +8,19 @@ export default class Checkbox extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { checked } = nextProps;
+    if(checked !== undefined) {
+      this.setState({ checked });
+    }
+  };
   
   handleClick() {
     const checked = !this.state.checked;
-    this.setState({ checked });
+    if(this.props.checked === undefined) {
+      this.setState({ checked });
+    }
 
     const { onCheckChange } = this.props;
     if(onCheckChange) {

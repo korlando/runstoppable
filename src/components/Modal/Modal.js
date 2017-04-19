@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { toggleModal } from '../../util'
 import getSortedRunsByStart from '../../selectors/getSortedRunsByStart';
 import RunBox from '../RunBox';
+import Checkbox from '../Checkbox';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,18 +16,32 @@ export default class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkedRuns: []
+      checkedRuns: [],
+      allChecked: false
     };
   };
 
   render() {
     const { runs } = this.props;
-    const { checkedRuns } = this.state;
+    const { checkedRuns, allChecked } = this.state;
 
     return (
       <div className="modal-custom" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h3 className="text-center">Select runs to compare</h3>
+        <div className="modal-top flexbox align-items-center">
+          <h2 className="flex1">Select runs to compare</h2>
+          <div className="flex0">
+            <Checkbox
+              checked={allChecked}
+              onCheckChange={(checked) => {
+                const newCheckedRuns = checked ?
+                  runs.reduce((arr, run) => [...arr, run.id], []) :
+                  [];
+                this.setState({
+                  allChecked: checked,
+                  checkedRuns: newCheckedRuns
+                });
+              }}/>
+          </div>
         </div>
         <div className="modal-scroll-view">
           { runs.map((run) => {
@@ -34,6 +49,7 @@ export default class Modal extends Component {
               <RunBox key={run.id}
                 run={run}
                 checkable={true}
+                checked={checkedRuns.includes(run.id)}
                 onCheckChange={(checked) => {
                   if(checked) {
                     this.setState({

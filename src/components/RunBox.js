@@ -13,7 +13,10 @@ class RunBoxInner extends Component {
   };
 
   render() {
-    const { run, checkable } = this.props;
+    const { run,
+            checkable,
+            checked,
+            onCheckChange } = this.props;
 
     return (
       <div className="run-box flexbox">
@@ -26,7 +29,7 @@ class RunBoxInner extends Component {
         </div>
         
         { checkable &&
-          <Checkbox onCheckChange={this.props.onCheckChange}/>
+          <Checkbox checked={checked} onCheckChange={onCheckChange}/>
         }
       </div>
     );
