@@ -1,37 +1,4 @@
-$darkGrey: #252830;
-$lightGrey: #747e95;
-$lighterGrey: #b7bccc;
-$lightestGrey: #f1f4f9;
-$blue: #2196F3;
-
-@mixin flexbox() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-@mixin flex($values) {
-  -webkit-box-flex: $values;
-  -moz-box-flex: $values;
-  -webkit-flex: $values;
-  -ms-flex: $values;
-  flex: $values;
-}
-@mixin alignItems($value) {
-  -webkit-box-align: $value;
-  -moz-box-align: $value;
-  -webkit-align-items: $value;
-  -ms-flex-align: $value;
-  align-items: $value;
-}
-@mixin justifyContent($value) {
-  -webkit-box-pack: $value;
-  -moz-box-pack: $value;
-  -webkit-justify-content: $value;
-  -ms-flex-pack: $value;
-  justify-content: $value;
-}
+@import 'util.scss';
 
 .flexbox {
   @include flexbox();
@@ -52,6 +19,18 @@ $blue: #2196F3;
   @include justifyContent(center);
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+h1 {
+  color: $darkGrey;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
 .text-light {
   color: $lightGrey;
 }
@@ -70,47 +49,6 @@ $blue: #2196F3;
 .btn-primary {
   &[disabled] {
     opacity: 0.3;
-  }
-}
-
-.sidebar-wrapper {
-  width: 250px;
-  height: 100vh;
-  background-color: $darkGrey;
-  transition: width 0.3s;
-  overflow: hidden;
-  &.collapsed {
-    width: 50px;
-    .sidebar .links .text {
-      opacity: 0;
-    }
-  }
-}
-.sidebar {
-  padding-top: 50px;
-  .links {
-    a {
-      color: $lighterGrey;
-
-      padding: 3px 12px;
-      text-decoration: none;
-      transition: all 0.2s;
-      &:active, &:link, &:visited {
-        color: $lighterGrey;
-        text-decoration: none;
-      }
-      &:hover {
-        color: $darkGrey;
-        background-color: $lighterGrey;
-        text-decoration: none;
-      }
-      .text {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        transition: opacity 0.3s;
-        margin-left: 6px;
-      }
-    }
   }
 }
 
@@ -290,20 +228,6 @@ $blue: #2196F3;
   .date {
     font-size: 18px;
   }
-}
-.run-box:hover {
-  background-color: $lightestGrey;
-}
-
-h1 {
-  color: $darkGrey;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 15px;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
 }
 
 .popover-menu {
