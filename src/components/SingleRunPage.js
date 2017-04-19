@@ -23,13 +23,13 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, this.props.run);
+      renderRunPath(this.map, [this.props.run]);
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, this.props.run);
+      renderRunPath(this.map, [this.props.run]);
     }
   };
 
@@ -57,10 +57,10 @@ export default class SingleRunPage extends Component {
         <div className="row">
           <div className="col-12">
             <div ref={node => this.map = node}
-                style={{
-                  width: '100%',
-                  height: '200px'
-                }}></div>
+              style={{
+                width: '100%',
+                height: '200px'
+              }}></div>
           </div>
         </div>
           

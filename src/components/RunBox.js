@@ -9,7 +9,7 @@ class RunBoxInner extends Component {
   };
 
   componentDidMount() {
-    renderRunPath(this.map, this.props.run);
+    renderRunPath(this.map, [this.props.run]);
   };
 
   render() {
