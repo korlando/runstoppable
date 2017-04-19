@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunData from '../../selectors/getXYRunData';
 import getAvgRunData from '../../selectors/getAvgRunData';
@@ -20,9 +21,7 @@ const layout = {
     title: 'Pace (km/h)',
     fixedrange: true
   },
-  margin: {
-    t: 36
-  }
+  margin: defaultChartMargin
 };
 
 const mapStateToProps = (state, ownProps) => {
