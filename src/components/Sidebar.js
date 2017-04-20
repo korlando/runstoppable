@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { toggleModal } from '../util'
+import { toggleModal, toggleSidebar } from '../util'
+import CloseButton from './CloseButton';
 
 const mapStateToProps = (state) => {
   return {
@@ -24,6 +25,11 @@ class Sidebar extends Component {
     return (
       <div className={`flex0 sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
+          <div className="flexbox" style={{ padding: '0 12px' }}>
+            <CloseButton
+              className={`flex0 ${!collapsed ? 'transform-x' : ''}`}
+              onClick={toggleSidebar}/>
+          </div>
           <div className="links">
           
             <Link to="/" className={`flexbox align-items-center}`}>

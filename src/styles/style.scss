@@ -58,9 +58,7 @@ h1 {
 
 .menu-icon {
   display: inline-block;
-  position: fixed;
-  top: 12px;
-  left: 14px;
+  position: relative;
   padding: 0;
   transition: all 0.3s;
   cursor: pointer;
@@ -227,3 +225,12 @@ h1 {
   padding: 10px 60px;
 }
 
+.run-tag {
+  background: $lightestGrey;
+  border: 1px solid $lighterGrey;
+  padding: 1px 10px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  display: inline-block;
+}

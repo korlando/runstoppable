@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleSidebar,
-         dispatchAddBulkRuns,
+import { dispatchAddBulkRuns,
          closeAllMenus } from '../util';
 import moment from 'moment';
 import Sidebar from './Sidebar';
@@ -77,18 +76,6 @@ export default class App extends Component {
             width: '100vw',
             height: '100vh'
           }}>
-          <button className={`menu-icon${!collapsed ? ' transform-x' : ''}`}
-            onClick={toggleSidebar}>
-            <svg className="line">
-              <line x1="2" x2="18" y1="2" y2="2"/>
-            </svg>
-            <svg className="line">
-              <line x1="2" x2="18" y1="2" y2="2"/>
-            </svg>
-            <svg className="line">
-              <line x1="2" x2="18" y1="2" y2="2"/>
-            </svg>
-          </button>
 
           <Sidebar/>
           <ModalWrapper/>

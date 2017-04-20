@@ -7,6 +7,7 @@ import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import DistanceChart from './Charts/DistanceChart';
 import ElevationChart from './Charts/ElevationChart';
+import CloseButton from './CloseButton';
 
 const mapStateToProps = (state, ownProps) => {
   const { runMap } = state.run;
@@ -45,7 +46,18 @@ class CompareRunsPage extends Component {
       <div className="page-container">
         <div className="active-run-tags">
           { activeRunIds.map((id) => {
-            
+            const run = runMap[id];
+            if(!run) return null;
+            return (
+              <div key={id} className="run-tag">
+                { run.location }
+                <CloseButton
+                  className="transform-x"
+                  onClick={() => {
+                    
+                  }}/>
+              </div>
+            );
           })}
         </div>
 
