@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { renderRunPath } from '../util';
+import runColors from '../constants/runColors';
 
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
@@ -41,20 +42,30 @@ class CompareRunsPage extends Component {
   };
 
   render() {
-    const { runMap, activeRunIds } = this.props;
+    const { runMap, activeRunIds, history } = this.props;
+
     return (
       <div className="page-container">
         <div className="active-run-tags">
-          { activeRunIds.map((id) => {
-            const run = runMap[id];
+          { activeRunIds.map((runId, i) => {
+            const run = runMap[runId];
             if(!run) return null;
             return (
-              <div key={id} className="run-tag">
-                { run.location }
+              <div key={runId}
+                className="run-tag"
+                style={{ borderColor: runColors[i % runColors.length] }}>
+                <span style={{ marginRight: '5px' }}>{ run.location },</span>
+                <span>
+                  { run.start.format('MMM D YYYY, h:mm a') }
+                </span>
                 <CloseButton
                   className="transform-x"
                   onClick={() => {
-                    
+                    const newIds = activeRunIds.filter(id => id !== runId).join(',');
+                    if(newIds === '') {
+                      return history.push('/runs');
+                    }
+                    history.push(`/compare/${newIds}`);
                   }}/>
               </div>
             );

@@ -3,6 +3,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { dispatchAddBulkRuns,
          closeAllMenus } from '../util';
+import createHistory from 'history/createBrowserHistory';
 import moment from 'moment';
 import Sidebar from './Sidebar';
 import ModalWrapper from './Modal/ModalWrapper';
@@ -11,6 +12,8 @@ import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';
 import CompareRunsPage from './CompareRunsPage';
 import runData from '../data/runData';
+
+const history = createHistory();
 
 const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
 
@@ -64,7 +67,7 @@ export default class App extends Component {
     const { collapsed, menus } = this.props;
 
     return (
-      <HashRouter>
+      <HashRouter history={history}>
         <div className="flexbox"
           onClick={e => {
             if(Object.keys(menus).length) {

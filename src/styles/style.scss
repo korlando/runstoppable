@@ -227,10 +227,13 @@ h1 {
 
 .run-tag {
   background: $lightestGrey;
-  border: 1px solid $lighterGrey;
+  border: 1px solid;
   padding: 1px 10px;
   border-radius: 3px;
   margin-bottom: 5px;
   margin-right: 5px;
   display: inline-block;
+  .menu-icon {
+    transform: translateY(4px);
+  }
 }
