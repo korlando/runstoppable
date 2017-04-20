@@ -48,7 +48,7 @@ export default class App extends Component {
       
       run.checkpoints.forEach((checkpoint, i) => {
         // skip over units object
-        if(i !== 0) {
+        if(i%2 !== 0) {
           const parsedCheckpoint = {};
           Object.keys(checkpoint).forEach((cKey) => {
             parsedCheckpoint[cKey] = Number.parseFloat(checkpoint[cKey]);
