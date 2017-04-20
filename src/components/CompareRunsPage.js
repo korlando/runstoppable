@@ -46,6 +46,7 @@ class CompareRunsPage extends Component {
 
     return (
       <div className="page-container">
+        <h1>Compare Runs</h1>
         <div className="active-run-tags">
           { activeRunIds.map((runId, i) => {
             const run = runMap[runId];
