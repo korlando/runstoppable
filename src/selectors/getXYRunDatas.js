@@ -8,8 +8,8 @@ export default createSelector(
   [ getRunMap, getRunIds, getKey ], (runMap, runIds, key) => {
     const datas = [];
     
-    runIds.forEach((runId) => {
-      const data = { x: [], y: [] };
+    runIds.forEach((runId, index) => {
+      const data = { x: [], y: [], name: "run" + index};
       const run = runMap[runId];
 
       if(run) {

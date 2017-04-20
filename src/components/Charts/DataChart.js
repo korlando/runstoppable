@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderNewPlot } from '../../util';
+import runColors from '../../constants/runColors';
 
 const makeDatas = (datas, colors) =>
   datas.reduce((arr, data, index) => [...arr, {
     x: data.x,
     y: data.y,
+    name: data.name,
     type: 'scatter',
     line: {
-      color: colors[index % colors.length]
+      color: datas.length == 1 ? colors[index % colors.length] : runColors[index % runColors.length]
     }
   }], []);
 
