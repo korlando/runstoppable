@@ -54,12 +54,13 @@ class RunsPage extends Component {
 
     return (
       <div className="page-container" style={style}>
-        <div className="flexbox align-items-center"
+        <div className="flexbox align-items-baseline"
           style={{ marginBottom: '10px' }}>
-          <h1 className="flex1" style={{
+          <h1 className="flex0" style={{
             border: 'none',
             margin: '0',
-            padding: '0'
+            padding: '0',
+            marginRight: '20px'
           }}>RUNS</h1>
           <div className="flex0 relative"
             onClick={e => toggleMenu('AllRunsSortMenu', e)}>
