@@ -27,7 +27,7 @@ class Sidebar extends Component {
         <div className="sidebar">
           <div className="flexbox" style={{ padding: '0 12px' }}>
             <CloseButton
-              className={`flex0 ${!collapsed ? 'transform-x' : ''}`}
+              className="flex0"
               onClick={toggleSidebar}/>
           </div>
           <div className="links">
