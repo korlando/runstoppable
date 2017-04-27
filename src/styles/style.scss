@@ -216,3 +216,7 @@ h1 {
     transform: translateY(4px);
   }
 }
+
+.btn:disabled {
+  cursor: default !important;
+}
