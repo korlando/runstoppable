@@ -53,10 +53,10 @@ class CompareRunsPage extends Component {
             if(!run) return null;
             return (
               <div key={runId}
-                className="run-tag"
+                className="run-tag flexbox align-items-center"
                 style={{ borderColor: runColors[i % runColors.length] }}>
                 <span style={{ marginRight: '5px' }}>{ run.location },</span>
-                <span>
+                <span style={{ marginRight: '5px' }}>
                   { run.start.format('MMM D YYYY, h:mm a') }
                 </span>
                 <CloseButton
