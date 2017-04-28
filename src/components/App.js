@@ -45,23 +45,41 @@ export default class App extends Component {
         parsedRun.start = moment(run.date, 'YYYY_MM_DD_HH_mm_ss');
       }
       
-      var prevValue = null;
+      const plsSmooth = ["pace", "heartRate", "elevation"];
+      const sVal = {
+        "pace": {
+          "prevValue": null,
+          "threshold": 4,
+          "unreal": 0,
+        },
+        "heartRate": {
+          "prevValue": null,
+          "threshold": 5,
+          "unreal": 5,
+        },
+        "elevation": {
+          "prevValue": null,
+          "threshold": 4,
+          "unreal": -100000,
+        }
+      }
+
       run.checkpoints.forEach((checkpoint, i) => {
         // skip over units object
         if(i%2 !== 0) {
           const parsedCheckpoint = {};
           Object.keys(checkpoint).forEach((cKey) => {
             var keyValue = Number.parseFloat(checkpoint[cKey]);
-            if (cKey == "heartRate") {
-                if (prevValue == null) {
-                    prevValue = keyValue;
+            if (plsSmooth.includes(cKey)) {
+                if (sVal[cKey].prevValue == null) {
+                    sVal[cKey].prevValue = keyValue;
                 }
-                const delta = Math.abs(keyValue - prevValue);
-                if (keyValue == 0 || delta > 5) {
+                const delta = Math.abs(keyValue - sVal[cKey].prevValue);
+                if (keyValue < sVal[cKey].unreal || delta > sVal[cKey].threshold) {
                     parsedCheckpoint[cKey] = null;
                 }
                 else {
-                    prevValue = keyValue;
+                    sVal[cKey].prevValue = keyValue;
                     parsedCheckpoint[cKey] = keyValue;
                 }
             } else {
