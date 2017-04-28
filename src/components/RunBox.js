@@ -17,10 +17,13 @@ class RunBoxInner extends Component {
             checkable,
             checked,
             onCheckChange } = this.props;
+    const style = {};
+    if(checkable) {
+      style.cursor = 'pointer';
+    }
 
     return (
       <div className={`run-box flexbox${checked ? ' checked' : ''}`}
-        style={{ cursor: checkable ? 'pointer' : 'default' }}
         onClick={(e) => {
           if(checkable && onCheckChange) {
             const val = this.checkBox.toggle();
