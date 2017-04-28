@@ -32,9 +32,8 @@ export default class DataChart extends Component {
   componentDidMount() {
     const { datas, layout, colors } = this.props;
     renderNewPlot(this.node, makeDatas(datas, colors), layout, config);
-    var plotThing = this.node;
-    this.handleResize = function() {
-      Plotly.Plots.resize(plotThing);
+    this.handleResize = () => {
+      Plotly.Plots.resize(this.node);
     }
     window.addEventListener('sidebar', this.handleResize);
   };
