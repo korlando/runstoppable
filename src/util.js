@@ -5,7 +5,10 @@ import * as menuActions from './actions/menuActions';
 import store from './store/store';
 import runColors from './constants/runColors';
 
+const toggleEvent = new Event("sidebar");
+
 export const toggleSidebar = () => {
+  setTimeout(function(){window.dispatchEvent(toggleEvent); }, 300);
   store.dispatch(sidebarActions.toggleSidebar());
 };
 

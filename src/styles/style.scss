@@ -99,6 +99,27 @@ h1 {
     top: 14px;
     left: 0;
   }
+  &.transform-x {
+    transition: transform 0.2s, background .3s 0s ease;
+    background: transparent;
+    &:active {
+      transition: 0;
+      background: rgba(0,0,0,.1);
+    }
+    .line {
+      transition: top .3s ease, transform .3s .3s ease;
+      top: 8px;
+    }
+    .line:nth-child(2) {
+      transform: scale(0);
+    }
+    .line:nth-child(1) {
+      transform: rotate(45deg);
+    }
+    .line:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+  }
 }
 
 .page-container {
@@ -215,4 +236,12 @@ h1 {
   .menu-icon {
     transform: translateY(4px);
   }
+}
+
+.btn:disabled {
+  cursor: default !important;
+}
+
+.graph {
+  overflow: hidden;
 }

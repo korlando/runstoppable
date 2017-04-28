@@ -33,6 +33,15 @@ export default class DataChart extends Component {
   componentDidMount() {
     const { datas, layout, colors } = this.props;
     renderNewPlot(this.node, makeDatas(datas, colors), layout, config);
+    var plotThing = this.node;
+    this.handleResize = function() {
+      Plotly.Plots.resize(plotThing);
+    }
+    window.addEventListener('sidebar', this.handleResize);
+  };
+  
+  componentWillUnmount() {
+    window.removeEventListener('sidebar', this.handleResize);
   };
 
   componentWillReceiveProps(nextProps) {
@@ -44,6 +53,6 @@ export default class DataChart extends Component {
   };
 
   render() {
-    return <div ref={div => this.node = div}></div>;
+    return <div className="graph" ref={div => this.node = div}></div>;
   };
 };
