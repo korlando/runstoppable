@@ -14,7 +14,6 @@ import CompareRunsPage from './CompareRunsPage';
 import runData from '../data/runData';
 
 const history = createHistory();
-
 const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
 
 const mapStateToProps = (state) => {
@@ -46,12 +45,28 @@ export default class App extends Component {
         parsedRun.start = moment(run.date, 'YYYY_MM_DD_HH_mm_ss');
       }
       
+      var prevValue = null;
       run.checkpoints.forEach((checkpoint, i) => {
         // skip over units object
         if(i%2 !== 0) {
           const parsedCheckpoint = {};
           Object.keys(checkpoint).forEach((cKey) => {
-            parsedCheckpoint[cKey] = Number.parseFloat(checkpoint[cKey]);
+            var keyValue = Number.parseFloat(checkpoint[cKey]);
+            if (cKey == "heartRate") {
+                if (prevValue == null) {
+                    prevValue = keyValue;
+                }
+                const delta = Math.abs(keyValue - prevValue);
+                if (keyValue == 0 || delta > 5) {
+                    parsedCheckpoint[cKey] = null;
+                }
+                else {
+                    prevValue = keyValue;
+                    parsedCheckpoint[cKey] = keyValue;
+                }
+            } else {
+              parsedCheckpoint[cKey] = keyValue;
+            }
           });
           parsedRun.checkpoints.push(parsedCheckpoint);
         }
