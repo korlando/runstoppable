@@ -7,6 +7,7 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
+import MultiAvg from './MultiAvg';
 
 const colors = ['#2196F3','#86c5f9','#0961aa','#1a1aff'];
 const color = colors[0];
@@ -28,12 +29,24 @@ const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
     key: 'pace'
   });
+  const avgData = props.runIds.reduce((obj, id) => {
+    const avg = getAvgRunData(state, {
+      key: 'pace',
+      runId: id
+    });
+    return {
+      total: obj.total + avg,
+      avgPaces: [...obj.avgPaces, {
+        avg, id
+      }]
+    };
+  }, { total: 0, avgPaces: [] });
+  
   return {
     datas: getXYRunDatas(state, props),
-    avgPace: getAvgRunData(state, {
-      key: 'pace',
-      runId: props.runIds[0] //TO DO: FIX THIS
-    })
+    avgPaces: avgData.avgPaces,
+    avgPace: Math.round(avgData.total / props.runIds.length * 100) / 100,
+    runMap: state.run.runMap
   };
 };
 
@@ -44,7 +57,7 @@ export default class PaceChart extends Component {
   };
 
   render() {
-    const { avgPace } = this.props;
+    const { avgPace, avgPaces } = this.props;
     
     return (
       <div>
@@ -62,6 +75,9 @@ export default class PaceChart extends Component {
           datas={this.props.datas}
           layout={layout}
           colors={colors}/>
+        { avgPaces.length > 1 &&
+          <MultiAvg avgData={avgPaces} text="Avg. Pace:"/>
+        }
       </div>
     );
   };

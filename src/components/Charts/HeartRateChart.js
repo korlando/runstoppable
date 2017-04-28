@@ -7,6 +7,7 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
+import MultiAvg from './MultiAvg';
 
 const colors = ['#D32F2F','#e48181','#931f1f','#ff471a'];
 const color = colors[0];
@@ -28,12 +29,28 @@ const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
     key: 'heartRate'
   });
+  const avgData = props.runIds.reduce((obj, id) => {
+    const avg = getAvgRunData(state, {
+      key: 'heartRate',
+      runId: id
+    });
+    let numValid = obj.numValid;
+    if(avg !== null) {
+      numValid += 1
+    }
+    return {
+      total: obj.total + avg,
+      avgHeartRates: [...obj.avgHeartRates, {
+        avg: avg === null ? 'Missing Data' : avg, id
+      }],
+      numValid
+    };
+  }, { total: 0, avgHeartRates: [], numValid: 0 });
+
   return {
     datas: getXYRunDatas(state, props),
-    avgHeartRate: getAvgRunData(state, {
-      key: 'heartRate',
-      runId: props.runIds[0] //TO DO: FIX THIS
-    })
+    avgHeartRates: avgData.avgHeartRates,
+    avgHeartRate: Math.round(avgData.total / avgData.numValid * 100) / 100
   };
 };
 
@@ -44,24 +61,34 @@ export default class HeartRateChart extends Component {
   };
 
   render() {
-    const { avgHeartRate } = this.props;
+    const { avgHeartRate, avgHeartRates } = this.props;
+    const invalidStat = Number.isNaN(avgHeartRate) || avgHeartRate === null;
     
     return (
       <div>
-        <div className="flexbox align-items-baseline">
+        <div className="flexbox align-items-baseline"
+          style={{ paddingBottom: '5px' }}>
           <h4 className="flex1 flexbox align-items-center"
             style={{ margin: '0', color }}>
             <i className="material-icons">favorite</i>
             <span style={{ marginLeft: '6px'}}>Heart Rate</span>
           </h4>
-          <div className="text-light"
-            style={{ marginRight: '6px' }}>Average</div>
-          <BigStat stat={avgHeartRate} units="beats/min"/>
+          { !invalidStat &&
+            <div className="text-light"
+              style={{ marginRight: '6px' }}>Average</div>
+          }
+          { invalidStat ?
+            <BigStat stat="Missing Data"/> : 
+            <BigStat stat={avgHeartRate} units="beats/min"/>
+          }
         </div>
         <DataChart
           datas={this.props.datas}
           layout={layout}
           colors={colors}/>
+        { avgHeartRates.length > 1 &&
+          <MultiAvg avgData={avgHeartRates} text="Avg. Heart Rate:"/>
+        }
       </div>
     );
   };

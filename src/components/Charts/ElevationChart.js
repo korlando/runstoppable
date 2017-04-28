@@ -7,6 +7,7 @@ import getAvgRunData from '../../selectors/getAvgRunData';
 
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
+import MultiAvg from './MultiAvg';
 
 const colors = ['#FFA000','#ffc766','#b37100','#ffcc00'];
 const color = colors[0];
@@ -28,12 +29,23 @@ const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
     key: 'elevation'
   });
+  const avgData = props.runIds.reduce((obj, id) => {
+    const avg = getAvgRunData(state, {
+      key: 'elevation',
+      runId: id
+    });
+    return {
+      total: obj.total + avg,
+      avgElevations: [...obj.avgElevations, {
+        avg, id
+      }]
+    };
+  }, { total: 0, avgElevations: [] });
+
   return {
     datas: getXYRunDatas(state, props),
-    avgElevation: getAvgRunData(state, {
-      key: 'elevation',
-      runId: props.runIds[0] //TO DO: FIX THIS
-    })
+    avgElevations: avgData.avgElevations,
+    avgElevation: Math.round(avgData.total / props.runIds.length * 100) / 100
   };
 };
 
@@ -44,7 +56,7 @@ export default class ElevationChart extends Component {
   };
 
   render() {
-    const { avgElevation } = this.props;
+    const { avgElevation, avgElevations } = this.props;
     
     return (
       <div>
@@ -62,6 +74,9 @@ export default class ElevationChart extends Component {
           datas={this.props.datas}
           layout={layout}
           colors={colors}/>
+        { avgElevations.length > 1 &&
+          <MultiAvg avgData={avgElevations} text="Avg. Elevation:"/>
+        }
       </div>
     );
   };
