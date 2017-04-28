@@ -9,6 +9,7 @@ const makeDatas = (datas, colors) =>
     y: data.y,
     name: data.name,
     type: 'scatter',
+    connectgaps: true,
     line: {
       color: datas.length == 1 ? colors[index % colors.length] : runColors[index % runColors.length]
     }
@@ -16,10 +17,10 @@ const makeDatas = (datas, colors) =>
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
 const config = {
-  modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
+  modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d',
   'zoomIn2d', 'zoomOut2d', 'toggleSpikelines',
   'hoverClosestCartesian', 'hoverCompareCartesian'],
-  displaylogo: false, 
+  displaylogo: false,
   displayModeBar: true,
   showTips: false
 };
@@ -32,6 +33,14 @@ export default class DataChart extends Component {
   componentDidMount() {
     const { datas, layout, colors } = this.props;
     renderNewPlot(this.node, makeDatas(datas, colors), layout, config);
+    this.handleResize = () => {
+      Plotly.Plots.resize(this.node);
+    }
+    window.addEventListener('sidebar', this.handleResize);
+  };
+  
+  componentWillUnmount() {
+    window.removeEventListener('sidebar', this.handleResize);
   };
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +52,6 @@ export default class DataChart extends Component {
   };
 
   render() {
-    return <div ref={div => this.node = div}></div>;
+    return <div className="graph" ref={div => this.node = div}></div>;
   };
 };
