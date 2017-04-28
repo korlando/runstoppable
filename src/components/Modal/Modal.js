@@ -32,7 +32,7 @@ export default withRouter(
         <div className="modal-custom" onClick={e => e.stopPropagation()}>
           <div className="modal-top flexbox align-items-center">
             <h2 className="flex1">Select runs to compare</h2>
-            <div className="flex0">
+            <div className="flex0" style={{paddingRight: '12px'}}>
               <Checkbox
                 checked={allChecked}
                 onCheckChange={(checked) => {

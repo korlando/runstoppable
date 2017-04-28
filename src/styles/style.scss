@@ -39,9 +39,6 @@ h1 {
   background: $lightestGrey;
   width: 50px;
   height: 50px;
-  right: 25px;
-  top: 25px;
-  margin-right: 1rem;
   cursor: pointer;
   .check {
     display: none;
@@ -50,6 +47,7 @@ h1 {
   }
   &.checked {
     background: $blue;
+    border-color: darken($blue, 5%);
     .check {
       display: inline;
     }
@@ -131,8 +129,12 @@ h1 {
 
 .run-box {
   margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid transparent;
   &:hover {
     background-color: $lightestGrey;
+    border-color: darken($lightestGrey, 3%);
   }
   .preview-map {
     width: 300px;
@@ -151,6 +153,10 @@ h1 {
   }
   .date {
     font-size: 18px;
+  }
+  &.checked {
+    border-color: $blue;
+    background-color: lighten($blue, 40%);
   }
 }
 

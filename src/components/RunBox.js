@@ -19,7 +19,14 @@ class RunBoxInner extends Component {
             onCheckChange } = this.props;
 
     return (
-      <div className="run-box flexbox">
+      <div className={`run-box flexbox${checked ? ' checked' : ''}`}
+        style={{ cursor: checkable ? 'pointer' : 'default' }}
+        onClick={(e) => {
+          if(checkable && onCheckChange) {
+            const val = this.checkBox.toggle();
+            onCheckChange(val);
+          }
+        }}>
         <div className={`preview-map text-center${checkable ? ' small' : ''}`}
           ref={node => this.map = node}></div>
         <div className="flex1">
@@ -29,7 +36,10 @@ class RunBoxInner extends Component {
         </div>
         
         { checkable &&
-          <Checkbox checked={checked} onCheckChange={onCheckChange}/>
+          <Checkbox
+            checked={checked}
+            onCheckChange={onCheckChange}
+            ref={node => this.checkBox = node}/>
         }
       </div>
     );
