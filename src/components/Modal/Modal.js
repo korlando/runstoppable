@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import getSortedRunsByStart from '../../selectors/getSortedRunsByStart';
 import RunBox from '../RunBox';
 import Checkbox from '../Checkbox';
+import CloseButton from '../CloseButton';
 
 const mapStateToProps = (state) => {
   return {
@@ -33,22 +34,26 @@ export default withRouter(
         <div className="modal-custom" onClick={e => e.stopPropagation()}>
           <div className="modal-top">
             <div className="flexbox align-items-center">
-              <h2 className="flex1">Select runs to compare</h2>
+              <div className="flex1">
+                <h2 className="flex1">Select runs to compare</h2>
+                <div>Choose up to {maxRuns} runs to compare on one screen.</div>
+              </div>
               <div className="flex0" style={{paddingRight: '12px'}}>
-                <Checkbox
-                  checked={allChecked}
-                  onCheckChange={(checked) => {
-                    const newCheckedRuns = checked ?
-                      runs.reduce((arr, run) => [...arr, run.id], []) :
-                      [];
-                    this.setState({
-                      allChecked: checked,
-                      checkedRuns: newCheckedRuns
-                    });
-                  }}/>
+                <button type="button"
+                  style={{
+                    border: 'none',
+                    background: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
+                    color: '#747e95',
+                    width: '50px',
+                    height: '50px'
+                  }}
+                  onClick={toggleModal}>
+                  <i className="material-icons" style={{fontSize: '50px'}}>clear</i>
+                </button>
               </div>
             </div>
-            <div>Choose up to {maxRuns} runs to compare on one screen.</div>
           </div>
           <div className="modal-scroll-view">
             { runs.map((run) => {
