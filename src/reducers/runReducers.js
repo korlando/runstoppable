@@ -1,7 +1,8 @@
 const defaultState = {
   runMap: {},
   allRunsSort: '-start',
-  index: 0
+  index: 0,
+  maxRuns: 5
 };
 
 export default (state = defaultState, action) => {

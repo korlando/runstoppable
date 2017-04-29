@@ -9,7 +9,8 @@ import Checkbox from '../Checkbox';
 
 const mapStateToProps = (state) => {
   return {
-    runs: getSortedRunsByStart(state)
+    runs: getSortedRunsByStart(state),
+    maxRuns: state.run.maxRuns
   };
 };
 
@@ -25,26 +26,29 @@ export default withRouter(
     };
 
     render() {
-      const { runs, history } = this.props;
+      const { runs, history, maxRuns } = this.props;
       const { checkedRuns, allChecked } = this.state;
 
       return (
         <div className="modal-custom" onClick={e => e.stopPropagation()}>
-          <div className="modal-top flexbox align-items-center">
-            <h2 className="flex1">Select runs to compare</h2>
-            <div className="flex0" style={{paddingRight: '12px'}}>
-              <Checkbox
-                checked={allChecked}
-                onCheckChange={(checked) => {
-                  const newCheckedRuns = checked ?
-                    runs.reduce((arr, run) => [...arr, run.id], []) :
-                    [];
-                  this.setState({
-                    allChecked: checked,
-                    checkedRuns: newCheckedRuns
-                  });
-                }}/>
+          <div className="modal-top">
+            <div className="flexbox align-items-center">
+              <h2 className="flex1">Select runs to compare</h2>
+              <div className="flex0" style={{paddingRight: '12px'}}>
+                <Checkbox
+                  checked={allChecked}
+                  onCheckChange={(checked) => {
+                    const newCheckedRuns = checked ?
+                      runs.reduce((arr, run) => [...arr, run.id], []) :
+                      [];
+                    this.setState({
+                      allChecked: checked,
+                      checkedRuns: newCheckedRuns
+                    });
+                  }}/>
+              </div>
             </div>
+            <div>Choose up to {maxRuns} runs to compare on one screen.</div>
           </div>
           <div className="modal-scroll-view">
             { runs.map((run) => {
@@ -71,13 +75,15 @@ export default withRouter(
           </div>
           <div className="modal-footer">
             <button className="btn btn-primary"
-              disabled={checkedRuns.length < 2}
-              onClick={ function(){
+              disabled={checkedRuns.length < 2 || checkedRuns.length > maxRuns}
+              onClick={() => {
                 toggleModal();
-                var linkTo = checkedRuns.reduce((str, id, index) => str + (index == 0 ? "" : ",") + id , "/compare/");
-                history.push(linkTo); }
-              }>Compare</button>
-            <button className="btn btn-default" onClick={ toggleModal }>Cancel</button>
+                const linkTo = checkedRuns.reduce((str, id, index) => str + (index == 0 ? "" : ",") + id , "/compare/");
+                history.push(linkTo);
+              }}>
+              Compare {checkedRuns.length} Run{checkedRuns.length !== 1 && 's'}
+            </button>
+            <button className="btn btn-default" onClick={toggleModal}>Cancel</button>
           </div>
         </div>
       );
