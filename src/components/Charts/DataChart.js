@@ -37,10 +37,12 @@ export default class DataChart extends Component {
       Plotly.Plots.resize(this.node);
     }
     window.addEventListener('sidebar', this.handleResize);
+    window.addEventListener('resize', this.handleResize);
   };
   
   componentWillUnmount() {
     window.removeEventListener('sidebar', this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
   };
 
   componentWillReceiveProps(nextProps) {

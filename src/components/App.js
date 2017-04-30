@@ -10,6 +10,7 @@ import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';
 import CompareRunsPage from './CompareRunsPage';
 import ProfilePage from './ProfilePage';
+import TrendsPage from './TrendsPage';
 
 import { dispatchAddBulkRuns,
          closeAllMenus,
@@ -68,6 +69,7 @@ export default class App extends Component {
             <Route exact path="/compare"/>
             <Route path="/compare/:runIds" component={CompareRunsPage}/>
             <Route path="/profile" component={ProfilePage}/>
+            <Route path="/trends" component={TrendsPage}/>
 
             <RunsPage/>
           </div>

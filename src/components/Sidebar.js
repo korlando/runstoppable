@@ -115,6 +115,12 @@ class Sidebar extends Component {
               </Link>
             </Dropzone>
 
+            <Link to="/trends" className={`flexbox align-items-center
+              ${pathname === '/trends' ? ' active' : ''}`}>
+              <i className="material-icons md-48">show_chart</i>
+              <span className="text">Trends</span>
+            </Link>
+
           </div>
         </div>
       </div>
