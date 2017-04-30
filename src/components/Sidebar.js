@@ -4,8 +4,9 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 
-import { toggleModal, toggleSidebar } from '../util'
+import { toggleModal, setModal, toggleSidebar } from '../util'
 import CloseButton from './CloseButton';
+import modalTypes from '../constants/modalTypes';
 
 const mapStateToProps = (state) => {
   return {
@@ -76,6 +77,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
+                setModal(modalTypes.compare);
                 toggleModal();
               }}
               className="flexbox align-items-center">
