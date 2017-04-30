@@ -63,7 +63,13 @@ class Sidebar extends Component {
           </div>
           <div className="links">
           
-            <Link to="/profile" className="flexbox align-items-center"
+            <Link to="" 
+              onClick={e => {
+                  e.preventDefault();
+                  setModal(modalTypes.settings);
+                  toggleModal();
+                }}
+              className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
               <img src={photo}
                 style={{ borderRadius: '50%' }}

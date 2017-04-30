@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 
 import Sidebar from './Sidebar';
-import ModalWrapper from './Modal/ModalWrapper';
+import ModalWrapper from './Modals/ModalWrapper';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';

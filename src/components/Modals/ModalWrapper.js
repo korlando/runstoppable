@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toggleModal } from '../../util'
-import Modal from './Modal';
+import CompareModal from './CompareModal';
+import SettingsModal from './SettingsModal';
 import modalTypes from '../../constants/modalTypes';
 
 const mapStateToProps = (state) => {
@@ -20,7 +21,7 @@ export default class ModalWrapper extends Component {
   getModalFromType(type) {
     switch (type){
         case modalTypes.compare:
-          return <Modal/>
+          return <CompareModal/>
         case modalTypes.settings:
           return <SettingsModal/>
       }
