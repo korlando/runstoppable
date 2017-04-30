@@ -12,6 +12,10 @@ export const toggleSidebar = () => {
   store.dispatch(sidebarActions.toggleSidebar());
 };
 
+export const setModal = (modalType) => {
+  store.dispatch(modalActions.setModal(modalType));
+}
+
 export const toggleModal = () => {
   store.dispatch(modalActions.toggleModal());
 };
