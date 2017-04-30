@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { dispatchAddBulkRuns,
-         closeAllMenus } from '../util';
 import createHistory from 'history/createBrowserHistory';
 import moment from 'moment';
+
 import Sidebar from './Sidebar';
 import ModalWrapper from './Modal/ModalWrapper';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
 import SingleRunPage from './SingleRunPage';
 import CompareRunsPage from './CompareRunsPage';
+import ProfilePage from './ProfilePage';
+
+import { dispatchAddBulkRuns,
+         closeAllMenus } from '../util';
 import runData from '../data/runData';
 
 const history = createHistory();
@@ -122,6 +125,7 @@ export default class App extends Component {
             <Route path="/runs/:runId" component={SingleRunPage}/>
             <Route exact path="/compare"/>
             <Route path="/compare/:runIds" component={CompareRunsPage}/>
+            <Route path="/profile" component={ProfilePage}/>
 
             <RunsPage/>
           </div>

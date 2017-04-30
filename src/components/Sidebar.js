@@ -34,7 +34,7 @@ class Sidebar extends Component {
           </div>
           <div className="links">
           
-            <Link to="/" className="flexbox align-items-center"
+            <Link to="/profile" className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
               <img src={photo}
                 style={{ borderRadius: '50%' }}
