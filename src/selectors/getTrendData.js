@@ -93,6 +93,9 @@ export default createSelector(
         default:
           y = clusterTotal;
       }
+
+      // round to 2 decimals
+      y = Math.round(y * 100) / 100;
       data.x.push(x);
       data.y.push(y);
     }

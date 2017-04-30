@@ -4,22 +4,26 @@ import TrendChart from './Charts/TrendChart';
 
 const metrics = [{
   key: 'pace',
-  title: 'Pace',
+  title: 'Average Pace',
+  units: 'km/m',
   color: '#2196F3',
   icon: 'directions_run'
 }, {
   key: 'heartRate',
-  title: 'Heart Rate',
+  title: 'Average Heart Rate',
+  units: 'beats/min',
   color: '#D32F2F',
   icon: 'favorite'
 }, {
   key: 'elevation',
-  title: 'Elevation',
+  title: 'Average Elevation',
+  units: 'm',
   color: '#FFA000',
   icon: 'terrain'
 }, {
   key: 'distance',
-  title: 'Distance',
+  title: 'Total Distance',
+  units: 'km',
   color: '#43A047',
   icon: 'timeline'
 }];
@@ -36,15 +40,13 @@ export default class TrendsPage extends Component {
         { metrics.map((metric) => {
           const clusterType = (metric.key === 'distance') ?
             'total' : 'average';
-          const chartTitle = (metric.key === 'distance') ?
-            'Total Distance' : 'Average ' + metric.title;
           return (
             <TrendChart
               key={metric.key}
-              chartTitle={chartTitle}
+              chartTitle={metric.title}
               icon={metric.icon}
               xTitle="Date"
-              yTitle={metric.title}
+              yTitle={`${metric.title} (${metric.units})`}
               metric={metric.key}
               clusterType={clusterType}
               color={metric.color}/>
