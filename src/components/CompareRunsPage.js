@@ -73,7 +73,7 @@ class CompareRunsPage extends Component {
           })}
         </div>
 
-        <div className="row">
+        <div className="row" style={{marginBottom: '16px'}}>
           <div className="col-12">
             <div ref={node => this.map = node}
               style={{
@@ -84,12 +84,12 @@ class CompareRunsPage extends Component {
         </div>
 
         <div className="row">
-          <div className="col-sm-6">
+          <div className="col-sm-6" style={{paddingRight: '8px'}}>
             <div className="chart-container">
               <PaceChart runIds={activeRunIds}/>
             </div>
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
             <div className="chart-container">
               <HeartRateChart runIds={activeRunIds}/>
             </div>
@@ -97,12 +97,12 @@ class CompareRunsPage extends Component {
         </div>
 
         <div className="row">
-          <div className="col-sm-6">
+          <div className="col-sm-6" style={{paddingRight: '8px'}}>
             <div className="chart-container">
               <ElevationChart runIds={activeRunIds}/>
             </div>
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
             <div className="chart-container">
               <DistanceChart runIds={activeRunIds}/>
             </div>
