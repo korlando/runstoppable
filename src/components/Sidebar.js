@@ -4,7 +4,11 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 
-import { toggleModal, setModal, toggleSidebar } from '../util'
+import { toggleModal,
+         setModal,
+         toggleSidebar,
+         parseRun,
+         dispatchAddBulkRuns } from '../util'
 import CloseButton from './CloseButton';
 import modalTypes from '../constants/modalTypes';
 
@@ -33,7 +37,13 @@ class Sidebar extends Component {
     const fr = new FileReader();
     fr.readAsText(files[0]);
     fr.onload = (e) => {
-      const run = JSON.parse(e.target.result);
+      try {
+        const run = JSON.parse(e.target.result);
+        const parsedRun = parseRun(run);
+        dispatchAddBulkRuns({ parsedRun });
+      } catch(e) {
+
+      }
     };
   };
 
