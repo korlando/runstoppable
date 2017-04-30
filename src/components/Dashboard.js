@@ -23,7 +23,7 @@ export default class Dashboard extends Component {
     const { mostRecentRun } = this.props;
     
     return (
-      <div className="page-container">
+      <div className="container-fluid page-container">
         <h1 className="text-center">RUNSTOPPABLE</h1>
         <DashStats/>
         { mostRecentRun &&
