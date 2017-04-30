@@ -27,6 +27,9 @@ export default class ProfilePage extends Component {
               marginBottom: '20px'
             }}/>
           <h2>{user.name}</h2>
+          {/* TODO: hook up button with settings modal*/}
+          <button type="button"
+            className="btn btn-primary btn-sm">Edit</button>
         </div>
       </div>
     );
