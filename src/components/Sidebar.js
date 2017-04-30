@@ -54,10 +54,12 @@ class Sidebar extends Component {
     return (
       <div className={`flex0 sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
-          <div className="flexbox" style={{ padding: '0 13px' }}>
+          <div className="flexbox align-items-center"
+            style={{ padding: '0 13px' }}>
             <CloseButton
               className="flex0"
               onClick={toggleSidebar}/>
+            <label className="app-name">Runstoppable</label>
           </div>
           <div className="links">
           
@@ -68,7 +70,7 @@ class Sidebar extends Component {
                 height="36"
                 width="36"></img>
               <span className="text"
-                style={{ fontWeight: '700', whiteSpace: 'nowrap' }}>{name}</span>
+                style={{ whiteSpace: 'nowrap', marginLeft: '8px' }}>{name}</span>
             </Link>
 
             <Link to="/" className={`flexbox align-items-center
