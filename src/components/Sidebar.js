@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import Dropzone from 'react-dropzone';
+
 import { toggleModal, toggleSidebar } from '../util'
 import CloseButton from './CloseButton';
 
@@ -18,6 +20,20 @@ export default withRouter(
 class Sidebar extends Component {
   constructor(props) {
     super(props);
+
+    this.handleDrop = this.handleDrop.bind(this);
+  };
+
+  handleDrop(files) {
+    if(!files || !files[0]) {
+      return;
+    }
+    // http://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
+    const fr = new FileReader();
+    fr.readAsText(files[0]);
+    fr.onload = (e) => {
+      const run = JSON.parse(e.target.result);
+    };
   };
 
   render() {
@@ -66,6 +82,18 @@ class Sidebar extends Component {
               <i className="material-icons md-48">compare_arrows</i>
               <span className="text">Compare</span>
             </Link>
+
+            <Dropzone
+              style={{}}
+              accept="application/json"
+              onDrop={this.handleDrop}>
+              <Link to=""
+                className="flexbox align-items-center"
+                onClick={e => e.preventDefault()}>
+                <i className="material-icons md-48">publish</i>
+                <span className="text">Upload Run Data</span>
+              </Link>
+            </Dropzone>
 
           </div>
         </div>
