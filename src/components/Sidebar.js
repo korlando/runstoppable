@@ -8,7 +8,9 @@ import modalTypes from '../constants/modalTypes';
 
 const mapStateToProps = (state) => {
   return {
-    collapsed: state.sidebar.collapsed
+    collapsed: state.sidebar.collapsed,
+    name: state.user.name,
+    photo: state.user.photo
   };
 };
 
@@ -20,7 +22,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { collapsed, location } = this.props;
+    const { collapsed, location, name, photo } = this.props;
     const { pathname } = location;
 
     return (
@@ -33,12 +35,14 @@ class Sidebar extends Component {
           </div>
           <div className="links">
           
-            <Link to="/" className="flexbox align-items-center"
+            <Link to="/profile" className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
-              <img src="https://avatars.slack-edge.com/2017-03-24/158411923920_7614b17cc53af6223f1b_72.jpg"
-              style={{ borderRadius: '50%' }} height="36" width="36"></img>
+              <img src={photo}
+                style={{ borderRadius: '50%' }}
+                height="36"
+                width="36"></img>
               <span className="text"
-                style={{ fontWeight: '700', whiteSpace: 'nowrap' }}>Ron Stoppable</span>
+                style={{ fontWeight: '700', whiteSpace: 'nowrap' }}>{name}</span>
             </Link>
 
             <Link to="/" className={`flexbox align-items-center
