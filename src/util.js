@@ -113,7 +113,7 @@ export const parseRun = (run) => {
   const sVal = {
     "pace": {
       "prevValue": null,
-      "threshold": 4,
+      "threshold": 6,
       "unreal": 0,
     },
     "heartRate": {
@@ -135,17 +135,17 @@ export const parseRun = (run) => {
       Object.keys(checkpoint).forEach((cKey) => {
         var keyValue = Number.parseFloat(checkpoint[cKey]);
         if (plsSmooth.includes(cKey)) {
-            if (sVal[cKey].prevValue == null) {
-                sVal[cKey].prevValue = keyValue;
-            }
-            const delta = Math.abs(keyValue - sVal[cKey].prevValue);
-            if (keyValue < sVal[cKey].unreal || delta > sVal[cKey].threshold) {
-                parsedCheckpoint[cKey] = null;
-            }
-            else {
-                sVal[cKey].prevValue = keyValue;
-                parsedCheckpoint[cKey] = keyValue;
-            }
+          if (sVal[cKey].prevValue == null) {
+            sVal[cKey].prevValue = keyValue;
+          }
+          const delta = Math.abs(keyValue - sVal[cKey].prevValue);
+          if (keyValue < sVal[cKey].unreal || delta > sVal[cKey].threshold) {
+            parsedCheckpoint[cKey] = null;
+          }
+          else {
+            sVal[cKey].prevValue = keyValue;
+            parsedCheckpoint[cKey] = keyValue;
+          }
         } else {
           parsedCheckpoint[cKey] = keyValue;
         }
