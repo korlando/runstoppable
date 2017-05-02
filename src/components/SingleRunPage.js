@@ -23,13 +23,13 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true);
+      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true);
+      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
     }
   };
 
@@ -56,6 +56,10 @@ export default class SingleRunPage extends Component {
 
         <div className="row" style={{ marginBottom: '16px' }}>
           <div className="col-12">
+            <button ref={node => this.resetButton = node}
+              className="btn btn-default map-reset">
+              Reset View
+            </button>
             <div ref={node => this.map = node}
               style={{
                 width: '100%',

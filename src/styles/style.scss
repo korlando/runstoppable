@@ -255,3 +255,13 @@ button {
 .graph {
   overflow: hidden;
 }
+
+.map-reset {
+  background: #FFF !important;
+  position: absolute;
+  right: 62px;
+  bottom: 24px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}

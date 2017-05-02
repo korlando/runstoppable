@@ -30,14 +30,14 @@ class CompareRunsPage extends Component {
   };
 
   componentDidMount() {
-    if(this.map) {
-      renderRunPath(this.map, this.props.activeRuns, true, true);
+    if (this.map) {
+      renderRunPath(this.map, this.props.activeRuns, true, true, this.resetButton);
     }
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.activeRuns !== this.props.activeRuns) {
-      renderRunPath(this.map, this.props.activeRuns, true, true);
+    if (prevProps.activeRuns !== this.props.activeRuns) {
+      renderRunPath(this.map, this.props.activeRuns, true, true, this.resetButton);
     }
   };
 
@@ -75,11 +75,16 @@ class CompareRunsPage extends Component {
 
         <div className="row" style={{marginBottom: '16px'}}>
           <div className="col-12">
+            <button ref={node => this.resetButton = node}
+              className="btn btn-default map-reset">
+              Reset View
+            </button>
             <div ref={node => this.map = node}
               style={{
                 width: '100%',
                 height: '200px'
-              }}></div>
+              }}>
+            </div>
           </div>
         </div>
 

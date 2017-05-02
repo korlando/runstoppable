@@ -52,7 +52,7 @@ export const renderNewPlot = (node, data, layout) => {
   Plotly.newPlot(node, data, layout, config);
 };
 
-export const renderRunPath = (node, runs, draggable, zoomControl) => {
+export const renderRunPath = (node, runs, draggable, zoomControl, resetButton) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
     mapTypeId: 'terrain',
@@ -93,6 +93,15 @@ export const renderRunPath = (node, runs, draggable, zoomControl) => {
   });
 
   map.fitBounds(bounds);
+  
+  if (resetButton){
+    google.maps.event.addListenerOnce(map, "idle", function(){
+      resetButton.style.opacity = 1;
+    });
+    resetButton.addEventListener("click", function(){
+      map.fitBounds(bounds);
+    });
+  }
 };
 
 const JSON_DATE_REGEX = /^\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$/;
