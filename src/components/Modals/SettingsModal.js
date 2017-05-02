@@ -62,8 +62,7 @@ export default withRouter(
 
             </div>
           </div>
-        
-
+      
         {this.state.currentTab === 'general' && <GeneralSettings/>}
         {this.state.currentTab === 'profile' && <ProfileSettings/>}
         {this.state.currentTab === 'account' && <AccountSettings/>}

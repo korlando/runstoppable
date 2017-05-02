@@ -25,9 +25,7 @@ export default withRouter(
               <button className="btn btn-default" onClick={console.log("mile")}>mile</button>
               <button className="btn btn-primary" onClick={console.log("km")}>km</button>
             </div>
-          </div>
 
-          <div className="flexbox align-items-center">
             <div className="flex0" style={{padding: '0 50px 0 20px'}}>
               <h3 style={{marginBottom: '0px'}}>Time zone:</h3>
             </div>
