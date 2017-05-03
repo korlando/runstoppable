@@ -61,7 +61,7 @@ class RunsPage extends Component {
             margin: '0',
             padding: '0',
             marginRight: '20px'
-          }}>RUNS</h1>
+          }}>Runs</h1>
           <div className="flex0 relative"
             onClick={e => toggleMenu('AllRunsSortMenu', e)}>
             <div className="hover-blue flexbox align-items-center">
