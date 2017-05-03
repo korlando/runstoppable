@@ -61,7 +61,8 @@ export default class PaceChart extends Component {
     
     return (
       <div>
-        <div className="flexbox align-items-baseline">
+        <div className="flexbox align-items-baseline"
+          style={{ paddingBottom: '5px' }}>
           <h4 className="flex1 flexbox align-items-center"
             style={{ margin: '0', color }}>
             <i className="material-icons">directions_run</i>
