@@ -4,18 +4,6 @@ import DataChart from './DataChart';
 import getTrendData from '../../selectors/getTrendData';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
-const layout = {
-  autosize: true,
-  height: 400,
-  xaxis: {
-    autorange: true
-  },
-  yaxis: {
-    fixedrange: true
-  },
-  margin: defaultChartMargin
-};
-
 const mapStateToProps = (state, ownProps) => {
   return {
     xyData: getTrendData(state, ownProps)
@@ -35,11 +23,22 @@ export default class TrendChart extends Component {
             color,
             icon,
             chartTitle } = this.props;
-    layout.xaxis.title = xTitle;
-    layout.yaxis.title = yTitle;
+    const layout = {
+      autosize: true,
+      height: 400,
+      xaxis: {
+        autorange: true,
+        title: xTitle
+      },
+      yaxis: {
+        fixedrange: true,
+        title: yTitle
+      },
+      margin: defaultChartMargin
+    };
 
     return (
-      <div>
+      <div className="chart-container" style={{ marginBottom: '15px' }}>
         <h2 className="flexbox align-items-center" style={{ color }}>
           <i className="material-icons" style={{ fontSize: '40px' }}>{icon}</i>
           <span style={{
