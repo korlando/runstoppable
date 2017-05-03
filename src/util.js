@@ -52,6 +52,22 @@ export const renderNewPlot = (node, data, layout) => {
   Plotly.newPlot(node, data, layout, config);
 };
 
+const getAdjustedBounds = (run, node) => {
+  const { centroid, bounds } = run;
+  const { x, y } = centroid;
+  const latMag = Math.abs(bounds.north - y);
+  const lonMag = Math.abs(bounds.east - x);
+  
+  const latScale = Math.log(node.clientHeight) * (0.5 + latMag) / 4;
+  const lonScale = Math.log(node.clientWidth) * (0.5 + lonMag) / 4;
+  return {
+    north: y + latScale * latMag,
+    south: y - latScale * latMag,
+    east: x + lonScale * lonMag,
+    west: x - lonScale * lonMag
+  };
+};
+
 export const renderRunPath = (node, runs, draggable, zoomControl, resetButton) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
@@ -76,9 +92,9 @@ export const renderRunPath = (node, runs, draggable, zoomControl, resetButton) =
     }, []);
 
     // http://stackoverflow.com/questions/15719951/google-maps-api-v3-auto-center-map-with-multiple-markers
-    coordinates.forEach((coord) => {
-      bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
-    });
+    const adjustedBounds = getAdjustedBounds(run, node);
+    bounds.extend(new google.maps.LatLng(adjustedBounds.north, adjustedBounds.west));
+    bounds.extend(new google.maps.LatLng(adjustedBounds.south, adjustedBounds.east));
 
     const path = new google.maps.Polyline({
       path: coordinates,
@@ -135,33 +151,57 @@ export const parseRun = (run) => {
       "threshold": 4,
       "unreal": -100000,
     }
-  }
+  };
+  const bounds = {
+    north: -Infinity,
+    south: Infinity,
+    east: -Infinity,
+    west: Infinity
+  };
 
   run.checkpoints.forEach((checkpoint, i) => {
-    // skip over units object
-    if(i%2 !== 0) {
-      const parsedCheckpoint = {};
-      Object.keys(checkpoint).forEach((cKey) => {
-        var keyValue = Number.parseFloat(checkpoint[cKey]);
-        if (plsSmooth.includes(cKey)) {
-          if (sVal[cKey].prevValue == null) {
-            sVal[cKey].prevValue = keyValue;
-          }
-          const delta = Math.abs(keyValue - sVal[cKey].prevValue);
-          if (keyValue < sVal[cKey].unreal || delta > sVal[cKey].threshold) {
-            parsedCheckpoint[cKey] = null;
-          }
-          else {
-            sVal[cKey].prevValue = keyValue;
-            parsedCheckpoint[cKey] = keyValue;
-          }
-        } else {
+    // skip over units object @ index 0
+    // skip every other checkpoint
+    if(i % 2 === 0) return;
+
+    // update bounding box
+    const { lat, lon } = checkpoint;
+    if(lat !== undefined &&
+       lon !== undefined) {
+      bounds.north = Math.max(bounds.north, Number(lat));
+      bounds.south = Math.min(bounds.south, Number(lat));
+      bounds.east = Math.max(bounds.east, Number(lon));
+      bounds.west = Math.min(bounds.west, Number(lon));
+    }
+
+    const parsedCheckpoint = {};
+    Object.keys(checkpoint).forEach((cKey) => {
+      var keyValue = Number.parseFloat(checkpoint[cKey]);
+      if (plsSmooth.includes(cKey)) {
+        if (sVal[cKey].prevValue == null) {
+          sVal[cKey].prevValue = keyValue;
+        }
+        const delta = Math.abs(keyValue - sVal[cKey].prevValue);
+        if (keyValue < sVal[cKey].unreal || delta > sVal[cKey].threshold) {
+          parsedCheckpoint[cKey] = null;
+        }
+        else {
+          sVal[cKey].prevValue = keyValue;
           parsedCheckpoint[cKey] = keyValue;
         }
-      });
-      parsedRun.checkpoints.push(parsedCheckpoint);
-    }
+      } else {
+        parsedCheckpoint[cKey] = keyValue;
+      }
+    });
+    
+    parsedRun.checkpoints.push(parsedCheckpoint);
   });
+
+  parsedRun.bounds = bounds;
+  parsedRun.centroid = {
+    x: (bounds.east + bounds.west) / 2,
+    y: (bounds.north + bounds.south) / 2
+  };;
 
   return parsedRun;
 };
