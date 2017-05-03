@@ -52,6 +52,10 @@ export const renderNewPlot = (node, data, layout) => {
   Plotly.newPlot(node, data, layout, config);
 };
 
+export const setTraceVisibility = (chart, traceId, visible) => {
+  Plotly.restyle(chart, { visible: visible }, traceId);
+};
+
 const getAdjustedBounds = (run, node) => {
   const { centroid, bounds } = run;
   const { x, y } = centroid;

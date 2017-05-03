@@ -5,6 +5,7 @@ import defaultChartMargin from '../../constants/defaultChartMargin';
 import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
 
+import { setTraceVisibility } from '../../util';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 import MultiAvg from './MultiAvg';
@@ -22,7 +23,8 @@ const layout = {
     title: 'Elevation (m)',
     fixedrange: true
   },
-  margin: defaultChartMargin
+  margin: defaultChartMargin,
+  showlegend: false
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -73,9 +75,14 @@ export default class ElevationChart extends Component {
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          colors={colors}/>
+          colors={colors}
+          ref={(node) => { this.chart = node; }}/>
         { avgElevations.length > 1 &&
-          <MultiAvg avgData={avgElevations} text="Avg. Elevation:"/>
+          <MultiAvg avgData={avgElevations}
+            text="Avg. Elevation:"
+            onRunToggled={(traceId, visible) => {
+              setTraceVisibility(this.chart.node, traceId, visible);
+            }}/>
         }
       </div>
     );
