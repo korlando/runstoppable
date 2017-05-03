@@ -63,7 +63,7 @@ class Sidebar extends Component {
           </div>
           <div className="links">
           
-            <Link to="" 
+            <Link to=""
               onClick={e => {
                   e.preventDefault();
                   setModal(modalTypes.settings);
@@ -110,7 +110,7 @@ class Sidebar extends Component {
               <Link to=""
                 className="flexbox align-items-center"
                 onClick={e => e.preventDefault()}>
-                <i className="material-icons md-48">publish</i>
+                <i className="material-icons md-48">file_upload</i>
                 <span className="text">Upload Run Data</span>
               </Link>
             </Dropzone>
