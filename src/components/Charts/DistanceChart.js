@@ -5,6 +5,7 @@ import defaultChartMargin from '../../constants/defaultChartMargin';
 import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getTotalRunData from '../../selectors/getTotalRunData';
 
+import { setTraceVisibility } from '../../util';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 import MultiAvg from './MultiAvg';
@@ -22,7 +23,8 @@ const layout = {
     title: 'Distance (km)',
     fixedrange: true
   },
-  margin: defaultChartMargin
+  margin: defaultChartMargin,
+  showlegend: false
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -75,9 +77,14 @@ export default class DistanceChart extends Component {
         <DataChart
           datas={datas}
           layout={layout}
-          colors={colors}/>
+          colors={colors}
+          ref={(node) => { this.chart = node; }}/>
         { totalDistances.length > 1 &&
-          <MultiAvg avgData={totalDistances} text="Total Dist:"/>
+          <MultiAvg avgData={totalDistances} 
+            text="Total Dist:"
+            onRunToggled={(traceId, visible) => {
+              setTraceVisibility(this.chart.node, traceId, visible);
+            }}/>
         }
       </div>
     );
