@@ -9,11 +9,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 h1 {
-  color: $darkGrey;
+  color: $grey;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
   margin-bottom: 15px;
   font-weight: 300;
+}
+h2, h3 {
+  color: $grey;
 }
 button {
   cursor: pointer;
@@ -215,7 +218,7 @@ button {
 
 .chart-container {
   padding: 20px 20px 0 20px;
-  border: 2px solid $lighterGrey;
+  border: 2px solid darken($lightestGrey, 5%);
   border-radius: 3px;
   background: white;
 }
@@ -223,17 +226,11 @@ button {
   padding-left: 15px;
   padding-right: 15px;
 }
-.col, .col-6 {
-  margin: 0 10px 10px 20px;
-  padding: 20px 20px 0 20px;
-  border: 2px solid $lighterGrey;
-  border-radius: 3px;
-}
 
 .dashboard-stats {
   margin: 10px 0 40px 0;
   padding: 10px 10px 10px 10px;
-  border: 2px solid $lighterGrey;
+  border: 2px solid darken($lightestGrey, 5%);
   border-radius: 3px;
   background: white;
 }
