@@ -35,6 +35,7 @@ export default class MultiAvg extends Component {
                 marginBottom: '5px',
                 padding: '1px 5px',
                 fontSize: '14px',
+                cursor: 'pointer',
                 backgroundColor: visible ? runColors[i % runColors.length] : "#a7abbb"
               }}
               onClick={() => {
