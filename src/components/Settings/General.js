@@ -26,13 +26,7 @@ export default withRouter(
               <button className="btn btn-primary" onClick={console.log("km")}>km</button>
             </div>
 
-            <div className="flex0" style={{padding: '0 50px 0 20px'}}>
-              <h3 style={{marginBottom: '0px'}}>Time zone:</h3>
-            </div>
-
-            <div className="flex0">
-              <button className="btn btn-primary" onClick={console.log("time")}>EST (UTC -5:00)</button>
-            </div>
+            
           </div>
         </div>
       );

@@ -5,7 +5,7 @@ import BigStat from './BigStat';
 
 const mapStateToProps = (state) => {
   return {
-
+    user: state.user
   };
 };
 
@@ -16,11 +16,10 @@ export default class DashStats extends Component {
   };
 
   render() {
-    const {  } = this.props;
-    
+
     return (
       <div>
-        <h3>Welcome back, Ron</h3>
+        <h3>Welcome back, {this.props.user.name.split(" ",1)}</h3>
         <div className="dashboard-stats">
           <table className="dash-stats-table" style={{fontSize: '24px'}}>
             <thead>
