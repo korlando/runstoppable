@@ -125,6 +125,17 @@ class Sidebar extends Component {
               <span className="text">Trends</span>
             </Link>
 
+            <Link to=""
+              onClick={e => {
+                e.preventDefault();
+                setModal(modalTypes.settings);
+                toggleModal();
+              }}
+              className="flexbox align-items-center">
+              <i className="material-icons md-48">settings</i>
+              <span className="text">Settings</span>
+            </Link>
+
           </div>
         </div>
       </div>
