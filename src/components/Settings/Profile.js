@@ -53,6 +53,12 @@ export default withRouter(
       }
 
     render() {
+      let profileChangesMade = true;
+      Object.keys(this.state).forEach( (key) => 
+        {if (this.state[key] != this.props.user[key]) {
+          profileChangesMade = false;
+          }
+        })
 
       return (
         <div>
@@ -99,8 +105,8 @@ export default withRouter(
                   style={{margin: '0 20px 0 0'}}>Saved!</p>
                 }
                 <button className="btn btn-success"
-                disabled={this.state == this.props.user && this.state.saved}
-                onClick={this.handleEditProfile, this.handleSaveConfirm}>Save</button>
+                disabled={profileChangesMade}
+                onClick={() => {this.handleEditProfile(); this.handleSaveConfirm();}}>Save</button>
               </div>
 
             </div>
