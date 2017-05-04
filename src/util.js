@@ -34,6 +34,10 @@ export const editAllRunsSort = (sort) => {
   store.dispatch(runActions.editAllRunsSort(sort));
 };
 
+export const dispatchEditRun = (changes, runId) => {
+  store.dispatch(runActions.editRun(changes, runId));
+};
+
 export const toggleMenu = (name, e, preventCloseAll) => {
   if(e) e.stopPropagation();
   store.dispatch(menuActions.toggleMenu(name, preventCloseAll));

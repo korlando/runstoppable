@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
   return {
     collapsed: state.sidebar.collapsed,
     name: state.user.name,
-    photo: state.user.photo
+    photo: state.user.photo,
+    runIndex: state.run.index
   };
 };
 
@@ -41,6 +42,8 @@ class Sidebar extends Component {
         const run = JSON.parse(e.target.result);
         const parsedRun = parseRun(run);
         dispatchAddBulkRuns({ parsedRun });
+        const { runIndex, history } = this.props;
+        history.push(`/runs/${runIndex - 1}`);
       } catch(e) {
 
       }
@@ -52,7 +55,8 @@ class Sidebar extends Component {
     const { pathname } = location;
 
     return (
-      <div className={`flex0 sidebar-wrapper${collapsed ? ' collapsed' : ''}`}>
+      <div className={`flex0 sidebar-wrapper
+        ${collapsed ? ' collapsed' : ''}`}>
         <div className="sidebar">
           <div className="flexbox align-items-center"
             style={{ padding: '0 13px' }}>
@@ -65,10 +69,10 @@ class Sidebar extends Component {
           
             <Link to=""
               onClick={e => {
-                  e.preventDefault();
-                  setModal(modalTypes.settings);
-                  toggleModal();
-                }}
+                e.preventDefault();
+                setModal(modalTypes.settings);
+                toggleModal();
+              }}
               className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
               <img src={photo}

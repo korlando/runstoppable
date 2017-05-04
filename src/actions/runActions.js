@@ -11,3 +11,11 @@ export const editAllRunsSort = (allRunsSort) => {
     allRunsSort
   };
 };
+
+export const editRun = (changes, runId) => {
+  return {
+    type: 'EDIT_RUN',
+    changes,
+    runId
+  };
+};

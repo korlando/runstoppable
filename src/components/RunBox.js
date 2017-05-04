@@ -35,8 +35,8 @@ class RunBoxInner extends Component {
         <div className={`preview-map text-center${checkable ? ' small' : ''}`}
           ref={node => this.map = node}></div>
         <div className="flex1">
-          <div className="flex0">
-            <label className="location">{run.location}</label> </div>
+          <label className="run-name">{run.name}</label>
+          <div className="location">{run.location}</div>
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
         </div>
         

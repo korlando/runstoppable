@@ -17,7 +17,8 @@ export default (state = defaultState, action) => {
         // give each run an ID
         // NOTE: remove for production-ready data from DB
         newRuns[index] = Object.assign({}, action.runs[key], {
-          id: index
+          id: index,
+          name: `Run ${index}`
         });
         index += 1;
       });
@@ -29,6 +30,13 @@ export default (state = defaultState, action) => {
     case 'EDIT_ALL_RUNS_SORT':
       return Object.assign({}, state, {
         allRunsSort: action.allRunsSort
+      });
+
+    case 'EDIT_RUN':
+      return Object.assign({}, state, {
+        runMap: Object.assign({}, state.runMap, {
+          [action.runId]: Object.assign({}, state.runMap[action.runId], action.changes)
+        })
       });
 
     default:
