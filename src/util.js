@@ -3,6 +3,7 @@ import * as sidebarActions from './actions/sidebarActions';
 import * as modalActions from './actions/modalActions';
 import * as runActions from './actions/runActions';
 import * as menuActions from './actions/menuActions';
+import * as userActions from './actions/userActions';
 import store from './store/store';
 import runColors from './constants/runColors';
 
@@ -19,6 +20,10 @@ export const setModal = (modalType) => {
 
 export const toggleModal = () => {
   store.dispatch(modalActions.toggleModal());
+};
+
+export const editProfile = (changes) => {
+  store.dispatch(userActions.editProfile(changes));
 };
 
 export const dispatchAddBulkRuns = (runs) => {
