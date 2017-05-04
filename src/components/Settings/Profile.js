@@ -29,6 +29,8 @@ export default withRouter(
 
         this.handleEditProfile = this.handleEditProfile.bind(this);
         this.handleSaveConfirm = this.handleSaveConfirm.bind(this);
+        this.handleMouseOverPhoto = this.handleMouseOverPhoto.bind(this);
+        this.handleMouseOutPhoto = this.handleMouseOutPhoto.bind(this);
       }
 
       handleEditProfile(event) {
@@ -52,6 +54,15 @@ export default withRouter(
         }, 1000);
       }
 
+      handleMouseOverPhoto(event) {
+
+      }
+
+      handleMouseOutPhoto(event) {
+
+      }
+
+
     render() {
       let profileChangesMade = true;
       Object.keys(this.state).forEach( (key) => 
@@ -64,12 +75,17 @@ export default withRouter(
         <div>
           
           <div className="flexbox" style={{padding: '20px 0 0 20px', flexWrap:'wrap'}}>
-            
             <div className="flex0" style={{padding: '0 50px 0 0'}}>
-              <img src="https://avatars.slack-edge.com/2017-03-24/158411923920_7614b17cc53af6223f1b_72.jpg" 
-              style={{width:"200", borderRadius: "50%", marginBottom: "20px"}}></img>
-            </div>
+              <div className="container">
+                <img src={this.state.photo} 
+                style={{width:"200", borderRadius: "50%", marginBottom: "20px"}}>
+                </img>
 
+                <div className="overlay" style={{width:"190px", height:"220px", margin:"0 0 10px 20px"}}>
+                  <i className="material-icons md-48">add_a_photo</i>
+                </div>
+              </div>
+            </div>
             <div className="col-sm-5" style={{padding: '0 20px 0 0'}}>
               <div className="input-group">
                 <span className="input-group-addon">Name</span>
