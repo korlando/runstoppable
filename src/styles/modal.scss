@@ -73,26 +73,42 @@
   opacity:1;
 }
 
-#box {
+.avatar {
   width:200px;
   height:200px;
-  position: relative;
-  margin: 0 0 0 0;
-  overflow:hidden;
 }
 
-#overlay {
-  background:rgba(0,0,0,.75);
-  text-align:center;
-  opacity:0;
-  width: 200px;
-  height: 200px;
-  cursor: pointer;
-  -webkit-transition: opacity .25s ease;
-  -moz-transition: opacity .25s ease;
+.image-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
-#box:hover #overlay {
-  opacity:1;
+.image-container .after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    display:none;
+}
+
+.image-container:hover .after{
+    cursor: pointer;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .6);
 }
 

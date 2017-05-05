@@ -59,12 +59,10 @@ export default withRouter(
         } 
         const reader = new FileReader();
         const image = file[0];
-
-        reader.onloadend = () => {
+        reader.onload = () => {
           this.setState({
             photo: reader.result
           });
-          handleEditProfile();
         }
         reader.readAsDataURL(image);
       };
@@ -77,11 +75,6 @@ export default withRouter(
           }
         })
 
-      const avatarStyle = {
-        background: 'url(' + this.state.photo + ')',
-        backgroundSize: 'cover'
-      };
-
       return (
         <div>
           
@@ -92,15 +85,11 @@ export default withRouter(
                 style={{}}
                 accept="image/*"
                 onDrop={this.handleDrop}>
-                <div id="box" style={avatarStyle}>
-                  <div id="overlay" className="flexbox align-items-center justify-content-center"
-                  onClick={console.log("change")}>
-                    <span id="overlay-text" 
-                    style={{fontSize: '20px',
-                    color:'rgba(255,255,255,.85)'}}>
-                    Change photo<br/>
-                    <i className="material-icons md-48">add_a_photo</i>
-                    </span>
+                <div className="image-container">
+                  <img className="avatar" src={this.state.photo}></img>
+                  <div className="after">
+                      Change photo<br/>
+                      <i className="material-icons md-48">add_a_photo</i>
                   </div>
                 </div>
               </Dropzone>
