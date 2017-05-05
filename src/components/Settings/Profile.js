@@ -29,8 +29,7 @@ export default withRouter(
 
         this.handleEditProfile = this.handleEditProfile.bind(this);
         this.handleSaveConfirm = this.handleSaveConfirm.bind(this);
-        this.handleMouseOverPhoto = this.handleMouseOverPhoto.bind(this);
-        this.handleMouseOutPhoto = this.handleMouseOutPhoto.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
       }
 
       handleEditProfile(event) {
@@ -54,14 +53,21 @@ export default withRouter(
         }, 1000);
       }
 
-      handleMouseOverPhoto(event) {
+      handleDrop(file) {
+        if(!file || !file[0]) {
+          return;
+        } 
+        const reader = new FileReader();
+        const image = file[0];
 
-      }
-
-      handleMouseOutPhoto(event) {
-
-      }
-
+        reader.onloadend = () => {
+          this.setState({
+            photo: reader.result
+          });
+          handleEditProfile();
+        }
+        reader.readAsDataURL(image);
+      };
 
     render() {
       let profileChangesMade = true;
@@ -82,17 +88,22 @@ export default withRouter(
           <div className="flexbox" style={{padding: '20px 0 0 20px', flexWrap:'wrap'}}>
             <div className="flex0" style={{padding: '0 50px 0 0'}}>
               
-              <div id="box" style={avatarStyle} >
-                <div id="overlay" onClick={console.log("change")}>
-                  <span id="overlay-text" 
-                  style={{fontSize: '20px',
-                  color:'rgba(255,255,255,.85)',
-                  whiteSpace:'pre-wrap'}}>
-                  Change photo  
-                  <i className="material-icons md-48">add_a_photo</i>
-                  </span>
+              <Dropzone
+                style={{}}
+                accept="image/*"
+                onDrop={this.handleDrop}>
+                <div id="box" style={avatarStyle}>
+                  <div id="overlay" className="flexbox align-items-center justify-content-center"
+                  onClick={console.log("change")}>
+                    <span id="overlay-text" 
+                    style={{fontSize: '20px',
+                    color:'rgba(255,255,255,.85)'}}>
+                    Change photo<br/>
+                    <i className="material-icons md-48">add_a_photo</i>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Dropzone>
 
             </div>
             <div className="col-sm-5" style={{padding: '0 20px 0 0'}}>
