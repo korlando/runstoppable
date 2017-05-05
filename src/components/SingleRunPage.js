@@ -23,13 +23,13 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
+      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
+      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
     }
   };
 

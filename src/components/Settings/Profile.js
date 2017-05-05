@@ -71,20 +71,29 @@ export default withRouter(
           }
         })
 
+      const avatarStyle = {
+        background: 'url(' + this.state.photo + ')',
+        backgroundSize: 'cover'
+      };
+
       return (
         <div>
           
           <div className="flexbox" style={{padding: '20px 0 0 20px', flexWrap:'wrap'}}>
             <div className="flex0" style={{padding: '0 50px 0 0'}}>
-              <div className="container">
-                <img src={this.state.photo} 
-                style={{width:"200", borderRadius: "50%", marginBottom: "20px"}}>
-                </img>
-
-                <div className="overlay" style={{width:"190px", height:"220px", margin:"0 0 10px 20px"}}>
+              
+              <div id="box" style={avatarStyle} >
+                <div id="overlay" onClick={console.log("change")}>
+                  <span id="overlay-text" 
+                  style={{fontSize: '20px',
+                  color:'rgba(255,255,255,.85)',
+                  whiteSpace:'pre-wrap'}}>
+                  Change photo  
                   <i className="material-icons md-48">add_a_photo</i>
+                  </span>
                 </div>
               </div>
+
             </div>
             <div className="col-sm-5" style={{padding: '0 20px 0 0'}}>
               <div className="input-group">

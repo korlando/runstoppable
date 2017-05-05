@@ -81,14 +81,14 @@ const getAdjustedBounds = (run, node) => {
   };
 };
 
-export const renderRunPath = (node, runs, draggable, zoomControl, resetButton) => {
+export const renderRunPath = (node, runs, draggable, zoomControl, scrollwheel, resetButton) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
     mapTypeId: 'terrain',
     disableDefaultUI: true,
     draggable: draggable || false, 
     zoomControl: zoomControl || false, 
-    scrollwheel: false, 
+    scrollwheel: scrollwheel || false, 
     disableDoubleClickZoom: true,
     clickableIcons: false
   });

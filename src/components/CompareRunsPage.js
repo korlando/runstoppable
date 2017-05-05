@@ -31,13 +31,13 @@ class CompareRunsPage extends Component {
 
   componentDidMount() {
     if (this.map) {
-      renderRunPath(this.map, this.props.activeRuns, true, true, this.resetButton);
+      renderRunPath(this.map, this.props.activeRuns, true, true, true, this.resetButton);
     }
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeRuns !== this.props.activeRuns) {
-      renderRunPath(this.map, this.props.activeRuns, true, true, this.resetButton);
+      renderRunPath(this.map, this.props.activeRuns, true, true, true, this.resetButton);
     }
   };
 
