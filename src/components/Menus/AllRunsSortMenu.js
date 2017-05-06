@@ -56,7 +56,6 @@ export default class AllRunsSortMenu extends Component {
     return (
       <div className="popover-menu all-runs-sort-menu"
         onClick={e => e.stopPropagation()}>
-        <label>Sort By</label>
         <div className="item-list">
           { sortOptions.map((option, i) => {
             return (
