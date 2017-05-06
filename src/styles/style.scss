@@ -168,6 +168,20 @@ button {
   .date {
     font-size: 18px;
   }
+  .edit-btn {
+    background: none;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .edit-container {
+    cursor: pointer;
+    &:hover {
+      .edit-btn {
+        opacity: 1;
+      }
+    }
+  }
   &.checked {
     border-color: $blue;
     background-color: lighten($blue, 40%);
