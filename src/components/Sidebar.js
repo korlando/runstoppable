@@ -70,8 +70,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                setModal(modalTypes.settings);
-                toggleModal();
+                toggleModal(modalTypes.settings);
               }}
               className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
@@ -99,8 +98,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                setModal(modalTypes.compare);
-                toggleModal();
+                toggleModal(modalTypes.compare);
               }}
               className="flexbox align-items-center">
               <i className="material-icons md-48">compare_arrows</i>
@@ -128,8 +126,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                setModal(modalTypes.settings);
-                toggleModal();
+                toggleModal(modalTypes.settings);
               }}
               className="flexbox align-items-center">
               <i className="material-icons md-48">settings</i>

@@ -12,27 +12,28 @@ const mapStateToProps = (state) => {
   };
 };
 
+const getModalFromType = (type) => {
+  switch(type) {
+    case modalTypes.compare:
+      return <CompareModal/>;
+    case modalTypes.settings:
+      return <SettingsModal/>;
+  }
+};
+
 @connect(mapStateToProps)
 export default class ModalWrapper extends Component {
   constructor(props) {
     super(props);
   };
-  
-  getModalFromType(type) {
-    switch (type){
-        case modalTypes.compare:
-          return <CompareModal/>
-        case modalTypes.settings:
-          return <SettingsModal/>
-      }
-  }
 
   render() {
     const { show, type } = this.props;
     
     return (
-      <div className={`modal-wrapper flexbox align-items-center justify-content-center${show ? ' show' : ''}`} onClick={toggleModal}>
-        { this.getModalFromType(type) }
+      <div className={`modal-wrapper flexbox align-items-center justify-content-center${show ? ' show' : ''}`}
+        onClick={toggleModal}>
+        {getModalFromType(type)}
       </div>
     );
   };

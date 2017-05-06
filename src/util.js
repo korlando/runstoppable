@@ -18,8 +18,8 @@ export const setModal = (modalType) => {
   store.dispatch(modalActions.setModal(modalType));
 }
 
-export const toggleModal = () => {
-  store.dispatch(modalActions.toggleModal());
+export const toggleModal = (modalType) => {
+  store.dispatch(modalActions.toggleModal(modalType));
 };
 
 export const editProfile = (changes) => {
