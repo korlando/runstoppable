@@ -60,7 +60,7 @@ class RunsPage extends Component {
 
     return (
       <div className="page-container" style={style}>
-        <div className="flexbox align-items-baseline"
+        <div className="flexbox align-items-center"
           style={{ marginBottom: '10px' }}>
           <h1 className="flex0" style={{
             border: 'none',
@@ -69,6 +69,7 @@ class RunsPage extends Component {
             marginRight: '20px'
           }}>Runs</h1>
           <div className="flex0 relative"
+            style={{ marginTop: '16px', marginRight: '15px' }}
             onClick={e => toggleMenu('AllRunsSortMenu', e)}>
             <label className="text-light"
               style={{
@@ -90,7 +91,7 @@ class RunsPage extends Component {
               <AllRunsSortMenu/>
             }
           </div>
-          <div className="flex0 align-items-top">
+          <div className="flex0">
             <div className="input-group">
               <input type="text"
                 className="form-control"
