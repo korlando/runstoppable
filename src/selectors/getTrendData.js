@@ -1,17 +1,22 @@
 import { createSelector } from 'reselect';
+import { roundTo } from '../util';
 import moment from 'moment';
 
 const getMetric = (state, props) => props.metric;
 const getDayClusterSize = (state, props) => props.dayClusterSize;
 const getClusterType = (state, props) => props.clusterType;
+const getUpper = (state, props) => props.upper;
+const getLower = (state, props) => props.lower;
 const getRunMap = (state) => state.run.runMap;
 
 export default createSelector(
   [ getMetric,
     getDayClusterSize,
     getClusterType,
+    getUpper,
+    getLower,
     getRunMap ],
-  (metric, dayClusterSize, clusterType, runMap) => {
+  (metric, dayClusterSize, clusterType, upper, lower, runMap) => {
     const data = {
       x: [], y: []
     };
@@ -45,8 +50,18 @@ export default createSelector(
     });
 
     // create cutoff dates
-    const startDate = runMap[runIds[0]].start.clone().endOf('day');
-    const endDate = runMap[runIds[runIds.length - 1]].start.clone().startOf('day');
+    let startDate, endDate;
+    if(upper) {
+      startDate = upper;
+    } else {
+      startDate = runMap[runIds[0]].start.clone().endOf('day');
+    }
+    if(lower) {
+      endDate = lower;
+    } else {
+      endDate = runMap[runIds[runIds.length - 1]].start.clone().startOf('day');
+    }
+    
     const dateCutoffs = [startDate];
     let numDays = dayClusterSize;
     while(dateCutoffs[dateCutoffs.length - 1].isAfter(endDate)) {
@@ -68,6 +83,8 @@ export default createSelector(
           if(metric === 'distance' && clusterType === 'total') {
             numPoints += 1;
             clusterTotal += run.checkpoints[run.checkpoints.length - 1].distance;
+          } else if(metric === 'time' && clusterType === 'total') {
+            clusterTotal += run.checkpoints[run.checkpoints.length - 1].seconds;
           } else {
             numPoints += run.checkpoints.length;
             clusterTotal += run.checkpoints.reduce((total, c) => {
@@ -95,7 +112,7 @@ export default createSelector(
       }
 
       // round to 2 decimals
-      y = Math.round(y * 100) / 100;
+      y = roundTo(y, 2);
       data.x.push(x);
       data.y.push(y);
     }

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   return (
-    <div>
+    <div className={props.className || ''}>
       <div className="flexbox align-items-baseline"
         style={{ lineHeight: '1' }}>
         <div style={{
