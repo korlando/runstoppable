@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { roundTo } from '../util';
 
 const getRunMap = (state) => state.run.runMap;
 const getRunIds = (state, props) => props.runIds;
@@ -14,8 +15,8 @@ export default createSelector(
 
       if(run) {
         run.checkpoints.forEach((c) => {
-          data.x.push(c.seconds / 60);
-          data.y.push(c[key]);
+          data.x.push(roundTo(c.seconds / 60, 2));
+          data.y.push(roundTo(c[key], 2));
         });
       }
       datas.push(data);
