@@ -62,20 +62,16 @@ class RunsPage extends Component {
       <div className="page-container" style={style}>
         <div className="flexbox align-items-center"
           style={{ marginBottom: '10px' }}>
-          <h1 className="flex0" style={{
+          <h1 className="flex0 m0 p0" style={{
             border: 'none',
-            margin: '0',
-            padding: '0',
             marginRight: '20px'
           }}>Runs</h1>
           <div className="flex0 relative"
             style={{ marginTop: '16px', marginRight: '15px' }}
             onClick={e => toggleMenu('AllRunsSortMenu', e)}>
-            <label className="text-light"
+            <label className="text-light fs12 absolute"
               style={{
-                fontSize: '12px',
                 marginBottom: '-3px',
-                position: 'absolute',
                 bottom: '100%',
                 left: '0'
               }}>
@@ -108,8 +104,8 @@ class RunsPage extends Component {
           leaveAnimation="fade"
           staggerDurationBy={10}>
           { runs.map((run) => {
-            if (filteredRuns.indexOf(run.id) == -1){
-              return <div key={run.id}><RunBox run={run}/></div>;
+            if(filteredRuns.indexOf(run.id) === -1) {
+              return <RunBox key={run.id} run={run}/>;
             }
           })}
         </FlipMove>

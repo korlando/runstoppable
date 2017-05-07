@@ -22,15 +22,12 @@ button {
   cursor: pointer;
 }
 
-.fs12 {
-  font-size: 12px;
-}
-.text-light {
-  color: $lightGrey;
-}
-.relative {
-  position: relative;
-}
+.fs12 { font-size: 12px; }
+.m0 { margin: 0; }
+.p0 { padding: 0; }
+.text-light { color: $lightGrey; }
+.relative { position: relative; }
+.absolute { position: absolute; }
 
 .hover-blue {
   cursor: pointer;
