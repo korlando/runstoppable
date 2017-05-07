@@ -85,7 +85,7 @@ class RunBoxInner extends Component {
                e.preventDefault();
                 this.saveName();
               }}>
-                <div className="input-group">
+                <div className="input-group input-group-sm">
                   <input
                     className="run-name form-control"
                     value={name}
@@ -113,8 +113,14 @@ class RunBoxInner extends Component {
               </form>
             }
           </div>
-          <div className="location">{run.location}</div>
-          <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
+          <div className="location flexbox align-items-center">
+            <i className="material-icons text-light">location_on</i>
+            {run.location}
+          </div>
+          <div className="date flexbox align-items-center">
+            <i className="material-icons text-light">access_time</i>
+            {run.start.format('MMMM D, YYYY, h:mm a')}
+          </div>
           <div className="flexbox flex-wrap metrics">
             { metrics.map((metric) => {
               const value = this.props[metric.key];

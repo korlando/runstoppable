@@ -164,12 +164,6 @@ button {
     font-size: 24px;
     margin: 0;
   }
-  .location {
-    font-size: 18px;
-  }
-  .date {
-    font-size: 18px;
-  }
   .edit-btn {
     background: none;
     border: none;
@@ -184,11 +178,11 @@ button {
       }
     }
   }
-  .metrics {
+  .material-icons {
+    margin-right: 5px;
+  }
+  .location, .date, .metrics {
     padding-top: 5px;
-    .material-icons {
-      margin-right: 5px;
-    }
   }
   &.checked {
     border-color: $blue;
