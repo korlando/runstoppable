@@ -13,12 +13,16 @@ export default (state = defaultState, action) => {
     case 'ADD_BULK_RUNS':
       newRuns = {};
       index = state.index;
-      Object.keys(action.runs).forEach((key) => {
+      const runArray = Array.isArray(action.runs) ?
+        action.runs : Object.keys(action.runs).reduce((arr, key) => [...arr, action.runs[key]], []);
+      const thisYear = new Date().getFullYear();
+      runArray.forEach((run) => {
         // give each run an ID
         // NOTE: remove for production-ready data from DB
-        newRuns[index] = Object.assign({}, action.runs[key], {
+        newRuns[index] = Object.assign({}, run, {
           id: index,
-          name: `Run ${index}`
+          name: `Run ${index}`,
+          startFormatted: (run.start.year() !== thisYear) ? run.start.format('MMMM D, YYYY, h:mm a') : run.start.format('MMM D, h:mm a')
         });
         index += 1;
       });

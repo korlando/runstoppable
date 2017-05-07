@@ -1,4 +1,5 @@
 export default {
   compare: "COMPARE",
-  settings: "SETTINGS"
+  settings: "SETTINGS",
+  upload: 'UPLOAD',
 };

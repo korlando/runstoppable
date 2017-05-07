@@ -18,8 +18,8 @@ export const setModal = (modalType) => {
   store.dispatch(modalActions.setModal(modalType));
 }
 
-export const toggleModal = () => {
-  store.dispatch(modalActions.toggleModal());
+export const toggleModal = (modalType) => {
+  store.dispatch(modalActions.toggleModal(modalType));
 };
 
 export const editProfile = (changes) => {
@@ -81,14 +81,14 @@ const getAdjustedBounds = (run, node) => {
   };
 };
 
-export const renderRunPath = (node, runs, draggable, zoomControl, resetButton) => {
+export const renderRunPath = (node, runs, draggable, zoomControl, scrollwheel, resetButton) => {
   // https://developers.google.com/maps/documentation/javascript/examples/control-disableUI
   const map = new google.maps.Map(node, {
     mapTypeId: 'terrain',
     disableDefaultUI: true,
     draggable: draggable || false, 
     zoomControl: zoomControl || false, 
-    scrollwheel: false, 
+    scrollwheel: scrollwheel || false, 
     disableDoubleClickZoom: true,
     clickableIcons: false
   });
@@ -247,3 +247,8 @@ export const filterRuns = (runs, query) => {
     return arr;
   }, []);
 }
+
+export const roundTo = (num, decimals) => {
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
+};

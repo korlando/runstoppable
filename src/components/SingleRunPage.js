@@ -23,25 +23,19 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
+      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, this.resetButton);
+      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
     }
   };
 
   render() {
     const { run, avgPace, avgHeartRate } = this.props;
     if(!run) return null;
-
-    let dateFormat = 'MMM D, h:mm a';
-    const thisYear = new Date().getFullYear();
-    if(run.start.year() !== thisYear) {
-      dateFormat = 'MMM D, YYYY, h:mm a';
-    }
 
     return (
       <div className="page-container">
@@ -50,7 +44,7 @@ export default class SingleRunPage extends Component {
             {run.location}
           </h2>
           <h3 style={{color: '#747e95'}}>
-            {run.start.format(dateFormat)}
+            {run.startFormatted}
           </h3>
         </div>
 

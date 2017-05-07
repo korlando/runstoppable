@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleMenu, filterRuns } from '../util';
 import FlipMove from 'react-flip-move';
+
 import sortValueToName from '../constants/sortValueToName';
 import getSortedRuns from '../selectors/getSortedRuns';
 
@@ -49,6 +50,7 @@ class RunsPage extends Component {
     const { runs,
             location,
             sortValue,
+            reversed,
             showSortMenu } = this.props;
     const { filteredRuns } = this.state;
     const style = {};
@@ -68,17 +70,27 @@ class RunsPage extends Component {
           }}>Runs</h1>
           <div className="flex0 relative"
             onClick={e => toggleMenu('AllRunsSortMenu', e)}>
+            <label className="text-light"
+              style={{
+                fontSize: '12px',
+                marginBottom: '-3px',
+                position: 'absolute',
+                bottom: '100%',
+                left: '0'
+              }}>
+              Sort By
+            </label>
             <div className="hover-blue flexbox align-items-center">
-              <i className="material-icons">swap_vert</i>
               {sortValueToName[sortValue]}
+              <i className="material-icons">
+                {reversed ? 'arrow_downward' : 'arrow_upward'}
+              </i>
             </div>
             { showSortMenu &&
               <AllRunsSortMenu/>
             }
           </div>
-        </div>
-        <div>
-          <div className="flexbox align-items-center">
+          <div className="flex0 align-items-top">
             <div className="input-group">
               <input type="text"
                 className="form-control"

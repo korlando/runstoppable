@@ -2,52 +2,37 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone';
 
 import { toggleModal,
          setModal,
          toggleSidebar,
-         parseRun,
-         dispatchAddBulkRuns } from '../util'
-import CloseButton from './CloseButton';
+         editProfile } from '../util'
 import modalTypes from '../constants/modalTypes';
+import lf from '../lf';
+import CloseButton from './CloseButton';
 
 const mapStateToProps = (state) => {
   return {
     collapsed: state.sidebar.collapsed,
     name: state.user.name,
     photo: state.user.photo,
-    runIndex: state.run.index
   };
 };
 
-export default withRouter(
-@connect(mapStateToProps)
 class Sidebar extends Component {
   constructor(props) {
     super(props);
 
-    this.handleDrop = this.handleDrop.bind(this);
+    this.logout = this.logout.bind(this);
   };
 
-  handleDrop(files) {
-    if(!files || !files[0]) {
-      return;
-    }
-    // http://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
-    const fr = new FileReader();
-    fr.readAsText(files[0]);
-    fr.onload = (e) => {
-      try {
-        const run = JSON.parse(e.target.result);
-        const parsedRun = parseRun(run);
-        dispatchAddBulkRuns({ parsedRun });
-        const { runIndex, history } = this.props;
-        history.push(`/runs/${runIndex - 1}`);
-      } catch(e) {
+  logout() {
+    lf.removeItem('user')
+    .then(() => {
+      editProfile({ loggedIn: false });
+    }).catch((err) => {
 
-      }
-    };
+    });
   };
 
   render() {
@@ -70,8 +55,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                setModal(modalTypes.settings);
-                toggleModal();
+                toggleModal(modalTypes.settings);
               }}
               className="flexbox align-items-center"
               style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
@@ -99,25 +83,22 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                setModal(modalTypes.compare);
-                toggleModal();
+                toggleModal(modalTypes.compare);
               }}
               className="flexbox align-items-center">
               <i className="material-icons md-48">compare_arrows</i>
               <span className="text">Compare</span>
             </Link>
 
-            <Dropzone
-              style={{}}
-              accept="application/json"
-              onDrop={this.handleDrop}>
-              <Link to=""
-                className="flexbox align-items-center"
-                onClick={e => e.preventDefault()}>
-                <i className="material-icons md-48">file_upload</i>
-                <span className="text">Upload Run Data</span>
-              </Link>
-            </Dropzone>
+            <Link to=""
+              className="flexbox align-items-center"
+              onClick={e => {
+                e.preventDefault();
+                toggleModal(modalTypes.upload);
+              }}>
+              <i className="material-icons md-48">file_upload</i>
+              <span className="text">Upload Run Data</span>
+            </Link>
 
             <Link to="/trends" className={`flexbox align-items-center
               ${pathname === '/trends' ? ' active' : ''}`}>
@@ -125,9 +106,31 @@ class Sidebar extends Component {
               <span className="text">Trends</span>
             </Link>
 
+            <Link to=""
+              onClick={e => {
+                e.preventDefault();
+                toggleModal(modalTypes.settings);
+              }}
+              className="flexbox align-items-center">
+              <i className="material-icons md-48">settings</i>
+              <span className="text">Settings</span>
+            </Link>
+
+            <Link to=""
+              onClick={e => {
+                e.preventDefault();
+                this.logout();
+              }}
+              className="flexbox align-items-center">
+              <i className="material-icons md-48">person</i>
+              <span className="text">Log Out</span>
+            </Link>
+
           </div>
         </div>
       </div>
     );
   };
-});
+};
+
+export default withRouter(connect(mapStateToProps)(Sidebar));

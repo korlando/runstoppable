@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunDatas from '../../selectors/getXYRunDatas';
-import getTotalRunData from '../../selectors/getTotalRunData';
 
-import { setTraceVisibility } from '../../util';
+import { setTraceVisibility, roundTo } from '../../util';
 import DataChart from './DataChart';
 import BigStat from '../BigStat';
 import MultiAvg from './MultiAvg';
@@ -35,7 +34,7 @@ const mapStateToProps = (state, ownProps) => {
   const datas = getXYRunDatas(state, props);
   const avgData = props.runIds.reduce((obj, id) => {
     const run = runMap[id];
-    const total = run ? Math.round(run.checkpoints[run.checkpoints.length - 1].distance * 100) / 100 : 0;
+    const total = run ? roundTo(run.checkpoints[run.checkpoints.length - 1].distance, 2) : 0;
     return {
       total: obj.total + total,
       avgTotals: [...obj.avgTotals, {
@@ -46,9 +45,8 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     datas,
-    //totalDistance: datas.reduce((total, data) => total + Math.round(data.y[data.y.length - 1] * 100) / 100), 0);
     totalDistances: avgData.avgTotals,
-    totalDistance: Math.round(avgData.total * 100) / 100
+    totalDistance: roundTo(avgData.total, 2)
   };
 };
 

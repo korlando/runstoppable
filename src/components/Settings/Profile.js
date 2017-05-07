@@ -29,8 +29,7 @@ export default withRouter(
 
         this.handleEditProfile = this.handleEditProfile.bind(this);
         this.handleSaveConfirm = this.handleSaveConfirm.bind(this);
-        this.handleMouseOverPhoto = this.handleMouseOverPhoto.bind(this);
-        this.handleMouseOutPhoto = this.handleMouseOutPhoto.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
       }
 
       handleEditProfile(event) {
@@ -54,14 +53,19 @@ export default withRouter(
         }, 1000);
       }
 
-      handleMouseOverPhoto(event) {
-
-      }
-
-      handleMouseOutPhoto(event) {
-
-      }
-
+      handleDrop(file) {
+        if(!file || !file[0]) {
+          return;
+        } 
+        const reader = new FileReader();
+        const image = file[0];
+        reader.onload = () => {
+          this.setState({
+            photo: reader.result
+          });
+        }
+        reader.readAsDataURL(image);
+      };
 
     render() {
       let profileChangesMade = true;
@@ -76,15 +80,20 @@ export default withRouter(
           
           <div className="flexbox" style={{padding: '20px 0 0 20px', flexWrap:'wrap'}}>
             <div className="flex0" style={{padding: '0 50px 0 0'}}>
-              <div className="container">
-                <img src={this.state.photo} 
-                style={{width:"200", borderRadius: "50%", marginBottom: "20px"}}>
-                </img>
-
-                <div className="overlay" style={{width:"190px", height:"220px", margin:"0 0 10px 20px"}}>
-                  <i className="material-icons md-48">add_a_photo</i>
+              
+              <Dropzone
+                style={{}}
+                accept="image/*"
+                onDrop={this.handleDrop}>
+                <div className="image-container">
+                  <img className="avatar" src={this.state.photo}></img>
+                  <div className="after">
+                      Change photo<br/>
+                      <i className="material-icons md-48">add_a_photo</i>
+                  </div>
                 </div>
-              </div>
+              </Dropzone>
+
             </div>
             <div className="col-sm-5" style={{padding: '0 20px 0 0'}}>
               <div className="input-group">

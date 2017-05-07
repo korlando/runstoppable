@@ -15,9 +15,9 @@ export default withRouter(
     render() {
 
       return (
-        <div>
+        <div style={{padding: '0 0 0 20px'}}>
 
-          <div className="flexbox" style={{padding: '0 0 50px 20px'}}>
+          <div className="flexbox" style={{padding: '0 0 50px 0'}}>
               <div>
                 <div className="form-group">
                   <label for="usr">Email:</label>
@@ -30,14 +30,14 @@ export default withRouter(
               </div>
           </div>
 
-          <div className="flexbox" style={{padding: '0 0 0 20px'}}>
+          <div className="flexbox">
             <div className="form-group" >
               <label for="current-pwd">Current Password:</label>
               <input type="password" className="form-control" id="current-pwd"></input>
             </div>
           </div>
               
-          <div className="flexbox" style={{padding: '0 0 50px 20px'}}>
+          <div className="flexbox" style={{padding: '0 0 50px 0'}}>
             <div>
               <div className="form-group">
                 <label for="new-pwd">New Password:</label>
@@ -66,7 +66,7 @@ export default withRouter(
             </div>
           </div>
 
-          <div className="flexbox align-items-center" style={{padding: '0 0 0 20px'}}>
+          <div className="flexbox align-items-center">
             <button className="btn btn-default" onClick={console.log(" ")}>Delete Account</button>
           </div>
           
