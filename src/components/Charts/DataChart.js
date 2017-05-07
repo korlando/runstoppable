@@ -11,7 +11,7 @@ const makeDatas = (datas, color) =>
     type: 'scatter',
     connectgaps: true,
     line: {
-      color: datas.length == 1 ? color : runColors[i % runColors.length]
+      color: datas.length === 1 ? color : runColors[i % runColors.length]
     }
   }], []);
 

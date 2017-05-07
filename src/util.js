@@ -252,3 +252,7 @@ export const roundTo = (num, decimals) => {
   const factor = Math.pow(10, decimals);
   return Math.round(num * factor) / factor;
 };
+
+export const isBadStat = (stat) => {
+  return stat === null || Number.isNaN(stat);
+};

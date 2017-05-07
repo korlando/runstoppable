@@ -1,9 +1,10 @@
 import React from 'react';
 import BigStat from '../BigStat';
+import { isBadStat } from '../../util';
 
 export default (props) => {
   const { icon, color, title, statLabel, stat, units } = props;
-  const invalidStat = Number.isNaN(stat) || stat === null;
+  const invalidStat = isBadStat(stat);
   
   return (
     <div className="chart-header flexbox align-items-center"

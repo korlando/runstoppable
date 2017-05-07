@@ -66,31 +66,32 @@ class RunBoxInner extends Component {
         <div className="flex1">
           <div className="flexbox">
             <div className="flex1">
-              <div className="flexbox align-items-center"
-                onClick={e => e.stopPropagation()}>
+              <div className="flexbox align-items-center">
                 { !editingName &&
-                  <div className="flex1 flexbox edit-container"
-                    onClick={e => {
-                      e.stopPropagation();
-                      this.setState({ editingName: true });
-                      setTimeout(() => {
-                        if(this.nameInput) {
-                          this.nameInput.focus();
-                        }
-                      }, 100);
-                    }}>
+                  <div className="flex1 flexbox edit-container">
                     <label className="run-name flex0">{run.name}</label>
                     <button type="button"
-                      className="flex0 edit-btn">
+                      className="flex0 edit-btn"
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.setState({ editingName: true });
+                        setTimeout(() => {
+                          if(this.nameInput) {
+                            this.nameInput.focus();
+                          }
+                        }, 100);
+                      }}>
                       <i className="material-icons">mode_edit</i>
                     </button>
                   </div>
                 }
                 { editingName &&
-                  <form className="flex1" onSubmit={(e) => {
-                    e.preventDefault();
-                    this.saveName();
-                  }}>
+                  <form className="flex1"
+                    onClick={e => e.stopPropagation()}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      this.saveName();
+                    }}>
                     <div className="input-group input-group-sm">
                       <input
                         className="run-name form-control"
@@ -121,7 +122,10 @@ class RunBoxInner extends Component {
                 { !checkable &&
                   <div className={`flex0 run-star
                     ${run.starred ? ' starred' : ''}`}
-                    onClick={() => dispatchEditRun({starred: !run.starred}, run.id)}>
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatchEditRun({starred: !run.starred}, run.id);
+                    }}>
                     <i className="material-icons">
                       {run.starred ? 'star' : 'star_outline'}
                     </i>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { isBadStat } from '../../util';
 import runColors from '../../constants/runColors';
 
 const mapStateToProps = (state) => {
@@ -9,16 +11,16 @@ const mapStateToProps = (state) => {
 };
 
 @connect(mapStateToProps)
-export default class MultiAvg extends Component {
+export default class MultiStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hiddenRuns: []
-    }
+    };
   };
 
   render() {
-    const { runMap, avgData, text, onRunToggled } = this.props;
+    const { runMap, stats, text, onRunToggled } = this.props;
     const { hiddenRuns } = this.state;
 
     return (
@@ -27,24 +29,25 @@ export default class MultiAvg extends Component {
           <label className="flex1">Run</label>
           <label className="flex0">{text}</label>
         </div>
-        { avgData.map((obj, i) => {
+        { stats.map((obj, i) => {
           const run = runMap[obj.id];
           const visible = (hiddenRuns.indexOf(i) < 0);
+          const stat = isBadStat(obj.stat) ?
+            'Missing Data' : obj.stat;
+          
           return run ? (
             <div key={i}
-              className="flexbox"
+              className="flexbox br3 fs14"
               style={{
                 color: 'white',
-                borderRadius: '3px',
                 marginBottom: '5px',
                 padding: '1px 5px',
-                fontSize: '14px',
                 cursor: 'pointer',
                 backgroundColor: visible ? runColors[i % runColors.length] : "#a7abbb"
               }}
               onClick={() => {
                 onRunToggled(i, !visible);
-                if (visible) {
+                if(visible) {
                   this.setState({
                     hiddenRuns: [...hiddenRuns, i]
                   });
@@ -56,8 +59,10 @@ export default class MultiAvg extends Component {
                   });
                 }
               }}>
-              <div className="flex1">{run.location} {run.start.format('M/D/YY h:mm a')}</div>
-              <div className="flex0">{obj.avg}</div>
+              <div className="flex1">
+                {run.location} {run.start.format('M/D/YY h:mm a')}
+              </div>
+              <div className="flex0">{stat}</div>
             </div>
           ) : null;
         })}

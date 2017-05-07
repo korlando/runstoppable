@@ -29,13 +29,13 @@ export default class Dashboard extends Component {
           <div>
             <h3>Your most recent run</h3>
             
-            <div className="row">
-              <div className="col-sm-6" style={{paddingRight: '8px'}}>
+            <div className="row mb16">
+              <div className="col-sm-6 pr8">
                 <div className="chart-container">
                   <PaceChart runIds={[mostRecentRun.id]}/>
                 </div>
               </div>
-              <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+              <div className="col-sm-6 pl8">
                 <div className="chart-container">
                   <HeartRateChart runIds={[mostRecentRun.id]}/>
                 </div>
@@ -43,12 +43,12 @@ export default class Dashboard extends Component {
             </div>
 
             <div className="row">
-              <div className="col-sm-6" style={{paddingRight: '8px'}}>
+              <div className="col-sm-6 pr8">
                 <div className="chart-container">
                   <ElevationChart runIds={[mostRecentRun.id]}/>
                 </div>
               </div>
-              <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+              <div className="col-sm-6 pl8">
                 <div className="chart-container">
                   <DistanceChart runIds={[mostRecentRun.id]}/>
                 </div>
