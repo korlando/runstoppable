@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunDatas from '../../selectors/getXYRunDatas';
-
+import metrics from '../../constants/metrics';
 import { setTraceVisibility, roundTo } from '../../util';
+
 import DataChart from './DataChart';
-import BigStat from '../BigStat';
+import ChartHeader from './ChartHeader';
 import MultiAvg from './MultiAvg';
 
-const colors = ['#43A047','#2D6C30','#6FC373','#40FF00'];
-const color = colors[0];
+const KEY = 'distance';
+const metric = metrics.find(m => m.key === KEY);
+const { name, title, color, icon, units } = metric;
 const layout = {
   autosize: true,
   height: 400,
@@ -19,7 +21,7 @@ const layout = {
     title: 'Minutes after Start'
   },
   yaxis: {
-    title: 'Distance (km)',
+    title: `${name} (${units})`,
     fixedrange: true
   },
   margin: defaultChartMargin,
@@ -27,9 +29,7 @@ const layout = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const props = Object.assign({}, ownProps, {
-    key: 'distance'
-  });
+  const props = Object.assign({}, ownProps, { key: KEY });
   const runMap = state.run.runMap;
   const datas = getXYRunDatas(state, props);
   const avgData = props.runIds.reduce((obj, id) => {
@@ -61,25 +61,21 @@ export default class DistanceChart extends Component {
     
     return (
       <div>
-        <div className="flexbox align-items-baseline"
-          style={{ paddingBottom: '5px' }}>
-          <h4 className="flex1 flexbox align-items-center"
-            style={{ margin: '0', color }}>
-            <i className="material-icons">timeline</i>
-            <span style={{ marginLeft: '6px'}}>Cumulative Distance</span>
-          </h4>
-          <div className="text-light"
-            style={{ marginRight: '6px' }}>Total</div>
-          <BigStat stat={totalDistance} units="km"/>
-        </div>
+        <ChartHeader
+          icon={icon}
+          color={color}
+          title={name}
+          statLabel="Total"
+          stat={totalDistance}
+          units={units}/>
         <DataChart
           datas={datas}
           layout={layout}
-          colors={colors}
+          color={color}
           ref={(node) => { this.chart = node; }}/>
         { totalDistances.length > 1 &&
           <MultiAvg avgData={totalDistances} 
-            text="Total Dist:"
+            text={title}
             onRunToggled={(traceId, visible) => {
               setTraceVisibility(this.chart.node, traceId, visible);
             }}/>

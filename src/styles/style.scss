@@ -21,9 +21,18 @@ button {
 }
 
 .fs12 { font-size: 12px; }
+.fw300 { font-weight: 300; }
 .m0 { margin: 0; }
+.mb16 { margin-bottom: 16px; }
+.mr5 { margin-right: 5px; }
+.ml5 { margin-left: 5px; }
 .p0 { padding: 0; }
+.pr8 { padding-right: 8px; }
+.pl8 { padding-left: 8px; }
+.br3 { border-radius: 3px; }
 .text-light { color: $lightGrey; }
+.text-lighter { color: $lighterGrey; }
+.rs-border { border: 2px solid darken($lightestGrey, 5%); }
 .relative { position: relative; }
 .absolute { position: absolute; }
 
@@ -235,20 +244,11 @@ button {
   margin-top: 4px;
 }
 
-.row {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .chart-container {
   padding: 20px 20px 0 20px;
   border: 2px solid darken($lightestGrey, 5%);
   border-radius: 3px;
   background: white;
-}
-.col-sm-6 {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .dashboard-stats {
@@ -279,10 +279,11 @@ button {
 .run-tag {
   padding: 1px 10px;
   border-radius: 3px;
-  margin-bottom: 5px;
+  margin-top: 5px;
   margin-right: 5px;
   display: inline-block;
   color: white;
+  font-weight: 300;
   .menu-icon {
     transform: translateY(4px);
     .line {
@@ -307,4 +308,17 @@ button {
   opacity: 0;
   transition: opacity 0.3s;
   z-index: 1000;
+}
+.chart-header {
+  .header-icon {
+    font-size: 30px;
+    margin-right: 8px
+  }
+}
+.big-stat-label {
+  color: $lighterGrey;
+  bottom: 100%;
+  left: 0;
+  font-size: 12px;
+  padding-left: 3px;
 }

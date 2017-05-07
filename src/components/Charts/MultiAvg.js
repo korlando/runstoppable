@@ -22,7 +22,11 @@ export default class MultiAvg extends Component {
     const { hiddenRuns } = this.state;
 
     return (
-      <div>
+      <div className="mb16 fw300">
+        <div className="flexbox">
+          <label className="flex1">Run</label>
+          <label className="flex0">{text}</label>
+        </div>
         { avgData.map((obj, i) => {
           const run = runMap[obj.id];
           const visible = (hiddenRuns.indexOf(i) < 0);
@@ -53,7 +57,7 @@ export default class MultiAvg extends Component {
                 }
               }}>
               <div className="flex1">{run.location} {run.start.format('M/D/YY h:mm a')}</div>
-              <div className="flex0">{text} {obj.avg}</div>
+              <div className="flex0">{obj.avg}</div>
             </div>
           ) : null;
         })}

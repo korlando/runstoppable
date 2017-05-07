@@ -4,14 +4,16 @@ import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
+import metrics from '../../constants/metrics';
+import { setTraceVisibility, roundTo } from '../../util';
 
-import { setTraceVisibility } from '../../util';
 import DataChart from './DataChart';
-import BigStat from '../BigStat';
+import ChartHeader from './ChartHeader';
 import MultiAvg from './MultiAvg';
 
-const colors = ['#D32F2F','#e48181','#931f1f','#ff471a'];
-const color = colors[0];
+const KEY = 'heartRate';
+const metric = metrics.find(m => m.key === KEY);
+const { name, title, color, icon, units } = metric;
 const layout = {
   autosize: true,
   height: 400,
@@ -20,7 +22,7 @@ const layout = {
     title: 'Minutes after Start'
   },
   yaxis: {
-    title: 'Heart Rate (beats/min)',
+    title: `${name} (${units})`,
     fixedrange: true
   },
   margin: defaultChartMargin,
@@ -29,11 +31,11 @@ const layout = {
 
 const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
-    key: 'heartRate'
+    key: KEY
   });
   const avgData = props.runIds.reduce((obj, id) => {
     const avg = getAvgRunData(state, {
-      key: 'heartRate',
+      key: KEY,
       runId: id
     });
     let numValid = obj.numValid;
@@ -52,7 +54,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     datas: getXYRunDatas(state, props),
     avgHeartRates: avgData.avgHeartRates,
-    avgHeartRate: Math.round(avgData.total / avgData.numValid * 100) / 100
+    avgHeartRate: roundTo(avgData.total / avgData.numValid, 2)
   };
 };
 
@@ -64,34 +66,24 @@ export default class HeartRateChart extends Component {
 
   render() {
     const { avgHeartRate, avgHeartRates } = this.props;
-    const invalidStat = Number.isNaN(avgHeartRate) || avgHeartRate === null;
     
     return (
       <div>
-        <div className="flexbox align-items-baseline"
-          style={{ paddingBottom: '5px' }}>
-          <h4 className="flex1 flexbox align-items-center"
-            style={{ margin: '0', color }}>
-            <i className="material-icons">favorite</i>
-            <span style={{ marginLeft: '6px'}}>Heart Rate</span>
-          </h4>
-          { !invalidStat &&
-            <div className="text-light"
-              style={{ marginRight: '6px' }}>Average</div>
-          }
-          { invalidStat ?
-            <BigStat stat="Missing Data"/> : 
-            <BigStat stat={avgHeartRate} units="beats/min"/>
-          }
-        </div>
+        <ChartHeader
+          icon={icon}
+          color={color}
+          title={name}
+          statLabel="Average"
+          stat={avgHeartRate}
+          units={units}/>
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          colors={colors}
+          color={color}
           ref={(node) => { this.chart = node; }}/>
         { avgHeartRates.length > 1 &&
           <MultiAvg avgData={avgHeartRates}
-            text="Avg. Heart Rate:"
+            text={title}
             onRunToggled={(traceId, visible) => {
               setTraceVisibility(this.chart.node, traceId, visible);
             }}/>

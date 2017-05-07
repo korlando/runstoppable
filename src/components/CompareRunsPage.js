@@ -22,22 +22,30 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default withRouter(
-@connect(mapStateToProps)
 class CompareRunsPage extends Component {
   constructor(props) {
     super(props);
   };
 
   componentDidMount() {
-    if (this.map) {
-      renderRunPath(this.map, this.props.activeRuns, true, true, true, this.resetButton);
+    if(this.map) {
+      renderRunPath(
+        this.map,
+        this.props.activeRuns,
+        true, true, true,
+        this.resetButton
+      );
     }
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.activeRuns !== this.props.activeRuns) {
-      renderRunPath(this.map, this.props.activeRuns, true, true, true, this.resetButton);
+    if(prevProps.activeRuns !== this.props.activeRuns) {
+      renderRunPath(
+        this.map,
+        this.props.activeRuns,
+        true, true, true,
+        this.resetButton
+      );
     }
   };
 
@@ -47,17 +55,18 @@ class CompareRunsPage extends Component {
     return (
       <div className="page-container">
         <h1>Compare Runs</h1>
-        <div className="active-run-tags">
+        <div className="active-run-tags mb16">
           { activeRunIds.map((runId, i) => {
             const run = runMap[runId];
             if(!run) return null;
+            
             return (
               <div key={runId}
                 className="run-tag flexbox align-items-center"
                 style={{ backgroundColor: runColors[i % runColors.length] }}>
-                <span style={{ marginRight: '5px' }}>{ run.location },</span>
-                <span style={{ marginRight: '5px' }}>
-                  { run.start.format('MMM D YYYY, h:mm a') }
+                <span className="mr5">{ run.location },</span>
+                <span className="mr5">
+                  {run.start.format('MM/D/YY, h:mm a')}
                 </span>
                 <CloseButton
                   className="transform-x"
@@ -73,28 +82,26 @@ class CompareRunsPage extends Component {
           })}
         </div>
 
-        <div className="row" style={{marginBottom: '16px'}}>
+        <div className="row mb16">
           <div className="col-12">
-            <button ref={node => this.resetButton = node}
+            <button
+              ref={node => this.resetButton = node}
               className="btn btn-default map-reset">
               Reset View
             </button>
-            <div ref={node => this.map = node}
-              style={{
-                width: '100%',
-                height: '200px'
-              }}>
-            </div>
+            <div className="rs-border br3"
+              style={{ height: '250px' }}
+              ref={node => this.map = node}></div>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-sm-6" style={{paddingRight: '8px'}}>
+        <div className="row mb16">
+          <div className="col-sm-6 pr8">
             <div className="chart-container">
               <PaceChart runIds={activeRunIds}/>
             </div>
           </div>
-          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+          <div className="col-sm-6 pl8">
             <div className="chart-container">
               <HeartRateChart runIds={activeRunIds}/>
             </div>
@@ -102,12 +109,12 @@ class CompareRunsPage extends Component {
         </div>
 
         <div className="row">
-          <div className="col-sm-6" style={{paddingRight: '8px'}}>
+          <div className="col-sm-6 pr8">
             <div className="chart-container">
               <ElevationChart runIds={activeRunIds}/>
             </div>
           </div>
-          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+          <div className="col-sm-6 pl8">
             <div className="chart-container">
               <DistanceChart runIds={activeRunIds}/>
             </div>
@@ -116,4 +123,6 @@ class CompareRunsPage extends Component {
       </div>
     );
   };
-});
+};
+
+export default withRouter(connect(mapStateToProps)(CompareRunsPage));

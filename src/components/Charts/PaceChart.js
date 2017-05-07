@@ -4,14 +4,16 @@ import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
+import metrics from '../../constants/metrics';
+import { setTraceVisibility, roundTo } from '../../util';
 
-import { setTraceVisibility } from '../../util';
 import DataChart from './DataChart';
-import BigStat from '../BigStat';
+import ChartHeader from './ChartHeader';
 import MultiAvg from './MultiAvg';
 
-const colors = ['#2196F3','#86c5f9','#0961aa','#1a1aff'];
-const color = colors[0];
+const KEY = 'pace';
+const metric = metrics.find(m => m.key === KEY);
+const { name, title, color, icon, units } = metric;
 const layout = {
   autosize: true,
   height: 400,
@@ -20,7 +22,7 @@ const layout = {
     title: 'Minutes after Start'
   },
   yaxis: {
-    title: 'Pace (km/h)',
+    title: `${name} (${units})`,
     fixedrange: true
   },
   margin: defaultChartMargin,
@@ -29,11 +31,11 @@ const layout = {
 
 const mapStateToProps = (state, ownProps) => {
   const props = Object.assign({}, ownProps, {
-    key: 'pace'
+    key: KEY
   });
   const avgData = props.runIds.reduce((obj, id) => {
     const avg = getAvgRunData(state, {
-      key: 'pace',
+      key: KEY,
       runId: id
     });
     return {
@@ -47,7 +49,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     datas: getXYRunDatas(state, props),
     avgPaces: avgData.avgPaces,
-    avgPace: Math.round(avgData.total / props.runIds.length * 100) / 100,
+    avgPace: roundTo(avgData.total / props.runIds.length, 2),
     runMap: state.run.runMap
   };
 };
@@ -63,25 +65,21 @@ export default class PaceChart extends Component {
     
     return (
       <div>
-        <div className="flexbox align-items-baseline"
-          style={{ paddingBottom: '5px' }}>
-          <h4 className="flex1 flexbox align-items-center"
-            style={{ margin: '0', color }}>
-            <i className="material-icons">directions_run</i>
-            <span style={{ marginLeft: '6px'}}>Pace</span>
-          </h4>
-          <div className="text-light"
-            style={{ marginRight: '6px' }}>Average</div>
-          <BigStat stat={avgPace} units="km/h"/>
-        </div>
+        <ChartHeader
+          icon={icon}
+          color={color}
+          title={name}
+          statLabel="Average"
+          stat={avgPace}
+          units={units}/>
         <DataChart
           datas={this.props.datas}
           layout={layout}
-          colors={colors}
-          ref={(node) => { this.chart = node; }}/>
+          color={color}
+          ref={node => this.chart = node}/>
         { avgPaces.length > 1 &&
           <MultiAvg avgData={avgPaces}
-            text="Avg. Pace:"
+            text={title}
             onRunToggled={(traceId, visible) => {
               setTraceVisibility(this.chart.node, traceId, visible);
             }}/>

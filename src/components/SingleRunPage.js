@@ -23,13 +23,23 @@ export default class SingleRunPage extends Component {
 
   componentDidMount() {
     if(this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
+      renderRunPath(
+        this.map,
+        [this.props.run],
+        true, true, true,
+        this.resetButton
+      );
     }
   };
 
   componentDidUpdate(prevProps) {
     if(prevProps.run !== this.props.run && this.map) {
-      renderRunPath(this.map, [this.props.run], true, true, true, this.resetButton);
+      renderRunPath(
+        this.map,
+        [this.props.run],
+        true, true, true,
+        this.resetButton
+      );
     }
   };
 
@@ -48,27 +58,26 @@ export default class SingleRunPage extends Component {
           </h3>
         </div>
 
-        <div className="row" style={{ marginBottom: '16px' }}>
+        <div className="row mb16">
           <div className="col-12">
-            <button ref={node => this.resetButton = node}
+            <button
+              ref={node => this.resetButton = node}
               className="btn btn-default map-reset">
               Reset View
             </button>
-            <div ref={node => this.map = node}
-              style={{
-                width: '100%',
-                height: '200px'
-              }}></div>
+            <div className="rs-border br3"
+              style={{ height: '250px' }}
+              ref={node => this.map = node}></div>
           </div>
         </div>
           
-        <div className="row">
-          <div className="col-sm-6" style={{paddingRight: '8px'}}>
+        <div className="row mb16">
+          <div className="col-sm-6 pr8">
             <div className="chart-container">
               <PaceChart runIds={[run.id]}/>
             </div>
           </div>
-          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+          <div className="col-sm-6 pl8">
             <div className="chart-container">
               <HeartRateChart runIds={[run.id]}/>
             </div>
@@ -76,12 +85,12 @@ export default class SingleRunPage extends Component {
         </div>
         
         <div className="row">
-          <div className="col-sm-6" style={{paddingRight: '8px'}}>
+          <div className="col-sm-6 pr8">
             <div className="chart-container">
               <ElevationChart runIds={[run.id]}/>
             </div>
           </div>
-          <div className="col-sm-6" style={{paddingLeft: '8px'}}>
+          <div className="col-sm-6 pl8">
             <div className="chart-container">
               <DistanceChart runIds={[run.id]}/>
             </div>
