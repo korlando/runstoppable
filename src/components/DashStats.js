@@ -62,11 +62,13 @@ const mapStateToProps = (state) => {
       upper: today,
       lower: bounds[key]
     });
+    const timeTotal = getTotal(timeData);
+    const distanceTotal = getTotal(distanceData);
     props.stats.push({
       title: 'Past ' + key[0].toUpperCase() + key.slice(1),
-      time: getTotal(timeData),
-      distance: getTotal(distanceData),
-      pace: getAverage(distanceData),
+      time: timeTotal,
+      distance: distanceTotal,
+      pace: roundTo(distanceTotal / (timeTotal / 3600), 2) || 0,
       heartRate: getAverage(heartRateData, 'heartRate') 
     });
   });
