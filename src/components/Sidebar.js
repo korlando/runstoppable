@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 
 import { toggleModal,
          setModal,
-         toggleSidebar } from '../util'
-import CloseButton from './CloseButton';
+         toggleSidebar,
+         editProfile } from '../util'
 import modalTypes from '../constants/modalTypes';
+import lf from '../lf';
+import CloseButton from './CloseButton';
 
 const mapStateToProps = (state) => {
   return {
@@ -20,6 +22,17 @@ const mapStateToProps = (state) => {
 class Sidebar extends Component {
   constructor(props) {
     super(props);
+
+    this.logout = this.logout.bind(this);
+  };
+
+  logout() {
+    lf.removeItem('user')
+    .then(() => {
+      editProfile({ loggedIn: false });
+    }).catch((err) => {
+
+    });
   };
 
   render() {
@@ -101,6 +114,16 @@ class Sidebar extends Component {
               className="flexbox align-items-center">
               <i className="material-icons md-48">settings</i>
               <span className="text">Settings</span>
+            </Link>
+
+            <Link to=""
+              onClick={e => {
+                e.preventDefault();
+                this.logout();
+              }}
+              className="flexbox align-items-center">
+              <i className="material-icons md-48">person</i>
+              <span className="text">Log Out</span>
             </Link>
 
           </div>

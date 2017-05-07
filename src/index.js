@@ -7,6 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import './styles/flexbox.scss';
 import './styles/sidebar.scss';
 import './styles/modal.scss';
+import './styles/login.scss';
 import './styles/style.scss';
 import App from './components/App';
 

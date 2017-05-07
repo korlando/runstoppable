@@ -3,7 +3,7 @@ import React from 'react';
 export default (props) => {
   return (
     <div className={`big-stat ${props.className || ''}`}>
-      <div className="flexbox align-items-baseline"
+      <div className="flexbox align-items-baseline flex-wrap"
         style={{ lineHeight: '1' }}>
         <div style={{
           fontSize: '40px',
