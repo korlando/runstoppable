@@ -58,7 +58,7 @@ class RunBoxInner extends Component {
             onCheckChange(val);
           }
         }}>
-        <div className={`preview-map text-center${checkable ? ' small' : ''}`}
+        <div className="preview-map text-center"
           ref={node => this.map = node}></div>
         <div className="flex1">
           <div onClick={e => e.stopPropagation()}>
