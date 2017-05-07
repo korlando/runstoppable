@@ -119,7 +119,7 @@ class RunBoxInner extends Component {
           </div>
           <div className="date flexbox align-items-center">
             <i className="material-icons text-light">access_time</i>
-            {run.start.format('MMMM D, YYYY, h:mm a')}
+            {run.startFormatted}
           </div>
           <div className="flexbox flex-wrap metrics">
             { metrics.map((metric) => {
