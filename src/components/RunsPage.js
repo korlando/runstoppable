@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleMenu } from '../util';
+import { toggleMenu, filterRuns } from '../util';
 import FlipMove from 'react-flip-move';
 import sortValueToName from '../constants/sortValueToName';
 import getSortedRuns from '../selectors/getSortedRuns';
@@ -40,6 +40,9 @@ export default withRouter(
 class RunsPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filteredRuns: []
+    }
   };
 
   render() {
@@ -47,6 +50,7 @@ class RunsPage extends Component {
             location,
             sortValue,
             showSortMenu } = this.props;
+    const { filteredRuns } = this.state;
     const style = {};
     if(location.pathname !== '/runs') {
       style.visibility = 'hidden';
@@ -73,12 +77,27 @@ class RunsPage extends Component {
             }
           </div>
         </div>
+        <div>
+          <div className="flexbox align-items-center">
+            <div className="input-group">
+              <input type="text"
+                className="form-control"
+                placeholder="Filter..."
+                ref={input => this.filterBox = input}
+                onKeyUp={() => {
+                  this.setState({ filteredRuns: filterRuns(runs, this.filterBox.value) })
+                }}/>
+            </div>
+          </div>
+        </div>
         <FlipMove
           enterAnimation="fade"
           leaveAnimation="fade"
           staggerDurationBy={10}>
           { runs.map((run) => {
-            return <div key={run.id}><RunBox run={run}/></div>;
+            if (filteredRuns.indexOf(run.id) == -1){
+              return <div key={run.id}><RunBox run={run}/></div>;
+            }
           })}
         </FlipMove>
       </div>

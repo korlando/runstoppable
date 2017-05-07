@@ -218,3 +218,32 @@ export const parseRun = (run) => {
 
   return parsedRun;
 };
+
+/** returns array of run ids that should be filtered out.
+    definitely not as efficient as it could be. */
+export const filterRuns = (runs, query) => {
+  const strippedQuery = query.replace(/[.,]/g, "");
+  const queryWords = strippedQuery.toLowerCase().split(" ");
+  return runs.reduce((arr, run) => {
+    const lowMoment = run.start.format("dddd, MMMM Do YYYY, h:mm:ss a").toLowerCase();
+    const searchStrings = [lowMoment, run.location.toLowerCase(), run.name.toLowerCase()];
+    if (query !== ""){
+      for (let i=0; i<queryWords.length; i++){
+        let termWorks = false;
+        for (let j=0; j<searchStrings.length; j++){
+          const searchString = searchStrings[j];
+          const words = searchString.split(" ");
+          for (let k=0; k<words.length; k++){
+            if (words[k].startsWith(queryWords[i])){
+              termWorks = true;
+            }
+          }
+        }
+        if (!termWorks){
+          return arr.concat([run.id]);
+        }
+      }
+    }
+    return arr;
+  }, []);
+}
