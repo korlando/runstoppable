@@ -117,13 +117,19 @@ class RunBoxInner extends Component {
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
           <div className="flexbox flex-wrap metrics">
             { metrics.map((metric) => {
+              const value = this.props[metric.key];
               return (
                 <div key={metric.key}
                   className="flex0 flexbox align-items-center"
                   style={{width: '50%'}}
                   title={metric.title}>
                   <i className="material-icons" style={{color: metric.color}}>{metric.icon}</i>
-                  <span>{this.props[metric.key]} <span className="text-light fs12">{metric.units}</span></span>
+                  { value !== null &&
+                    <span>{value} <span className="text-light fs12">{metric.units}</span></span>
+                  }
+                  { value === null &&
+                    <span className="text-light">Missing Data</span>
+                  }
                 </div>
               );
             })}
