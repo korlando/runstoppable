@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import { renderRunPath, dispatchEditRun, roundTo } from '../util';
+import { renderRunPath,
+         dispatchEditRun,
+         roundTo } from '../util';
 import getAvgRunData from '../selectors/getAvgRunData';
 import metrics from '../constants/metrics';
 import Checkbox from './Checkbox';
@@ -51,7 +53,8 @@ class RunBoxInner extends Component {
     }
 
     return (
-      <div className={`run-box flexbox${checked ? ' checked' : ''}`}
+      <div className={`run-box flexbox
+        ${checked ? ' checked' : ''}`}
         onClick={(e) => {
           if(checkable && onCheckChange) {
             const val = this.checkBox.toggle();
@@ -61,66 +64,89 @@ class RunBoxInner extends Component {
         <div className="preview-map text-center"
           ref={node => this.map = node}></div>
         <div className="flex1">
-          <div onClick={e => e.stopPropagation()}>
-            { !editingName &&
-              <div className="flexbox edit-container"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  this.setState({ editingName: true });
-                  setTimeout(() => {
-                    if(this.nameInput) {
-                      this.nameInput.focus();
-                    }
-                  }, 100);
-                }}>
-                <label className="run-name flex0">{run.name}</label>
-                <button type="button"
-                  className="flex0 edit-btn">
-                  <i className="material-icons">mode_edit</i>
-                </button>
+          <div className="flexbox">
+            <div className="flex1">
+              <div className="flexbox align-items-center"
+                onClick={e => e.stopPropagation()}>
+                { !editingName &&
+                  <div className="flex1 flexbox edit-container"
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.setState({ editingName: true });
+                      setTimeout(() => {
+                        if(this.nameInput) {
+                          this.nameInput.focus();
+                        }
+                      }, 100);
+                    }}>
+                    <label className="run-name flex0">{run.name}</label>
+                    <button type="button"
+                      className="flex0 edit-btn">
+                      <i className="material-icons">mode_edit</i>
+                    </button>
+                  </div>
+                }
+                { editingName &&
+                  <form className="flex1" onSubmit={(e) => {
+                    e.preventDefault();
+                    this.saveName();
+                  }}>
+                    <div className="input-group input-group-sm">
+                      <input
+                        className="run-name form-control"
+                        value={name}
+                        onChange={e => this.setState({name: e.target.value})}
+                        ref={node => this.nameInput = node}/>
+                      <span className="input-group-btn">
+                        <button type="submit"
+                          className="btn btn-primary">
+                          Save
+                        </button>
+                      </span>
+                      <span className="input-group-btn">
+                        <button type="button"
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            this.setState({
+                              editingName: false,
+                              name: run.name
+                            });
+                          }}>
+                          Cancel
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+                }
+                { !checkable &&
+                  <div className={`flex0 run-star
+                    ${run.starred ? ' starred' : ''}`}
+                    onClick={() => dispatchEditRun({starred: !run.starred}, run.id)}>
+                    <i className="material-icons">
+                      {run.starred ? 'star' : 'star_outline'}
+                    </i>
+                  </div>
+                }
+              </div>
+              <div className="location flexbox align-items-center">
+                <i className="material-icons text-light">location_on</i>
+                {run.location}
+              </div>
+              <div className="date flexbox align-items-center">
+                <i className="material-icons text-light">access_time</i>
+                {run.startFormatted}
+              </div>
+            </div>
+            { checkable &&
+              <div className="flex0">
+                <Checkbox
+                  checked={checked}
+                  onCheckChange={onCheckChange}
+                  ref={node => this.checkBox = node}/>
               </div>
             }
-            { editingName &&
-              <form onSubmit={(e) => {
-               e.preventDefault();
-                this.saveName();
-              }}>
-                <div className="input-group input-group-sm">
-                  <input
-                    className="run-name form-control"
-                    value={name}
-                    onChange={e => this.setState({ name: e.target.value })}
-                    ref={node => this.nameInput = node}/>
-                  <span className="input-group-btn">
-                    <button type="submit"
-                      className="btn btn-primary">
-                      Save
-                    </button>
-                  </span>
-                  <span className="input-group-btn">
-                    <button type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        this.setState({
-                          editingName: false,
-                          name: run.name
-                        });
-                      }}>
-                      Cancel
-                    </button>
-                  </span>
-                </div>
-              </form>
-            }
           </div>
-          <div className="location flexbox align-items-center">
-            <i className="material-icons text-light">location_on</i>
-            {run.location}
-          </div>
-          <div className="date flexbox align-items-center">
-            <i className="material-icons text-light">access_time</i>
-            {run.startFormatted}
-          </div>
+          
           <div className="flexbox flex-wrap metrics">
             { metrics.map((metric) => {
               const value = this.props[metric.key];
@@ -141,13 +167,6 @@ class RunBoxInner extends Component {
             })}
           </div>
         </div>
-        
-        { checkable &&
-          <Checkbox
-            checked={checked}
-            onCheckChange={onCheckChange}
-            ref={node => this.checkBox = node}/>
-        }
       </div>
     );
   };

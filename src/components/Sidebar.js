@@ -58,13 +58,20 @@ class Sidebar extends Component {
                 toggleModal(modalTypes.settings);
               }}
               className="flexbox align-items-center"
-              style={{ marginTop: '10px', padding: '7px', height: '50px' }}>
+              style={{
+                marginTop: '10px',
+                padding: '7px',
+                height: '50px'
+              }}>
               <img src={photo}
                 style={{ borderRadius: '50%' }}
                 height="36"
                 width="36"></img>
               <span className="text"
-                style={{ whiteSpace: 'nowrap', marginLeft: '8px' }}>{name}</span>
+                style={{
+                  whiteSpace: 'nowrap',
+                  marginLeft: '8px'
+                }}>{name}</span>
             </Link>
 
             <Link to="/" className={`flexbox align-items-center
@@ -79,6 +86,11 @@ class Sidebar extends Component {
               <span className="text">Runs</span>
             </Link>
 
+            <Link to="/starred" className={`flexbox align-items-center
+              ${pathname === '/starred' ? ' active' : ''}`}>
+              <i className="material-icons md-48">star</i>
+              <span className="text">Starred Runs</span>
+            </Link>
 
             <Link to=""
               onClick={e => {

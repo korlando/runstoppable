@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import ModalWrapper from './Modals/ModalWrapper';
 import Dashboard from './Dashboard';
 import RunsPage from './RunsPage';
+import StarredRunsPage from './StarredRunsPage';
 import SingleRunPage from './SingleRunPage';
 import CompareRunsPage from './CompareRunsPage';
 import ProfilePage from './ProfilePage';
@@ -81,6 +82,7 @@ export default class App extends Component {
               <div className="flex1">
                 <Route exact path="/" component={Dashboard}/>
                 <Route exact path="/runs"/>
+                <Route path="/starred" component={StarredRunsPage}/>
                 <Route path="/runs/:runId" component={SingleRunPage}/>
                 <Route exact path="/compare"/>
                 <Route path="/compare/:runIds" component={CompareRunsPage}/>

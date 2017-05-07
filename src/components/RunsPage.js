@@ -105,7 +105,7 @@ class RunsPage extends Component {
           staggerDurationBy={10}>
           { runs.map((run) => {
             if(filteredRuns.indexOf(run.id) === -1) {
-              return <RunBox key={run.id} run={run}/>;
+              return <div key={run.id}><RunBox run={run}/></div>;
             }
           })}
         </FlipMove>
