@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import defaultChartMargin from '../../constants/defaultChartMargin';
 
 import getXYRunDatas from '../../selectors/getXYRunDatas';
-import getTotalRunData from '../../selectors/getTotalRunData';
 
 import { setTraceVisibility } from '../../util';
 import DataChart from './DataChart';

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { renderRunPath, dispatchEditRun } from '../util';
+
+import { renderRunPath, dispatchEditRun, roundTo } from '../util';
+import getAvgRunData from '../selectors/getAvgRunData';
+import metrics from '../constants/metrics';
 import Checkbox from './Checkbox';
 
 class RunBoxInner extends Component {
@@ -111,6 +115,19 @@ class RunBoxInner extends Component {
           </div>
           <div className="location">{run.location}</div>
           <div className="date">{run.start.format('MMMM Do YYYY, h:mm:ss a')}</div>
+          <div className="flexbox flex-wrap metrics">
+            { metrics.map((metric) => {
+              return (
+                <div key={metric.key}
+                  className="flex0 flexbox align-items-center"
+                  style={{width: '50%'}}
+                  title={metric.title}>
+                  <i className="material-icons" style={{color: metric.color}}>{metric.icon}</i>
+                  <span>{this.props[metric.key]} <span className="text-light fs12">{metric.units}</span></span>
+                </div>
+              );
+            })}
+          </div>
         </div>
         
         { checkable &&
@@ -124,16 +141,41 @@ class RunBoxInner extends Component {
   };
 };
 
-export default withRouter((props) => {
-  const { run, checkable, history } = props;
-  
-  if(checkable) {
-    return <RunBoxInner {...props}/>;
-  } else {
-    return (
-      <div onClick={() => history.push(`/runs/${run.id}`)}>
-        <RunBoxInner {...props}/>
-      </div>
-    );
-  }
-});
+const mapStateToProps = (state, ownProps) => {
+  const { run } = ownProps;
+  const props = {};
+  metrics.forEach((metric) => {
+    if(metric.key === 'distance') {
+      props[metric.key] = (run && roundTo(run.checkpoints[run.checkpoints.length - 1].distance, 2)) || 0;
+    } else {
+      props[metric.key] = getAvgRunData(state, {
+        key: metric.key,
+        runId: run.id
+      });
+    }
+  });
+
+  return props;
+};
+
+class RunBox extends Component {
+  constructor(props) {
+    super(props);
+  };
+
+  render() {
+    const { run, checkable, history } = this.props;
+
+    if(checkable) {
+      return <RunBoxInner {...this.props}/>;
+    } else {
+      return (
+        <div onClick={() => history.push(`/runs/${run.id}`)}>
+          <RunBoxInner {...this.props}/>
+        </div>
+      );
+    }
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(RunBox));

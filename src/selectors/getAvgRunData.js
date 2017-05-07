@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import getXYRunData from './getXYRunData';
 import getTotalRunData from './getTotalRunData';
+import { roundTo } from '../util';
 
 // runData is { x: [...], y: [...] }
 export default createSelector(
@@ -11,6 +12,6 @@ export default createSelector(
     }, 0);
     if(numPoints === 0) return null;
     // round to 2 decimal places
-    return Math.round(total / numPoints * 100) / 100;
+    return roundTo(total / numPoints, 2);
   }
 );

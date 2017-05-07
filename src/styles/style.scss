@@ -22,10 +22,12 @@ button {
   cursor: pointer;
 }
 
+.fs12 {
+  font-size: 12px;
+}
 .text-light {
   color: $lightGrey;
 }
-
 .relative {
   position: relative;
 }
@@ -160,9 +162,9 @@ button {
   }
   .run-name {
     font-size: 24px;
+    margin: 0;
   }
   .location {
-    padding-top: 5px;
     font-size: 18px;
   }
   .date {
@@ -180,6 +182,12 @@ button {
       .edit-btn {
         opacity: 1;
       }
+    }
+  }
+  .metrics {
+    padding-top: 5px;
+    .material-icons {
+      margin-right: 5px;
     }
   }
   &.checked {

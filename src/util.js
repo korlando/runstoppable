@@ -218,3 +218,8 @@ export const parseRun = (run) => {
 
   return parsedRun;
 };
+
+export const roundTo = (num, decimals) => {
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
+};
