@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { toggleModal } from '../../util'
 import CompareModal from './CompareModal';
 import SettingsModal from './SettingsModal';
+import UploadModal from './UploadModal';
 import modalTypes from '../../constants/modalTypes';
 
 const mapStateToProps = (state) => {
@@ -18,6 +20,8 @@ const getModalFromType = (type) => {
       return <CompareModal/>;
     case modalTypes.settings:
       return <SettingsModal/>;
+    case modalTypes.upload:
+      return <UploadModal/>;
   }
 };
 

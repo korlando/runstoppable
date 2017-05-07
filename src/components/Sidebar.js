@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone';
 
 import { toggleModal,
          setModal,
-         toggleSidebar,
-         parseRun,
-         dispatchAddBulkRuns } from '../util'
+         toggleSidebar } from '../util'
 import CloseButton from './CloseButton';
 import modalTypes from '../constants/modalTypes';
 
@@ -17,37 +14,12 @@ const mapStateToProps = (state) => {
     collapsed: state.sidebar.collapsed,
     name: state.user.name,
     photo: state.user.photo,
-    runIndex: state.run.index
   };
 };
 
-export default withRouter(
-@connect(mapStateToProps)
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-
-    this.handleDrop = this.handleDrop.bind(this);
-  };
-
-  handleDrop(files) {
-    if(!files || !files[0]) {
-      return;
-    }
-    // http://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
-    const fr = new FileReader();
-    fr.readAsText(files[0]);
-    fr.onload = (e) => {
-      try {
-        const run = JSON.parse(e.target.result);
-        const parsedRun = parseRun(run);
-        dispatchAddBulkRuns({ parsedRun });
-        const { runIndex, history } = this.props;
-        history.push(`/runs/${runIndex - 1}`);
-      } catch(e) {
-
-      }
-    };
   };
 
   render() {
@@ -105,17 +77,15 @@ class Sidebar extends Component {
               <span className="text">Compare</span>
             </Link>
 
-            <Dropzone
-              style={{}}
-              accept="application/json"
-              onDrop={this.handleDrop}>
-              <Link to=""
-                className="flexbox align-items-center"
-                onClick={e => e.preventDefault()}>
-                <i className="material-icons md-48">file_upload</i>
-                <span className="text">Upload Run Data</span>
-              </Link>
-            </Dropzone>
+            <Link to=""
+              className="flexbox align-items-center"
+              onClick={e => {
+                e.preventDefault();
+                toggleModal(modalTypes.upload);
+              }}>
+              <i className="material-icons md-48">file_upload</i>
+              <span className="text">Upload Run Data</span>
+            </Link>
 
             <Link to="/trends" className={`flexbox align-items-center
               ${pathname === '/trends' ? ' active' : ''}`}>
@@ -138,4 +108,6 @@ class Sidebar extends Component {
       </div>
     );
   };
-});
+};
+
+export default withRouter(connect(mapStateToProps)(Sidebar));
