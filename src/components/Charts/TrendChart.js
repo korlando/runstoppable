@@ -47,7 +47,7 @@ export default class TrendChart extends Component {
             marginLeft: '10px'
           }}>{chartTitle}</span>
         </h2>
-        <DataChart datas={[xyData]} layout={layout} colors={[color]}/>
+        <DataChart datas={[xyData]} layout={layout} color={color}/>
       </div>
     );
   };
