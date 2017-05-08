@@ -43,13 +43,13 @@ class Login extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="input-group">
               <span className="input-group-addon">
-                <i className="material-icons">email</i>
+                <i className="material-icons">person</i>
               </span>
               <input
-                type="email"
+                type="text"
                 required
                 className="form-control"
-                placeholder="Email"
+                placeholder="Email or username"
                 value={email}
                 onChange={e => this.setState({ email: e.target.value })}
                 ref={node => this.emailInput = node}/>
