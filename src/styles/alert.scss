@@ -1,0 +1,36 @@
+@import 'util.scss';
+
+.alert-box-enter {
+  opacity: 0;
+  margin-top: -50px;
+}
+.alert-box-enter.alert-box-enter-active {
+  transition: all 0.3s;
+  opacity: 1;
+  margin-top: 0;
+}
+.alert-box-leave {
+  opacity: 1;
+  margin-top: 0;
+}
+.alert-box-leave.alert-box-leave-active {
+  transition: all 0.3s;
+  opacity: 0;
+  margin-top: -50px;
+}
+.alert-box {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparentize($blue, 0.1);
+  color: white;
+  border-radius: 3px;
+  padding: 1px 10px;
+  .clickable {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

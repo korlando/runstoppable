@@ -8,6 +8,7 @@ import './styles/flexbox.scss';
 import './styles/sidebar.scss';
 import './styles/modal.scss';
 import './styles/login.scss';
+import './styles/alert.scss';
 import './styles/style.scss';
 import App from './components/App';
 

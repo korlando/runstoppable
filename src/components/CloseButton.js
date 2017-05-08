@@ -14,7 +14,11 @@ export default class PaceChart extends Component {
         onClick={onClick}
         ref={node => this.closeButton = node}
         onMouseDown={() => {
-          setTimeout(() => {this.closeButton.blur()}, 1);
+          setTimeout(() => {
+            if(this.closeButton) {
+              this.closeButton.blur();
+            }
+          }, 1);
         }}>
         <svg className="line">
           <line x1="2" x2="22" y1="2" y2="2"/>
