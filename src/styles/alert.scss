@@ -26,11 +26,16 @@
   background: transparentize($blue, 0.1);
   color: white;
   border-radius: 3px;
-  padding: 1px 10px;
+  padding: 5px 15px;
   .clickable {
     cursor: pointer;
     &:hover {
       text-decoration: underline;
+    }
+  }
+  .menu-icon {
+    svg {
+      stroke: white;
     }
   }
 }

@@ -83,11 +83,18 @@ class CompareRunsPage extends Component {
               Removed {lastRemovedRun.name}
             </div>
             <div className="clickable"
+              style={{marginRight: '15px'}}
               onClick={() => {
                 clearTimeout(this.timer);
                 this.resetLastRemove();
                 history.push(lastCompareURL);
               }}>UNDO</div>
+            <CloseButton
+              className="transform-x"
+              onClick={() => {
+                clearTimeout(this.timer);
+                this.resetLastRemove();
+              }}/>
           </div>
         }
         </ReactCSSTransitionGroup>
