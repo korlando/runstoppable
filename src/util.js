@@ -1,4 +1,5 @@
 import moment from 'moment';
+import crypto from 'crypto';
 import * as sidebarActions from './actions/sidebarActions';
 import * as modalActions from './actions/modalActions';
 import * as runActions from './actions/runActions';
@@ -255,4 +256,21 @@ export const roundTo = (num, decimals) => {
 
 export const isBadStat = (stat) => {
   return stat === null || Number.isNaN(stat);
+};
+
+export const encryptPassword = (password) => {
+  let bytes;
+  try {
+    bytes = crypto.randomBytes(64);
+  } catch(e) {
+    // use pseudo random if needed
+    bytes = crypto.pseudoRandomBytes(64);
+  }
+
+  const salt = bytes.toString('hex');
+  const hash = crypto
+               .createHash('sha512')
+               .update(password + salt)
+               .digest('hex');
+  return `${hash}/${salt}`;
 };

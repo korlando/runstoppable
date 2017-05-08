@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import crypto from 'crypto';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { editProfile } from '../util';
 import lf from '../lf';
+import fakeDatabase from '../constants/fakeDatabase';
 
 class Login extends Component {
   constructor(props) {
@@ -11,7 +13,8 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   };
@@ -23,6 +26,26 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
+    const emailLC = email.toLowerCase();
+
+    const user = fakeDatabase.users.find(u => {
+      return u.email === emailLC || u.username === emailLC;
+    });
+
+    if(!user) {
+      return this.setState({ error: 'No user found with that email/username!' });
+    }
+
+    const passArray = user.password.split('/');
+    const hash = passArray[0];
+    const salt = passArray[1];
+    const tryHash = crypto
+                    .createHash('sha512')
+                    .update(password + salt)
+                    .digest('hex');
+    if(hash !== tryHash) {
+      return this.setState({ error: 'Incorrect password' });
+    }
 
     lf.setItem('user', { loggedIn: true })
     .then((val) => {
@@ -33,7 +56,7 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, error } = this.state;
 
     return (
       <div className="flexbox align-items-center justify-content-center"
@@ -71,6 +94,9 @@ class Login extends Component {
               Login
             </button>
           </form>
+          { error &&
+            <div className="text-danger" style={{paddingTop: '10px'}}>{error}</div>
+          }
         </div>
       </div>
     );
