@@ -62,7 +62,7 @@ class Login extends Component {
       <div className="flexbox align-items-center justify-content-center"
         style={{ width: '100vw', height: '100vh' }}>
         <div className="login-box">
-          <h1 className="text-center">Runstoppable Login</h1>
+          <h1 className="text-center" style={{marginBottom:'30px'}}>Runstoppable</h1>
           <form onSubmit={this.handleSubmit}>
             <div className="input-group">
               <span className="input-group-addon">
