@@ -6,6 +6,7 @@ import CompareModal from './CompareModal';
 import SettingsModal from './SettingsModal';
 import UploadModal from './UploadModal';
 import DeleteRunModal from './DeleteRunModal';
+import DeleteAccountModal from './DeleteAccountModal';
 import modalTypes from '../../constants/modalTypes';
 
 const mapStateToProps = (state) => {
@@ -25,6 +26,8 @@ const getModalFromType = (type) => {
       return <UploadModal/>;
     case modalTypes.deleteRun:
       return <DeleteRunModal/>;
+    case modalTypes.deleteAccount:
+      return <DeleteAccountModal/>;
   }
 };
 

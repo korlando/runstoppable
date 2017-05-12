@@ -362,6 +362,15 @@ export const loginUser = (userDoc) => {
   editProfile(Object.assign({ loggedIn: true }, userDoc));
 };
 
+export const logoutUser = () => {
+  lf.removeItem('uid')
+  .then(() => {
+    editProfile({ loggedIn: false });
+  }).catch((err) => {
+
+  });
+};
+
 export const fetchDB = () => {
   return lf.getItem('db');
 };

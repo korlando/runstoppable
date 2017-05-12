@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { toggleModal,
          openModal,
          toggleSidebar,
-         editProfile } from '../util'
+         editProfile,
+         logoutUser } from '../util'
 import modalTypes from '../constants/modalTypes';
 import lf from '../lf';
 import CloseButton from './CloseButton';
@@ -27,12 +28,7 @@ class Sidebar extends Component {
   };
 
   logout() {
-    lf.removeItem('uid')
-    .then(() => {
-      editProfile({ loggedIn: false });
-    }).catch((err) => {
-
-    });
+    logoutUser();
   };
 
   render() {
