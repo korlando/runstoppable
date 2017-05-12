@@ -19,3 +19,10 @@ export const editRun = (changes, runId) => {
     runId
   };
 };
+
+export const deleteRun = (runId) => {
+  return {
+    type: 'DELETE_RUN',
+    runId,
+  };
+};

@@ -8,6 +8,7 @@ import * as userActions from './actions/userActions';
 import store from './store/store';
 import runColors from './constants/runColors';
 import runData from './data/runData';
+import lf from './lf';
 
 const toggleEvent = new Event("sidebar");
 
@@ -22,8 +23,12 @@ export const setModal = (modalType) => {
   store.dispatch(modalActions.setModal(modalType));
 }
 
-export const toggleModal = (modalType) => {
-  store.dispatch(modalActions.toggleModal(modalType));
+export const toggleModal = (modalType, data) => {
+  store.dispatch(modalActions.toggleModal(modalType, data));
+};
+
+export const openModal = (modalType, data) => {
+  store.dispatch(modalActions.openModal(modalType, data));
 };
 
 export const editProfile = (changes) => {
@@ -40,6 +45,10 @@ export const editAllRunsSort = (sort) => {
 
 export const dispatchEditRun = (changes, runId) => {
   store.dispatch(runActions.editRun(changes, runId));
+};
+
+export const dispatchDeleteRun = (runId) => {
+  store.dispatch(runActions.deleteRun(runId));
 };
 
 export const toggleMenu = (name, e, preventCloseAll) => {
@@ -330,4 +339,16 @@ export const loginUser = (userDoc) => {
   dispatchAddBulkRuns(userDoc.runs);
   delete userDoc.runs;
   editProfile(Object.assign({ loggedIn: true }, userDoc));
+};
+
+export const fetchDB = () => {
+  return lf.getItem('db');
+};
+
+export const updateDB = (db) => {
+  return lf.setItem('db', db);
+};
+
+export const findUserById = (db, uid) => {
+  return db.users.find(u => u.id === uid);
 };

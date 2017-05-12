@@ -6,8 +6,10 @@ import Dropzone from 'react-dropzone';
 import { dispatchAddBulkRuns,
          parseRun,
          toggleModal,
-         generateId } from '../../util';
-import lf from '../../lf';
+         generateId,
+         fetchDB,
+         updateDB,
+         findUserById } from '../../util';
 import RunBox from '../RunBox';
 
 const mapStateToProps = (state) => {
@@ -52,13 +54,13 @@ class UploadModal extends Component {
         run.id = rid;
         run.name = `Run ${Object.keys(runMap).length}`;
 
-        lf.getItem('db').then((db) => {
+        fetchDB().then((db) => {
           if(db) {
-            const user = db.users.find(u => u.id === USER_ID);
+            const user = findUserById(db, USER_ID);
             if(user) {
               user.runs.push(run);
               // save the new run
-              lf.setItem('db', db).then(() => {
+              updateDB(db).then(() => {
                 dispatchAddBulkRuns([run]);
                 this.setState({
                   uploadedRunIds: [...this.state.uploadedRunIds, rid]
@@ -121,9 +123,11 @@ class UploadModal extends Component {
           <div className="uploaded-runs">
             <label>Uploaded Runs:</label>
             {uploadedRunIds.map((runId, i) => {
+              const run = runMap[runId];
+              if(!run) return null;
               return (
-                <div onClick={toggleModal} key={runId}>
-                  <RunBox run={runMap[runId]}/>
+                <div key={runId}>
+                  <RunBox run={run}/>
                 </div>
               );
             })}

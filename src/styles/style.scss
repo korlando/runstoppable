@@ -36,6 +36,8 @@ button {
 .rs-border { border: 2px solid darken($lightestGrey, 5%); }
 .relative { position: relative; }
 .absolute { position: absolute; }
+.pointer-events-none { pointer-events: none; }
+.op5 { opacity: 0.5; }
 
 .hover-blue {
   cursor: pointer;
@@ -176,6 +178,23 @@ button {
     opacity: 0;
     transition: opacity 0.2s;
   }
+  .delete-btn {
+    background: none;
+    border: none;
+    color: $lighterGrey;
+    transition: color 0.2s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 4px;
+    &:hover {
+      color: $lightGrey;
+    }
+    .material-icons {
+      font-size: 34px;
+      margin: 0;
+    }
+  }
   .edit-container {
     cursor: pointer;
     &:hover {
@@ -186,6 +205,10 @@ button {
   }
   .material-icons {
     margin-right: 5px;
+  }
+  .metrics {
+    padding-left: 20px;
+    position: relative;
   }
   .location, .date, .metrics {
     padding-top: 5px;

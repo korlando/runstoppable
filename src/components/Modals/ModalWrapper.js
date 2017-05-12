@@ -5,12 +5,13 @@ import { toggleModal } from '../../util'
 import CompareModal from './CompareModal';
 import SettingsModal from './SettingsModal';
 import UploadModal from './UploadModal';
+import DeleteRunModal from './DeleteRunModal';
 import modalTypes from '../../constants/modalTypes';
 
 const mapStateToProps = (state) => {
   return {
     show: state.modal.show,
-    type: state.modal.type
+    type: state.modal.type,
   };
 };
 
@@ -22,6 +23,8 @@ const getModalFromType = (type) => {
       return <SettingsModal/>;
     case modalTypes.upload:
       return <UploadModal/>;
+    case modalTypes.deleteRun:
+      return <DeleteRunModal/>;
   }
 };
 
@@ -37,7 +40,7 @@ export default class ModalWrapper extends Component {
     return (
       <div className={`modal-wrapper flexbox align-items-center justify-content-center${show ? ' show' : ''}`}
         onClick={toggleModal}>
-        {getModalFromType(type)}
+        { getModalFromType(type) }
       </div>
     );
   };

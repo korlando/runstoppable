@@ -63,10 +63,12 @@ export default class App extends Component {
           loginUser(user);
         }).catch((err) => {
           // TODO: handle uid lookup error
+          
         });
       }
     }).catch((err) => {
       // TODO: handle db lookup error
+      
     });
   };
 

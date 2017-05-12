@@ -5,9 +5,15 @@ import { withRouter } from 'react-router';
 
 import { renderRunPath,
          dispatchEditRun,
-         roundTo } from '../util';
+         roundTo,
+         toggleModal,
+         openModal,
+         fetchDB,
+         updateDB,
+         findUserById } from '../util';
 import getAvgRunData from '../selectors/getAvgRunData';
 import metrics from '../constants/metrics';
+import modalTypes from '../constants/modalTypes';
 import Checkbox from './Checkbox';
 
 class RunBoxInner extends Component {
@@ -16,9 +22,10 @@ class RunBoxInner extends Component {
 
     this.state = {
       editingName: false,
-      name: props.run && props.run.name
+      name: props.run && props.run.name,
     };
     this.saveName = this.saveName.bind(this);
+    this.toggleStarred = this.toggleStarred.bind(this);
   };
 
   componentDidMount() {
@@ -41,11 +48,35 @@ class RunBoxInner extends Component {
     this.setState({ editingName: false });
   };
 
+  toggleStarred(run) {
+    fetchDB().then((db) => {
+      if(db) {
+        const { USER_ID } = this.props;
+        const user = findUserById(db, USER_ID);
+        if(user) {
+          const rid = run.id;
+          const runDoc = user.runs.find(r => r.id === rid);
+          if(runDoc) {
+            runDoc.starred = !run.starred;
+            updateDB(db).then(() => {
+              dispatchEditRun({starred: !run.starred}, rid);
+            }).catch((err) => {
+
+            });
+          }
+        }
+      }
+    }).catch((err) => {
+
+    });
+  };
+
   render() {
     const { run,
             checkable,
             checked,
-            onCheckChange } = this.props;
+            onCheckChange,
+            className } = this.props;
     const { editingName, name } = this.state;
     const style = {};
     if(checkable) {
@@ -54,7 +85,8 @@ class RunBoxInner extends Component {
 
     return (
       <div className={`run-box flexbox
-        ${checked ? ' checked' : ''}`}
+        ${checked ? ' checked' : ''}
+        ${className ? ' ' + className : ''}`}
         onClick={(e) => {
           if(checkable && onCheckChange) {
             const val = this.checkBox.toggle();
@@ -124,7 +156,7 @@ class RunBoxInner extends Component {
                     ${run.starred ? ' starred' : ''}`}
                     onClick={(e) => {
                       e.stopPropagation();
-                      dispatchEditRun({starred: !run.starred}, run.id);
+                      this.toggleStarred(run);
                     }}>
                     <i className="material-icons">
                       {run.starred ? 'star' : 'star_outline'}
@@ -169,6 +201,15 @@ class RunBoxInner extends Component {
                 </div>
               );
             })}
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                openModal(modalTypes.deleteRun, run);
+              }}>
+              <i className="material-icons">delete</i>
+            </button>
           </div>
         </div>
       </div>
@@ -178,7 +219,10 @@ class RunBoxInner extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { run } = ownProps;
-  const props = {};
+  const props = {
+    showModal: state.modal.show,
+    USER_ID: state.user.id,
+  };
   metrics.forEach((metric) => {
     if(metric.key === 'distance') {
       props[metric.key] = (run && roundTo(run.checkpoints[run.checkpoints.length - 1].distance, 2)) || 0;
@@ -199,14 +243,24 @@ class RunBox extends Component {
   };
 
   render() {
-    const { run, checkable, history } = this.props;
+    const { run,
+            checkable,
+            history,
+            className,
+            showModal } = this.props;
 
     if(checkable) {
       return <RunBoxInner {...this.props}/>;
     } else {
       return (
-        <div onClick={() => history.push(`/runs/${run.id}`)}>
-          <RunBoxInner {...this.props}/>
+        <div className={className || ''}
+          onClick={() => {
+            history.push(`/runs/${run.id}`);
+            if(showModal) {
+              toggleModal();
+            }
+          }}>
+          <RunBoxInner {...this.props} className=""/>
         </div>
       );
     }

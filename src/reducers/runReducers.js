@@ -8,7 +8,7 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-  let newRuns, index;
+  let newRuns, index, runMap;
 
   switch(action.type) {
     // requires: {Object} action.runs
@@ -43,6 +43,13 @@ export default (state = defaultState, action) => {
         runMap: Object.assign({}, state.runMap, {
           [action.runId]: Object.assign({}, state.runMap[action.runId], action.changes)
         })
+      });
+
+    case 'DELETE_RUN':
+      runMap = Object.assign({}, state.runMap);
+      delete runMap[action.runId];
+      return Object.assign({}, state, {
+        runMap
       });
 
     default:
