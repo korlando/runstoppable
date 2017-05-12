@@ -109,11 +109,6 @@ class RunBoxInner extends Component {
                       onClick={e => {
                         e.stopPropagation();
                         this.setState({ editingName: true });
-                        setTimeout(() => {
-                          if(this.nameInput) {
-                            this.nameInput.focus();
-                          }
-                        }, 100);
                       }}>
                       <i className="material-icons">mode_edit</i>
                     </button>

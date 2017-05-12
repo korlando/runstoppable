@@ -26,7 +26,8 @@ export default class EditRunName extends Component {
         }}>
         <div className="input-group input-group-sm">
           <input
-            className="run-name form-control"
+            className="form-control"
+            style={{fontSize: '20px'}}
             value={name}
             onChange={e => this.setState({name: e.target.value})}
             ref={node => this.nameInput = node}/>
