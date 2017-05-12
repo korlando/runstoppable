@@ -349,8 +349,17 @@ button {
 
 .modebar-group {
   transform: scale(1.25);
+  color: red;
 }
 
-.rangeslider {
-  maskColor: red !important;
+.modebar-btn svg path{
+  fill: $pink !important;
+}
+
+.zoombox {
+  fill: rgba(0,255,255,0.3) !important;
+}
+
+.js-zoombox-backdrop {
+  fill: rgba(0,255,0,0.4) !important;
 }
