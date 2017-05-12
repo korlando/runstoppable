@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import { toggleModal,
-         setModal,
+         openModal,
          toggleSidebar,
          editProfile } from '../util'
 import modalTypes from '../constants/modalTypes';
@@ -55,7 +55,7 @@ class Sidebar extends Component {
             <Link to=""
               onClick={e => {
                 e.preventDefault();
-                toggleModal(modalTypes.settings);
+                openModal(modalTypes.settings, {currentTab: 'profile'});
               }}
               className="flexbox align-items-center"
               style={{
