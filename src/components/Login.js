@@ -3,9 +3,8 @@ import crypto from 'crypto';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { editProfile } from '../util';
+import { loginUser } from '../util';
 import lf from '../lf';
-import fakeDatabase from '../constants/fakeDatabase';
 
 class Login extends Component {
   constructor(props) {
@@ -28,28 +27,35 @@ class Login extends Component {
     const { email, password } = this.state;
     const emailLC = email.toLowerCase();
 
-    const user = fakeDatabase.users.find(u => {
-      return u.email === emailLC || u.username === emailLC;
-    });
+    lf.getItem('db').then((db) => {
+      if(db === null) {
+        // this shouldn't happen
+        return;
+      }
+      const user = db.users.find(u => {
+        return u.email === emailLC || u.username === emailLC;
+      });
 
-    if(!user) {
-      return this.setState({ error: 'No user found with that email/username!' });
-    }
+      if(!user) {
+        return this.setState({ error: 'No user found with that email/username!' });
+      }
+      const passArray = user.password.split('/');
+      const hash = passArray[0];
+      const salt = passArray[1];
+      const tryHash = crypto
+                      .createHash('sha512')
+                      .update(password + salt)
+                      .digest('hex');
+      if(hash !== tryHash) {
+        return this.setState({ error: 'Incorrect password' });
+      }
 
-    const passArray = user.password.split('/');
-    const hash = passArray[0];
-    const salt = passArray[1];
-    const tryHash = crypto
-                    .createHash('sha512')
-                    .update(password + salt)
-                    .digest('hex');
-    if(hash !== tryHash) {
-      return this.setState({ error: 'Incorrect password' });
-    }
+      lf.setItem('uid', user.id)
+      .then(() => {
+        loginUser(user);
+      }).catch((err) => {
 
-    lf.setItem('user', { loggedIn: true })
-    .then((val) => {
-      editProfile(val);
+      });
     }).catch((err) => {
 
     });

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const defaultState = {
   runMap: {},
   allRunsSort: '-start',
@@ -6,29 +8,29 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-  let newRuns, index;
+  let newRuns, index, runMap;
 
   switch(action.type) {
     // requires: {Object} action.runs
     case 'ADD_BULK_RUNS':
       newRuns = {};
-      index = state.index;
       const runArray = Array.isArray(action.runs) ?
         action.runs : Object.keys(action.runs).reduce((arr, key) => [...arr, action.runs[key]], []);
       const thisYear = new Date().getFullYear();
       runArray.forEach((run) => {
-        // give each run an ID
-        // NOTE: remove for production-ready data from DB
-        newRuns[index] = Object.assign({}, run, {
-          id: index,
-          name: `Run ${index}`,
-          startFormatted: (run.start.year() !== thisYear) ? run.start.format('MMMM D, YYYY, h:mm a') : run.start.format('MMM D, h:mm a')
+        // REQUIRES: run.id
+        const rid = run.id;
+        if(!rid) return;
+        const start = moment(run.start);
+        newRuns[rid] = Object.assign({}, run, {
+          start,
+          startFormatted: (start.year() !== thisYear) ?
+            start.clone().format('MMMM D, YYYY, h:mm a') :
+            start.clone().format('MMM D, h:mm a')
         });
-        index += 1;
       });
       return Object.assign({}, state, {
         runMap: Object.assign({}, state.runMap, newRuns),
-        index
       });
 
     case 'EDIT_ALL_RUNS_SORT':
@@ -41,6 +43,13 @@ export default (state = defaultState, action) => {
         runMap: Object.assign({}, state.runMap, {
           [action.runId]: Object.assign({}, state.runMap[action.runId], action.changes)
         })
+      });
+
+    case 'DELETE_RUN':
+      runMap = Object.assign({}, state.runMap);
+      delete runMap[action.runId];
+      return Object.assign({}, state, {
+        runMap
       });
 
     default:
