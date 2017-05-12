@@ -25,7 +25,8 @@ const config = {
     'zoomOut2d',
     'toggleSpikelines',
     'hoverClosestCartesian',
-    'hoverCompareCartesian'
+    'hoverCompareCartesian',
+    'autoScale2d'
   ],
   displaylogo: false,
   displayModeBar: true,

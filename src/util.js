@@ -52,7 +52,7 @@ export const closeAllMenus = () => {
 const config = {
   modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
   'zoomIn2d', 'zoomOut2d', 'toggleSpikelines',
-  'hoverClosestCartesian', 'hoverCompareCartesian'],
+  'hoverClosestCartesian', 'hoverCompareCartesian', 'autoScale2d'],
   displaylogo: false, 
   displayModeBar: true,
   showTips: false
