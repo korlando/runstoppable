@@ -10,11 +10,13 @@ import { renderRunPath,
          openModal,
          fetchDB,
          updateDB,
-         findUserById } from '../util';
+         findUserById,
+         updateRunName } from '../util';
 import getAvgRunData from '../selectors/getAvgRunData';
 import metrics from '../constants/metrics';
 import modalTypes from '../constants/modalTypes';
 import Checkbox from './Checkbox';
+import EditRunName from './EditRunName';
 
 class RunBoxInner extends Component {
   constructor(props) {
@@ -22,7 +24,6 @@ class RunBoxInner extends Component {
 
     this.state = {
       editingName: false,
-      name: props.run && props.run.name,
     };
     this.saveName = this.saveName.bind(this);
     this.toggleStarred = this.toggleStarred.bind(this);
@@ -41,11 +42,12 @@ class RunBoxInner extends Component {
     }
   };
 
-  saveName() {
-    const { name } = this.state;
-    const { run } = this.props;
-    dispatchEditRun({ name }, run.id);
-    this.setState({ editingName: false });
+  saveName(name) {
+    const { run, USER_ID } = this.props;
+    const callback = () => {
+      this.setState({ editingName: false });
+    };
+    updateRunName(name, run, USER_ID, callback);
   };
 
   toggleStarred(run) {
@@ -118,38 +120,10 @@ class RunBoxInner extends Component {
                   </div>
                 }
                 { editingName &&
-                  <form className="flex1"
-                    onClick={e => e.stopPropagation()}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      this.saveName();
-                    }}>
-                    <div className="input-group input-group-sm">
-                      <input
-                        className="run-name form-control"
-                        value={name}
-                        onChange={e => this.setState({name: e.target.value})}
-                        ref={node => this.nameInput = node}/>
-                      <span className="input-group-btn">
-                        <button type="submit"
-                          className="btn btn-primary">
-                          Save
-                        </button>
-                      </span>
-                      <span className="input-group-btn">
-                        <button type="button"
-                          className="btn btn-secondary"
-                          onClick={() => {
-                            this.setState({
-                              editingName: false,
-                              name: run.name
-                            });
-                          }}>
-                          Cancel
-                        </button>
-                      </span>
-                    </div>
-                  </form>
+                  <EditRunName
+                    run={run}
+                    onSave={this.saveName}
+                    onCancel={() => this.setState({ editingName: false })}/>
                 }
                 { !checkable &&
                   <div className={`flex0 run-star

@@ -352,3 +352,28 @@ export const updateDB = (db) => {
 export const findUserById = (db, uid) => {
   return db.users.find(u => u.id === uid);
 };
+
+export const updateRunName = (name, run, USER_ID, callback) => {
+  fetchDB().then((db) => {
+    if(db) {
+      const user = findUserById(db, USER_ID);
+      if(user) {
+        const rid = run.id;
+        const runDoc = user.runs.find(r => r.id === rid);
+        if(runDoc) {
+          runDoc.name = name;
+        }
+        updateDB(db).then(() => {
+          dispatchEditRun({ name }, rid);
+          if(callback) {
+            callback();
+          }
+        }).catch((err) => {
+
+        });
+      }
+    }
+  }).catch((err) => {
+
+  });
+};
