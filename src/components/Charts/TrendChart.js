@@ -22,7 +22,8 @@ export default class TrendChart extends Component {
             yTitle,
             color,
             icon,
-            chartTitle } = this.props;
+            chartTitle,
+            dayClusterSize } = this.props;
     const layout = {
       autosize: true,
       height: 400,
