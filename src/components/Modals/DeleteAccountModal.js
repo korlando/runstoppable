@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { verifyPass,
          fetchDB,
          updateDB,
-         logoutUser } from '../../util';
+         logoutUser,
+         toggleModal } from '../../util';
 
 const mapStateToProps = (state) => {
   return {
@@ -74,7 +75,8 @@ export default class DeleteAccountModal extends Component {
             Delete Account
           </button>
           <button type="button"
-            className="flex1 btn btn-default ml5">
+            className="flex1 btn btn-default ml5"
+            onClick={() => toggleModal()}>
             Cancel
           </button>
         </div>
