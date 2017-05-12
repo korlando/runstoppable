@@ -40,7 +40,7 @@ export default class GeneralSettings extends Component {
           <select
             className="form-control selectpicker"
             name="timezones">
-            <option disabled selected>Select</option>
+            <option disabled selected>-- Select Timezone --</option>
             <option value="Pacific/Midway">(GMT-11:00) Midway Island, Samoa</option>
             <option value="America/Adak">(GMT-10:00) Hawaii-Aleutian</option>
             <option value="Etc/GMT+10">(GMT-10:00) Hawaii</option>
