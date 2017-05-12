@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleModal } from '../../util'
 import { Link } from 'react-router-dom';
+
+import { toggleModal,
+         verifyPass,
+         encryptPassword,
+         fetchDB,
+         updateDB,
+         findUserById,
+         editProfile } from '../../util'
+
+const EMAIL_REGEX = /^[^@\s]+@[^@\s]+$/i;
 
 const mapStateToProps = (state) => {
   return {
@@ -19,36 +28,118 @@ export default class AccountSettings extends Component {
       currentPassword: '',
       newPassword: '',
     };
+    this.savePassword = this.savePassword.bind(this);
+    this.saveEmail = this.saveEmail.bind(this);
+  };
+
+  savePassword(currentPassword, newPassword) {
+    const { user } = this.props;
+    if(!verifyPass(user.password, currentPassword)) {
+      return this.setState({ passError: 'Incorrect password' });
+    }
+    if(newPassword.length < 6) {
+      return this.setState({ passError: 'Please choose a password at least 6 characters long'});
+    }
+
+    const encrypted = encryptPassword(newPassword);
+    fetchDB().then((db) => {
+      if(db) {
+        const userDoc = findUserById(db, user.id);
+        if(userDoc) {
+          userDoc.password = encrypted;
+          updateDB(db).then(() => {
+            this.setState({
+              passError: '',
+              passSuccess: 'Password updated successfully',
+            });
+
+            setTimeout(() => {
+              this.setState({ passSuccess: '' });
+            }, 5 * 1000);
+          }).catch((err) => {
+
+          });
+        }
+      }
+    }).catch((err) => {
+
+    });
+  };
+
+  saveEmail(email) {
+    email = email.trim().toLowerCase();
+    if(!email.match(EMAIL_REGEX)) {
+      return this.setState({ emailError: 'Please type a valid email address' });
+    }
+
+    fetchDB().then((db) => {
+      if(db) {
+        const { user } = this.props;
+        const userDoc = findUserById(db, user.id);
+        if(userDoc) {
+          userDoc.email = email;
+          updateDB(db).then(() => {
+            editProfile({ email });
+            this.setState({
+              emailError: '',
+              emailSuccess: 'Email updated successfully',
+            });
+
+            setTimeout(() => {
+              this.setState({ emailSuccess: '' });
+            }, 5 * 1000);
+          }).catch((err) => {
+
+          });
+        }
+      }
+    }).catch((err) => {
+
+    });
   };
 
   render() {
+    const { user } = this.props;
     const { email,
             currentPassword,
-            newPassword } = this.state;
+            newPassword,
+            emailError,
+            emailSuccess,
+            passError,
+            passSuccess } = this.state;
 
     return (
       <div style={{padding: '0 0 0 20px'}}>
 
-        <div className="flexbox" style={{padding: '0 0 50px 0'}}>
-          <div>
-            <div className="form-group">
-              <label htmlFor="usr">Email:</label>
-              <input
-                type="email"
-                className="form-control"
-                id="usr"
-                value={email}
-                onChange={e => {
-                  this.setState({ email: e.target.value });
-                }}/>
+        <div style={{ marginBottom: '50px' }}>
+          <div className="flexbox">
+            <div>
+              <div className="form-group">
+                <label htmlFor="usr">Email:</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="usr"
+                  value={email}
+                  onChange={e => {
+                    this.setState({ email: e.target.value });
+                  }}/>
+              </div>
+            </div>
+
+            <div className="flexbox align-items-end" style={{padding: '0 0 16px 50px'}}>
+              <button
+                className="btn btn-success"
+                disabled={user.email === email}
+                onClick={() => {
+                  this.saveEmail(email);
+                }}>
+                Change Email
+              </button>
             </div>
           </div>
-
-          <div className="flexbox align-items-end" style={{padding: '0 0 16px 50px'}}>
-            <button
-              className="btn btn-success"
-              disabled={false}>Change Email</button>
-          </div>
+          <div className="text-danger">{emailError}</div>
+          <div className="text-success">{emailSuccess}</div>
         </div>
 
         <div className="flexbox">
@@ -57,6 +148,7 @@ export default class AccountSettings extends Component {
             <input
               type="password"
               className="form-control"
+              placeholder="Current Password"
               id="current-pwd"
               value={currentPassword}
               onChange={e => {
@@ -65,13 +157,14 @@ export default class AccountSettings extends Component {
           </div>
         </div>
             
-        <div className="flexbox" style={{padding: '0 0 50px 0'}}>
+        <div className="flexbox">
           <div>
             <div className="form-group">
               <label htmlFor="new-pwd">New Password:</label>
               <input
                 type="password"
                 className="form-control"
+                placeholder="New Password"
                 id="new-pwd"
                 value={newPassword}
                 onChange={e => {
@@ -98,12 +191,19 @@ export default class AccountSettings extends Component {
              
           <div className="flexbox align-items-end"
             style={{padding: '0 0 60px 50px'}}>
-            <button className="btn btn-success"
-              disabled={false}>Change Password</button>
+            <button
+              className="btn btn-success"
+              disabled={false}
+              onClick={() => {
+                this.savePassword(currentPassword, newPassword);
+              }}>Change Password</button>
           </div>
         </div>
+        <div className="text-danger">{passError}</div>
+        <div className="text-success">{passSuccess}</div>
 
-        <div className="flexbox align-items-center">
+        <div className="flexbox align-items-center"
+          style={{ paddingTop: '40px' }}>
           <button className="btn btn-danger"
             onClick={() => {}}>Delete Account</button>
         </div>

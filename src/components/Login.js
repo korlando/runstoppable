@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { loginUser } from '../util';
+import { loginUser, verifyPass } from '../util';
 import lf from '../lf';
 
 class Login extends Component {
@@ -39,14 +39,8 @@ class Login extends Component {
       if(!user) {
         return this.setState({ error: 'No user found with that email/username!' });
       }
-      const passArray = user.password.split('/');
-      const hash = passArray[0];
-      const salt = passArray[1];
-      const tryHash = crypto
-                      .createHash('sha512')
-                      .update(password + salt)
-                      .digest('hex');
-      if(hash !== tryHash) {
+      
+      if(!verifyPass(user.password, password)) {
         return this.setState({ error: 'Incorrect password' });
       }
 
