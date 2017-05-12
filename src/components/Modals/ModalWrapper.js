@@ -7,6 +7,7 @@ import SettingsModal from './SettingsModal';
 import UploadModal from './UploadModal';
 import DeleteRunModal from './DeleteRunModal';
 import DeleteAccountModal from './DeleteAccountModal';
+import ShoesModal from './ShoesModal';
 import modalTypes from '../../constants/modalTypes';
 
 const mapStateToProps = (state) => {
@@ -28,6 +29,8 @@ const getModalFromType = (type) => {
       return <DeleteRunModal/>;
     case modalTypes.deleteAccount:
       return <DeleteAccountModal/>;
+    case modalTypes.shoes:
+      return <ShoesModal/>;
   }
 };
 

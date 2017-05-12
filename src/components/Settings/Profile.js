@@ -8,6 +8,8 @@ import { editProfile,
          fetchDB,
          updateDB,
          findUserById } from '../../util'
+import modalTypes from '../../constants/modalTypes';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -168,8 +170,17 @@ export default class ProfileSettings extends Component {
 
         <div className="flexbox footer">
           <h2 style={{marginRight: '20px'}}>Shoes</h2>
-          <button className="btn btn-default">Add Shoe</button>
+          <Link to=""
+          className="flexbox align-items-center"
+          onClick={e => {
+            e.preventDefault();
+            toggleModal(modalTypes.shoes);
+          }}>
+            <button className="btn btn-default">Add Shoe</button>
+          </Link>
         </div>
+
+          <img className="shoebox" src="images/ron-shoe.jpg"></img>
 
       </div>
     );

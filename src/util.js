@@ -71,7 +71,9 @@ const config = {
     'toggleSpikelines',
     'hoverClosestCartesian',
     'hoverCompareCartesian',
-    'autoScale2d'
+    'autoScale2d',
+    'lasso2d',
+    'select2d'
   ],
   displaylogo: false, 
   displayModeBar: true,
