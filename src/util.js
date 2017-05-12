@@ -197,9 +197,11 @@ export const parseRun = (run) => {
     // skip over units object @ index 0
     // skip every other checkpoint
     if(i % 2 === 0) return;
+    const { lat, lon } = checkpoint;
+    // skip bad GPS coordinates
+    if(lat === '0' && lon === '0') return;
 
     // update bounding box
-    const { lat, lon } = checkpoint;
     if(lat !== undefined &&
        lon !== undefined) {
       bounds.north = Math.max(bounds.north, Number(lat));
