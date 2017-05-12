@@ -119,6 +119,8 @@ export const renderRunPath = (node, runs, draggable, zoomControl, scrollwheel, r
     if(!run) return;
     // https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
     const coordinates = run.checkpoints.reduce((arr, c) => {
+      // skip bad GPS coordinates
+      if(c.lat === 0 && c.lon === 0) return arr;
       return [...arr, {
         lat: c.lat,
         lng: c.lon
@@ -198,12 +200,12 @@ export const parseRun = (run) => {
     // skip every other checkpoint
     if(i % 2 === 0) return;
     const { lat, lon } = checkpoint;
-    // skip bad GPS coordinates
-    if(lat === '0' && lon === '0') return;
 
     // update bounding box
     if(lat !== undefined &&
-       lon !== undefined) {
+       lon !== undefined &&
+       lat !== '0' &&
+       lon !== '0') {
       bounds.north = Math.max(bounds.north, Number(lat));
       bounds.south = Math.min(bounds.south, Number(lat));
       bounds.east = Math.max(bounds.east, Number(lon));
