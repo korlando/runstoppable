@@ -37,7 +37,9 @@ class Login extends Component {
       });
 
       if(!user) {
-        return this.setState({ error: 'No user found with that email/username!' });
+        return this.setState({
+          error: 'No user found with that email/username!'
+        });
       }
       
       if(!verifyPass(user.password, password)) {

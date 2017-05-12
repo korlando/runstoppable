@@ -33,12 +33,20 @@ export default class AccountSettings extends Component {
   };
 
   savePassword(currentPassword, newPassword) {
+    if(!currentPassword) {
+      return this.setState({
+        passError: 'Please fill out your current password'
+      });
+    }
+
     const { user } = this.props;
     if(!verifyPass(user.password, currentPassword)) {
       return this.setState({ passError: 'Incorrect password' });
     }
     if(newPassword.length < 6) {
-      return this.setState({ passError: 'Please choose a password at least 6 characters long'});
+      return this.setState({
+        passError: 'Please choose a new password at least 6 characters long'
+      });
     }
 
     const encrypted = encryptPassword(newPassword);
