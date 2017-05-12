@@ -11,7 +11,8 @@ import { renderRunPath,
          fetchDB,
          updateDB,
          findUserById,
-         updateRunName } from '../util';
+         updateRunName,
+         convertUnits } from '../util';
 import getAvgRunData from '../selectors/getAvgRunData';
 import metrics from '../constants/metrics';
 import modalTypes from '../constants/modalTypes';
@@ -78,7 +79,8 @@ class RunBoxInner extends Component {
             checkable,
             checked,
             onCheckChange,
-            className } = this.props;
+            className,
+            user } = this.props;
     const { editingName, name } = this.state;
     const style = {};
     if(checkable) {
@@ -155,6 +157,10 @@ class RunBoxInner extends Component {
           <div className="flexbox flex-wrap metrics">
             { metrics.map((metric) => {
               const value = this.props[metric.key];
+              let units = metric.units;
+              if(user.units === 'imperial') {
+                units = convertUnits(units);
+              }
               return (
                 <div key={metric.key}
                   className="flex0 flexbox align-items-center"
@@ -162,7 +168,7 @@ class RunBoxInner extends Component {
                   title={metric.title}>
                   <i className="material-icons" style={{color: metric.color}}>{metric.icon}</i>
                   { value !== null &&
-                    <span>{value} <span className="text-light fs12">{metric.units}</span></span>
+                    <span>{value} <span className="text-light fs12">{units}</span></span>
                   }
                   { value === null &&
                     <span className="text-light">Missing Data</span>
@@ -191,6 +197,7 @@ const mapStateToProps = (state, ownProps) => {
   const props = {
     showModal: state.modal.show,
     USER_ID: state.user.id,
+    user: state.user,
   };
   metrics.forEach((metric) => {
     if(metric.key === 'distance') {

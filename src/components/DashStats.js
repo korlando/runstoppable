@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import { roundTo } from '../util';
+import { roundTo, convertUnits } from '../util';
 import getTrendData from '../selectors/getTrendData';
 import BigTime from './BigTime';
 import BigStat from './BigStat';
@@ -36,8 +36,8 @@ const mapStateToProps = (state) => {
     year: today.clone().subtract(1, 'years')
   };
   const props = {
-    name: state.user.name,
-    stats: []
+    stats: [],
+    user: state.user,
   };
   Object.keys(bounds).forEach((key) => {
     const timeData = getTrendData(state, {
@@ -83,11 +83,11 @@ export default class DashStats extends Component {
   };
 
   render() {
-    const { name, stats } = this.props;
+    const { user, stats } = this.props;
     
     return (
       <div>
-        <h3>Welcome back, {name.split(' ', 1)}</h3>
+        <h3>Welcome back, {user.name.split(' ', 1)}</h3>
         <div className="dashboard-stats">
           <div className="flexbox align-items-baseline row-stats">
             <label className="column"></label>
@@ -100,14 +100,20 @@ export default class DashStats extends Component {
             const { time } = stat;
             const hours = Math.floor(time / 3600);
             const minutes = Math.round((time - (hours * 3600)) / 60);
-            
+            let distanceUnits = 'km';
+            let paceUnits = 'km/h';
+            if(user.units === 'imperial') {
+              distanceUnits = convertUnits(distanceUnits);
+              paceUnits = convertUnits(paceUnits);
+            }
+
             return (
               <div key={i}
                 className="flexbox align-items-baseline row-stats">
                 <label className="column">{stat.title}</label>
                 <BigTime className="column" hours={hours} minutes={minutes}/>
-                <BigStat className="column" stat={stat.distance} units="km"/>
-                <BigStat className="column" stat={stat.pace} units="km/h"/>
+                <BigStat className="column" stat={stat.distance} units={distanceUnits}/>
+                <BigStat className="column" stat={stat.pace} units={paceUnits}/>
                 { Number.isNaN(stat.heartRate) ?
                   <div className="column text-light">Missing Data</div> :
                   <BigStat className="column" stat={stat.heartRate} units="beats/min"/>
