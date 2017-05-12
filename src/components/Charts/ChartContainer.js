@@ -5,7 +5,7 @@ import defaultChartMargin from '../../constants/defaultChartMargin';
 import getXYRunDatas from '../../selectors/getXYRunDatas';
 import getAvgRunData from '../../selectors/getAvgRunData';
 import metrics from '../../constants/metrics';
-import { setTraceVisibility, roundTo } from '../../util';
+import { setTraceVisibility, roundTo, convertUnits } from '../../util';
 
 import DataChart from './DataChart';
 import ChartHeader from './ChartHeader';
@@ -50,7 +50,8 @@ const mapStateToProps = (state, ownProps) => {
     stats: statData.stats,
     stat: useTotal ?
       roundTo(statData.total, 2) :
-      roundTo(statData.total / statData.numValid, 2)
+      roundTo(statData.total / statData.numValid, 2),
+    user: state.user,
   };
 };
 
@@ -63,12 +64,12 @@ export default class ChartContainer extends Component {
   render() {
     const { metric,
             stat,
-            stats } = this.props;
+            stats,
+            user } = this.props;
     const { name,
             statLabel,
             color,
-            icon,
-            units } = metric;
+            icon } = metric;
     const layout = {
       autosize: true,
       height: 400,
@@ -83,6 +84,11 @@ export default class ChartContainer extends Component {
       margin: defaultChartMargin,
       showlegend: false
     };
+
+    let units = metric.units;
+    if(user.units === 'imperial') {
+      units = convertUnits(units);
+    }
     
     return (
       <div>

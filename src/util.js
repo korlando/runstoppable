@@ -411,3 +411,16 @@ export const updateRunName = (name, run, USER_ID, callback) => {
 
   });
 };
+
+export const convertUnits = (units) => {
+  switch(units) {
+    case 'km/h':
+      return 'miles/h';
+    case 'm':
+      return 'ft';
+    case 'km':
+      return 'miles';
+    default:
+      return units;
+  }
+};
