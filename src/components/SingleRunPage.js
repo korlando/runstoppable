@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { renderRunPath,
-         updateRunName } from '../util';
+         updateRunName,
+         toggleModal } from '../util';
+import modalTypes from '../constants/modalTypes';
+
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import DistanceChart from './Charts/DistanceChart';
@@ -120,7 +123,7 @@ export default class SingleRunPage extends Component {
           </div>
         </div>
         
-        <div className="row">
+        <div className="row mb16">
           <div className="col-sm-6 pr8">
             <div className="chart-container">
               <ElevationChart runIds={[run.id]}/>
@@ -133,6 +136,14 @@ export default class SingleRunPage extends Component {
           </div>     
         </div> 
 
+        <div className="flexbox">
+          <div className="flex1"></div>
+          <button type="button"
+            className="flex0 btn btn-danger"
+            onClick={() => toggleModal(modalTypes.deleteRun, run)}>
+            Delete Run
+          </button>
+        </div>
       </div>
     );
   };
