@@ -34,19 +34,31 @@ export default class SettingsModal extends Component {
             <div className="flex1">
               <ul className="nav nav-tabs nav-justified">
                 <li className="nav-item">
-                  <a className={`nav-link ${this.state.currentTab==='general' ? "active" : ""} `}
-                  onClick={e =>{ e.preventDefault(); this.setState( {currentTab: "general"} ) } } 
-                  href="#">General</a>
+                  <a className={`nav-link
+                    ${this.state.currentTab==='general' ? " active" : ""} `}
+                    onClick={e => {
+                      e.preventDefault();
+                      this.setState({currentTab: "general"});
+                    }} 
+                    href="#">General</a>
                 </li>
                 <li className="nav-item">
-                  <a className={`nav-link ${this.state.currentTab==='profile' ? "active" : ""} `} 
-                  onClick={e =>{ e.preventDefault(); this.setState( {currentTab: "profile"} ) } } 
-                  href="#">Profile</a>
+                  <a className={`nav-link
+                    ${this.state.currentTab==='profile' ? " active" : ""} `} 
+                    onClick={e => {
+                      e.preventDefault();
+                      this.setState({currentTab: "profile"});
+                    }} 
+                    href="#">Profile</a>
                 </li>
                 <li className="nav-item">
-                  <a className={`nav-link ${this.state.currentTab==='account' ? "active" : ""} `} 
-                  onClick={e =>{ e.preventDefault(); this.setState( {currentTab: "account"} ) } } 
-                  href="#">Account</a>
+                  <a className={`nav-link
+                    ${this.state.currentTab==='account' ? " active" : ""} `} 
+                    onClick={e => {
+                      e.preventDefault();
+                      this.setState({currentTab: "account"});
+                    }} 
+                    href="#">Account</a>
                 </li>
               </ul>
             </div>
@@ -62,7 +74,8 @@ export default class SettingsModal extends Component {
                   height: '50px'
                 }}
                 onClick={toggleModal}>
-                <i className="material-icons" style={{fontSize: '50px'}}>clear</i>
+                <i className="material-icons"
+                  style={{fontSize: '50px'}}>clear</i>
               </button>
             </div>
 

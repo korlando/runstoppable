@@ -10,7 +10,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch(action.type) {
   	case 'EDIT_PROFILE':
-	  return Object.assign({}, state, action.changes);
+	    return Object.assign({}, state, action.changes);
     default:
       return state;
   }

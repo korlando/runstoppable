@@ -16,12 +16,15 @@ export default class AccountSettings extends Component {
 
     this.state = {
       email: props.user.email,
-      password: '',
+      currentPassword: '',
+      newPassword: '',
     };
   };
 
   render() {
-    const { email } = this.state;
+    const { email,
+            currentPassword,
+            newPassword } = this.state;
 
     return (
       <div style={{padding: '0 0 0 20px'}}>
@@ -29,7 +32,7 @@ export default class AccountSettings extends Component {
         <div className="flexbox" style={{padding: '0 0 50px 0'}}>
           <div>
             <div className="form-group">
-              <label for="usr">Email:</label>
+              <label htmlFor="usr">Email:</label>
               <input
                 type="email"
                 className="form-control"
@@ -50,16 +53,30 @@ export default class AccountSettings extends Component {
 
         <div className="flexbox">
           <div className="form-group" >
-            <label for="current-pwd">Current Password:</label>
-            <input type="password" className="form-control" id="current-pwd"/>
+            <label htmlFor="current-pwd">Current Password:</label>
+            <input
+              type="password"
+              className="form-control"
+              id="current-pwd"
+              value={currentPassword}
+              onChange={e => {
+                this.setState({ currentPassword: e.target.value });
+              }}/>
           </div>
         </div>
             
         <div className="flexbox" style={{padding: '0 0 50px 0'}}>
           <div>
             <div className="form-group">
-              <label for="new-pwd">New Password:</label>
-              <input type="password" className="form-control" id="new-pwd"/>
+              <label htmlFor="new-pwd">New Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                id="new-pwd"
+                value={newPassword}
+                onChange={e => {
+                  this.setState({ newPassword: e.target.value });
+                }}/>
             </div>
             <div className="flexbox">    
               <div style={{position: 'relative', width: '100%', margin: '5px 0px 1rem'}}>
@@ -87,7 +104,8 @@ export default class AccountSettings extends Component {
         </div>
 
         <div className="flexbox align-items-center">
-          <button className="btn btn-default" onClick={console.log(" ")}>Delete Account</button>
+          <button className="btn btn-danger"
+            onClick={() => {}}>Delete Account</button>
         </div>
         
       </div>

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editProfile, toggleModal } from '../../util'
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
+
+import { editProfile,
+         toggleModal,
+         fetchDB,
+         updateDB,
+         findUserById } from '../../util'
 
 const mapStateToProps = (state) => {
   return {
@@ -30,14 +35,33 @@ export default class ProfileSettings extends Component {
     this.handleDrop = this.handleDrop.bind(this);
   };
 
-  handleEditProfile(event) {
-    let changes = {};
-    Object.keys(this.state).forEach( (key) => 
-      {if (this.state[key] != this.props.user[key]) {
+  handleEditProfile() {
+    const changes = {};
+    Object.keys(this.state).forEach((key) => {
+      if(this.state[key] !== this.props.user[key]) {
         changes[key] = this.state[key];
-      }}
-    )
+      }
+    });
     editProfile(changes);
+
+    fetchDB().then((db) => {
+      if(db) {
+        const USER_ID = this.props.user.id;
+        const user = findUserById(db, USER_ID);
+        if(user) {
+          Object.keys(changes).forEach((key) => {
+            user[key] = changes[key];
+          });
+          updateDB(db).then(() => {
+
+          }).catch((err) => {
+
+          });
+        }
+      }
+    }).catch((err) => {
+
+    });
   };
 
   handleSaveConfirm(event) {
