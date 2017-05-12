@@ -27,7 +27,7 @@ class Sidebar extends Component {
   };
 
   logout() {
-    lf.removeItem('user')
+    lf.removeItem('uid')
     .then(() => {
       editProfile({ loggedIn: false });
     }).catch((err) => {

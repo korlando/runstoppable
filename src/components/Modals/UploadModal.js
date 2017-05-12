@@ -5,13 +5,15 @@ import Dropzone from 'react-dropzone';
 
 import { dispatchAddBulkRuns,
          parseRun,
-         toggleModal } from '../../util';
+         toggleModal,
+         generateId } from '../../util';
+import lf from '../../lf';
 import RunBox from '../RunBox';
 
 const mapStateToProps = (state) => {
   return {
-    runIndex: state.run.index,
     runMap: state.run.runMap,
+    USER_ID: state.user.id,
   };
 };
 
@@ -40,15 +42,37 @@ class UploadModal extends Component {
     fr.readAsText(files[0]);
     fr.onload = (e) => {
       try {
-        const run = JSON.parse(e.target.result);
-        const parsedRun = parseRun(run);
-        const { runIndex } = this.props;
-        dispatchAddBulkRuns([parsedRun]);
-        this.setState({
-          uploadedRunIds: [...this.state.uploadedRunIds, runIndex]
+        const run = parseRun(JSON.parse(e.target.result));
+
+        const { runMap, USER_ID } = this.props;
+        let rid = generateId();
+        while(runMap[rid]) {
+          rid = generateId();
+        }
+        run.id = rid;
+        run.name = `Run ${Object.keys(runMap).length}`;
+
+        lf.getItem('db').then((db) => {
+          if(db) {
+            const user = db.users.find(u => u.id === USER_ID);
+            if(user) {
+              user.runs.push(run);
+              // save the new run
+              lf.setItem('db', db).then(() => {
+                dispatchAddBulkRuns([run]);
+                this.setState({
+                  uploadedRunIds: [...this.state.uploadedRunIds, rid]
+                });
+              }).catch((err) => {
+                
+              });
+            }
+          }
+        }).catch((err) => {
+          
         });
       } catch(e) {
-
+        
       }
     };
   };

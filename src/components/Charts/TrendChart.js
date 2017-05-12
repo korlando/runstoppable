@@ -38,16 +38,22 @@ export default class TrendChart extends Component {
     };
 
     return (
-      <div className="chart-container" style={{ marginBottom: '15px' }}>
-        <h2 className="flexbox align-items-center" style={{ color }}>
-          <i className="material-icons" style={{ fontSize: '40px' }}>{icon}</i>
+      <div className="chart-container"
+        style={{ marginBottom: '15px' }}>
+        <h2 className="flexbox align-items-center"
+          style={{ color }}>
+          <i className="material-icons"
+            style={{ fontSize: '40px' }}>{icon}</i>
           <span style={{
             fontWeight: '300',
             fontSize: '30px',
             marginLeft: '10px'
           }}>{chartTitle}</span>
         </h2>
-        <DataChart datas={[xyData]} layout={layout} color={color}/>
+        <DataChart
+          datas={[xyData]}
+          layout={layout}
+          color={color}/>
       </div>
     );
   };

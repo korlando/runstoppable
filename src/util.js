@@ -7,11 +7,14 @@ import * as menuActions from './actions/menuActions';
 import * as userActions from './actions/userActions';
 import store from './store/store';
 import runColors from './constants/runColors';
+import runData from './data/runData';
 
 const toggleEvent = new Event("sidebar");
 
 export const toggleSidebar = () => {
-  setTimeout(function(){window.dispatchEvent(toggleEvent); }, 300);
+  setTimeout(function() {
+    window.dispatchEvent(toggleEvent);
+  }, 300);
   store.dispatch(sidebarActions.toggleSidebar());
 };
 
@@ -50,12 +53,19 @@ export const closeAllMenus = () => {
 
 // https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
 const config = {
-  modeBarButtonsToRemove: ['sendDataToCloud', 'zoom2d', 'pan2d', 
-  'zoomIn2d', 'zoomOut2d', 'toggleSpikelines',
-  'hoverClosestCartesian', 'hoverCompareCartesian'],
+  modeBarButtonsToRemove: [
+    'sendDataToCloud',
+    'zoom2d',
+    'pan2d', 
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+  ],
   displaylogo: false, 
   displayModeBar: true,
-  showTips: false
+  showTips: false,
 };
 
 export const renderNewPlot = (node, data, layout) => {
@@ -145,7 +155,7 @@ export const parseRun = (run) => {
 
   // parse the run start date
   if(run.date && run.date.match(JSON_DATE_REGEX)) {
-    parsedRun.start = moment(run.date, 'YYYY_MM_DD_HH_mm_ss');
+    parsedRun.start = moment(run.date, 'YYYY_MM_DD_HH_mm_ss').toDate();
   }
   
   const plsSmooth = ["pace", "heartRate", "elevation"];
@@ -273,4 +283,51 @@ export const encryptPassword = (password) => {
                .update(password + salt)
                .digest('hex');
   return `${hash}/${salt}`;
+};
+
+export const generateId = () => {
+  let id;
+  try {
+    id = crypto.randomBytes(10).toString('hex');
+  } catch(e) {
+    id = crypto.pseudoRandomBytes(10).toString('hex');
+  }
+  return id;
+};
+
+export const makeFakeDatabase = () => {
+  const db = { users: [] };
+  const fakeUser = {
+    id: generateId(),
+    username: 'ron',
+    name: 'Ron Stoppable',
+    email: 'ron@stoppable.com',
+    password: '7ac42f3e0c92af8d4ca0a9ddd4a2877ac39d6b11742c67212773d8ec0ea4e79c50cc790a7b0c27a4106aa8de0bf97fc9bed20ebbe5bb6f0097255c10d91f33ed/c0a4b2f9346e97a8f821690083d5a7cf2b367274575679587d1f4516c906580ed3bcebaeba58185972b8edea88aa821d1d7183d5b078799b9c24fe41e0153138',
+  };
+  
+  const usedIds = [];
+  const runs = [];
+  Object.keys(runData).forEach((key, i) => {
+    const run = parseRun(runData[key]);
+    let id = generateId();
+    // ensure id is unique
+    while(usedIds.includes(id)) {
+      id = generateId();
+    }
+    run.id = id;
+    run.name = `Run ${i}`;
+    runs.push(run);
+    usedIds.push(id);
+  });
+  
+  fakeUser.runs = runs;
+  db.users.push(fakeUser);
+
+  return db;
+};
+
+export const loginUser = (userDoc) => {
+  dispatchAddBulkRuns(userDoc.runs);
+  delete userDoc.runs;
+  editProfile(Object.assign({ loggedIn: true }, userDoc));
 };

@@ -14,10 +14,11 @@ import ProfilePage from './ProfilePage';
 import TrendsPage from './TrendsPage';
 import Login from './Login';
 
-import { dispatchAddBulkRuns,
-         closeAllMenus,
+import { closeAllMenus,
          parseRun,
-         editProfile } from '../util';
+         editProfile,
+         makeFakeDatabase,
+         loginUser } from '../util';
 import lf from '../lf';
 import runData from '../data/runData';
 
@@ -38,22 +39,34 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    // parse the initial run data
-    const parsedRunData = {};
-    Object.keys(runData).forEach((key) => {
-      parsedRunData[key] = parseRun(runData[key]);
-    });
-    
-    dispatchAddBulkRuns(parsedRunData);
+    lf.getItem('db').then((db) => {
+      if(db === null || !db) {
+        // bootstrap the database into local storage
+        const fakeDatabase = makeFakeDatabase();
+        lf.setItem('db', fakeDatabase).then(() => {
+          editProfile({ loggedIn: false });
+        }).catch((err) => {
+          // TODO: handle db set error
+        });
+      } else {
+        // check if logged in
+        lf.getItem('uid').then((uid) => {
+          if(uid === null || !uid) {
+            return editProfile({ loggedIn: false });
+          }
 
-    lf.getItem('user').then((user) => {
-      if(user === null) {
-        editProfile({ loggedIn: false });
-      } else if(user) {
-        editProfile(Object.assign({ loggedIn: true }, user));
+          // find the user document
+          const user = db.users.find(u => u.id === uid);
+          if(!user) {
+            return editProfile({ loggedIn: false });
+          }
+          loginUser(user);
+        }).catch((err) => {
+          // TODO: handle uid lookup error
+        });
       }
     }).catch((err) => {
-
+      // TODO: handle db lookup error
     });
   };
 
