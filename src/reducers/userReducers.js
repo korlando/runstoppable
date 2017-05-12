@@ -1,10 +1,12 @@
 const defaultState = {
   name: 'Ron Stoppable',
-  photo: 'https://avatars.slack-edge.com/2017-03-24/158411923920_7614b17cc53af6223f1b_72.jpg',
+  photo: 'images/default-ron.jpg',
   shoes: [],
   heightFt: '5',
   heightIn: '6',
-  weight: '140'
+  weight: '140',
+  units: 'metric',
+  timezone: 'America/New_York',
 };
 
 export default (state = defaultState, action) => {

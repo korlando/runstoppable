@@ -3,4 +3,5 @@ export default {
   settings: "SETTINGS",
   upload: 'UPLOAD',
   deleteRun: 'DELETE_RUN',
+  deleteAccount: 'DELETE_ACCOUNT',
 };

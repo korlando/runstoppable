@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { toggleModal,
+import { openModal,
+         toggleModal,
          verifyPass,
          encryptPassword,
          fetchDB,
          updateDB,
          findUserById,
-         editProfile } from '../../util'
+         editProfile } from '../../util';
+import modalTypes from '../../constants/modalTypes';
 
 const EMAIL_REGEX = /^[^@\s]+@[^@\s]+$/i;
 
@@ -56,6 +58,7 @@ export default class AccountSettings extends Component {
         if(userDoc) {
           userDoc.password = encrypted;
           updateDB(db).then(() => {
+            editProfile({ password: newPassword });
             this.setState({
               passError: '',
               passSuccess: 'Password updated successfully',
@@ -213,7 +216,9 @@ export default class AccountSettings extends Component {
         <div className="flexbox align-items-center"
           style={{ paddingTop: '40px' }}>
           <button className="btn btn-danger"
-            onClick={() => {}}>Delete Account</button>
+            onClick={() => {
+              openModal(modalTypes.deleteAccount);
+            }}>Delete Account</button>
         </div>
         
       </div>

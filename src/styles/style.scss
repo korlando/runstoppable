@@ -347,10 +347,14 @@ button {
   padding-left: 3px;
 }
 
-.modebar-group {
-  transform: scale(1.25);
+.modebar-btn svg {
+  transform: scale(1.5);
 }
 
-.rangeslider {
-  maskColor: red !important;
+.modebar-btn svg path{
+  fill: $darkGrey !important;
+}
+
+.zoombox {
+  fill: rgba(0,255,255,0.3);
 }

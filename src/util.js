@@ -328,11 +328,13 @@ export const makeFakeDatabase = () => {
     name: 'Ron Stoppable',
     email: 'ron@stoppable.com',
     password: '7ac42f3e0c92af8d4ca0a9ddd4a2877ac39d6b11742c67212773d8ec0ea4e79c50cc790a7b0c27a4106aa8de0bf97fc9bed20ebbe5bb6f0097255c10d91f33ed/c0a4b2f9346e97a8f821690083d5a7cf2b367274575679587d1f4516c906580ed3bcebaeba58185972b8edea88aa821d1d7183d5b078799b9c24fe41e0153138',
-    photo: 'https://avatars.slack-edge.com/2017-03-24/158411923920_7614b17cc53af6223f1b_72.jpg',
+    photo: 'images/default-ron.jpg',
     shoes: [],
     heightFt: 5,
     heightIn: 6,
     weight: 140,
+    units: 'metric',
+    timezone: 'America/New_York'
   };
   
   const usedIds = [];
@@ -360,6 +362,15 @@ export const loginUser = (userDoc) => {
   dispatchAddBulkRuns(userDoc.runs);
   delete userDoc.runs;
   editProfile(Object.assign({ loggedIn: true }, userDoc));
+};
+
+export const logoutUser = () => {
+  lf.removeItem('uid')
+  .then(() => {
+    editProfile({ loggedIn: false });
+  }).catch((err) => {
+
+  });
 };
 
 export const fetchDB = () => {
