@@ -71,10 +71,11 @@ const config = {
     'toggleSpikelines',
     'hoverClosestCartesian',
     'hoverCompareCartesian',
+    'autoScale2d'
   ],
   displaylogo: false, 
   displayModeBar: true,
-  showTips: false,
+  showTips: false
 };
 
 export const renderNewPlot = (node, data, layout) => {
