@@ -4,7 +4,9 @@ const defaultState = {
   shoes: [],
   heightFt: '5',
   heightIn: '6',
-  weight: '140'
+  weight: '140',
+  units: 'metric',
+  timezone: 'America/New_York',
 };
 
 export default (state = defaultState, action) => {

@@ -150,7 +150,7 @@ export default class ProfileSettings extends Component {
 
             <div className="flexbox footer align-items-center"
               style={{justifyContent: 'flex-end'}}>
-              {this.state.saved &&
+              { this.state.saved &&
                 <p className={`text-success${this.state.visible ? ' fade-in' : ' fade-out'}`} 
                   style={{margin: '0 20px 0 0'}}>Saved!</p>
               }
