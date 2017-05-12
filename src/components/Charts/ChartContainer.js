@@ -70,6 +70,10 @@ export default class ChartContainer extends Component {
             statLabel,
             color,
             icon } = metric;
+    let units = metric.units;
+    if(user.units === 'imperial') {
+      units = convertUnits(units);
+    }
     const layout = {
       autosize: true,
       height: 400,
@@ -84,11 +88,6 @@ export default class ChartContainer extends Component {
       margin: defaultChartMargin,
       showlegend: false
     };
-
-    let units = metric.units;
-    if(user.units === 'imperial') {
-      units = convertUnits(units);
-    }
     
     return (
       <div>
