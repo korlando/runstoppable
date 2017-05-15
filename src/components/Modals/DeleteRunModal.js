@@ -64,7 +64,7 @@ class DeleteRunModal extends Component {
             className="flex1 btn btn-danger mr5"
             onClick={() => this.delete(data)}>Delete</button>
           <button type="button"
-            className="flex1 btn btn-default ml5"
+            className="flex1 btn btn-secondary ml5"
             onClick={() => toggleModal()}>Cancel</button>
         </div>
       </div>

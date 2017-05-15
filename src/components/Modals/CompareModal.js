@@ -88,7 +88,7 @@ export default withRouter(
               }}>
               Compare {checkedRuns.length} Run{checkedRuns.length !== 1 && 's'}
             </button>
-            <button className="btn btn-default" onClick={toggleModal}>Cancel</button>
+            <button className="btn btn-secondary" onClick={toggleModal}>Cancel</button>
           </div>
         </div>
       );

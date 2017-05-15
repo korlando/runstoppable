@@ -12,8 +12,8 @@ import DistanceChart from './Charts/DistanceChart';
 import ElevationChart from './Charts/ElevationChart';
 import EditRunName from './EditRunName';
 
-const mapStateToProps = (state, ownProps) => {
-  const runId = ownProps.match.params.runId;
+const mapStateToProps = (state, props) => {
+  const runId = (props.match && props.match.params.runId) || props.runId;
   
   return {
     run: state.run.runMap[runId],
@@ -61,12 +61,12 @@ export default class SingleRunPage extends Component {
   };
 
   render() {
-    const { run, avgPace, avgHeartRate } = this.props;
+    const { run, avgPace, avgHeartRate, noContainer } = this.props;
     const { editingName } = this.state;
     if(!run) return null;
 
     return (
-      <div className="page-container">
+      <div className={noContainer ? '' : 'page-container'}>
         { !editingName &&
           <div className="flexbox edit-container">
             <h1 className="flex0"

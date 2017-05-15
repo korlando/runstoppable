@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import getMostRecentRun from '../selectors/getMostRecentRun';
+import SingleRunPage from './SingleRunPage';
 import PaceChart from './Charts/PaceChart';
 import HeartRateChart from './Charts/HeartRateChart';
 import DistanceChart from './Charts/DistanceChart';
@@ -9,7 +11,7 @@ import DashStats from './DashStats';
 
 const mapStateToProps = (state) => {
   return {
-    mostRecentRun: getMostRecentRun(state)
+    mostRecentRun: getMostRecentRun(state),
   };
 };
 
@@ -28,32 +30,7 @@ export default class Dashboard extends Component {
         { mostRecentRun &&
           <div>
             <h3>Your most recent run</h3>
-            
-            <div className="row mb16">
-              <div className="col-sm-6 pr8">
-                <div className="chart-container">
-                  <PaceChart runIds={[mostRecentRun.id]}/>
-                </div>
-              </div>
-              <div className="col-sm-6 pl8">
-                <div className="chart-container">
-                  <HeartRateChart runIds={[mostRecentRun.id]}/>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-sm-6 pr8">
-                <div className="chart-container">
-                  <ElevationChart runIds={[mostRecentRun.id]}/>
-                </div>
-              </div>
-              <div className="col-sm-6 pl8">
-                <div className="chart-container">
-                  <DistanceChart runIds={[mostRecentRun.id]}/>
-                </div>
-              </div>
-            </div>
+            <SingleRunPage runId={mostRecentRun.id} noContainer={true}/>
           </div>
         }
       </div>

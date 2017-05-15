@@ -75,7 +75,7 @@ export default class DeleteAccountModal extends Component {
             Delete Account
           </button>
           <button type="button"
-            className="flex1 btn btn-default ml5"
+            className="flex1 btn btn-secondary ml5"
             onClick={() => toggleModal()}>
             Cancel
           </button>
