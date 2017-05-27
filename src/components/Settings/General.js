@@ -55,18 +55,18 @@ export default class GeneralSettings extends Component {
           </div>
 
           <div className="flex0">
-            <button className={`mr5 btn btn-${user.units === 'imperial' ? 'primary' : 'default'}`}
+            <button className={`mr5 btn btn-${user.units === 'imperial' ? 'primary' : 'secondary'}`}
               onClick={() => {
                 if(user.units !== 'imperial') {
                   this.save({ units: 'imperial' });
                 }
-              }}>mile</button>
-            <button className={`btn btn-${user.units === 'metric' ? 'primary' : 'default'}`}
+              }}>Imperial (miles)</button>
+            <button className={`btn btn-${user.units === 'metric' ? 'primary' : 'secondary'}`}
               onClick={() => {
                 if(user.units !== 'metric') {
                   this.save({ units: 'metric' });
                 }
-              }}>km</button>
+              }}>Metric (km)</button>
           </div>
           
         </div>

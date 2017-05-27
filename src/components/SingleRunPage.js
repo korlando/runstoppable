@@ -42,7 +42,7 @@ export default class SingleRunPage extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.run !== this.props.run && this.map) {
+    if(prevProps.run.checkpoints !== this.props.run.checkpoints && this.map) {
       renderRunPath(
         this.map,
         [this.props.run],
