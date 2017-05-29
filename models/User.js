@@ -1,4 +1,4 @@
-const { UNIT_ENUM } = require('../constants');
+const { UNITS_ENUM } = require('../constants');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -22,8 +22,11 @@ const UserSchema = new Schema({
   gtoken: String, // google token
   units: {
     type: String,
-    enum: UNIT_ENUM,
+    enum: UNITS_ENUM,
   },
+  runs: [{
+    name: String,
+  }],
 }, {
   autoIndex: false,
 });
