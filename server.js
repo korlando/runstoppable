@@ -14,18 +14,34 @@ if(cluster.isMaster) {
   return;
 }
 
-const express = require('express');
+process.on('uncaughtException', (err) => {
+  console.log(`uncaughtException: ${err}\n${err.stack}`);
+  process.exit(1);
+});
+
+const http = require('http');
 const path = require('path');
+const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const http = require('http');
-  
-const app = express();
+const mongoose = require('mongoose');
 
 // get port option, default to port 3000 if not specified
 const argv = require('minimist')(process.argv.slice(2));
 const port = Number(argv.p) || Number(argv.port) || 3000;
 const production = Boolean(argv.production);
+
+// mongoose config
+const mongoEnvVar = 'RS_MLAB_SANDBOX';
+if(process.env[mongoEnvVar] === undefined) {
+  throw new Error(`${mongoEnvVar} is a required environment variable`);
+}
+const mongooseConn = mongoose.createConnection(process.env[mongoEnvVar]);
+const schemas = {
+  User: require('./models/User')(mongooseConn),
+};
+
+const app = express();
 app.set('port', port);
 
 if(!production) {
@@ -72,9 +88,4 @@ server.on('error', (err) => {
 });
 server.on('listening', () => {
   console.log(`Server listening on port ${port}`)
-});
-
-process.on('uncaughtException', (err) => {
-  console.log(`uncaughtException: ${err}\n${err.stack}`);
-  process.exit(1);
 });
