@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
+    title=title
+    meta(name="description" content=description)
+    meta(property="og:url" content=url)
+    meta(property="og:title" content=title)
+    meta(property="og:description" content=description)
+    link(rel="canonical" href=url)
+    link(href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
+    link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous")
+    block head
+  body
+    block content
+    script(src="//code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
+    block scripts

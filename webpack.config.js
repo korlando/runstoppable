@@ -7,8 +7,8 @@ const htmlConfig = new HtmlWebpackPlugin({
   minify: {
     collapseWhitespace: true,
     minifyCSS: true,
-    minifyJS: true
-  }
+    minifyJS: true,
+  },
 });
 
 module.exports = {
@@ -21,10 +21,6 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: path.resolve(__dirname, './src')
-    }, {
       test: /\.jsx?$/,
       loader: 'babel-loader',
       include: path.resolve(__dirname, './src')
@@ -40,7 +36,7 @@ module.exports = {
       test: /\.json$/,
       loader: 'json-loader',
       include: path.resolve(__dirname, './src/data')
-    }]
+    }],
   },
   plugins: [htmlConfig]
 };
