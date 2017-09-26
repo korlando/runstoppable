@@ -12,15 +12,16 @@ const {
 const router = express.Router();
 const APP_REGEX = new RegExp(`^\/(${APP_ROUTES.join('|')})(\/[a-z0-9\-_]+)*`, 'i');
 
-const loadApp = (req, res, next) => {
-  res.status(200)
-  .sendFile(path.resolve(__dirname, '../../../www/index.html'), {}, (err) => {
-    if(err) return next(err);
-  });
-};
-
-module.exports = (schemas) => {
+module.exports = (schemas, production) => {
   const { User } = schemas;
+
+  const loadApp = (req, res, next) => {
+    const appFileName = production ? 'prod-index.html' : 'index.html';
+    res.status(200)
+    .sendFile(path.resolve(__dirname, '../../../www/' + appFileName), {}, (err) => {
+      if(err) return next(err);
+    });
+  };
 
   router.get('/', (req, res, next) => {
     //if(loggedIn(req)) {

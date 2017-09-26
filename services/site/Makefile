@@ -1,6 +1,6 @@
 name = "runstoppable-site-service"
 start:
-	pm2 start site-service.js --name=$(name)
+	pm2 start site-service.js --name=$(name) -- --production
 restart:
 	pm2 restart $(name)
 stop:

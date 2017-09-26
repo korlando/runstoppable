@@ -73,7 +73,7 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 // routing
-app.use('/', require('./routes/routes')(schemas));
+app.use('/', require('./routes/routes')(schemas, production));
 
 // create server
 const server = http.createServer(app);

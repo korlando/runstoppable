@@ -306,9 +306,9 @@ export const verifyPass = (encrypted, tryPass) => {
   const hash = passArray[0];
   const salt = passArray[1];
   const tryHash = crypto
-                  .createHash('sha512')
-                  .update(tryPass + salt)
-                  .digest('hex');
+    .createHash('sha512')
+    .update(tryPass + salt)
+    .digest('hex');
   return hash === tryHash;
 };
 

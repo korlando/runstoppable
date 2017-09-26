@@ -44,7 +44,7 @@ export default class App extends Component {
         const fakeDatabase = makeFakeDatabase();
         lf.setItem('db', fakeDatabase).then(() => {
           // TEMP
-          return fakeLogin(db);
+          return fakeLogin(fakeDatabase);
           editProfile({ loggedIn: false });
         }).catch((err) => {
           // TODO: handle db set error
