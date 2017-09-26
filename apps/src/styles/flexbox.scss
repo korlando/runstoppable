@@ -1,0 +1,26 @@
+@import 'util.scss';
+
+.flexbox {
+  @include flexbox();
+}
+.flex0 {
+  @include flex(0 0 auto);
+}
+.flex1 {
+  @include flex(1 1 auto);
+}
+.align-items-center {
+  @include alignItems(center);
+}
+.align-items-baseline {
+  @include alignItems(baseline);
+}
+.justify-content-center {
+  @include justifyContent(center);
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-column {
+  flex-direction: column;
+}
